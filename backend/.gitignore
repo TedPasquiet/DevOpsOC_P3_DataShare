@@ -8,7 +8,7 @@ composer.phar
 /.env.*.local
 /var/
 /public/bundles/
-
+.env
 # PHPUnit
 /phpunit.xml
 .phpunit.result.cache
