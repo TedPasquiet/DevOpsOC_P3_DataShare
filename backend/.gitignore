@@ -3,12 +3,11 @@
 composer.phar
 
 # Symfony
-/.env.local
+.env
+.env.*
 /.env.local.php
-/.env.*.local
 /var/
 /public/bundles/
-.env
 # PHPUnit
 /phpunit.xml
 .phpunit.result.cache
