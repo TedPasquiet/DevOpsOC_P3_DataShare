@@ -1,0 +1,32 @@
+# Composer
+/vendor/
+composer.phar
+
+# Symfony
+/.env.local
+/.env.local.php
+/.env.*.local
+/var/
+/public/bundles/
+
+# PHPUnit
+/phpunit.xml
+.phpunit.result.cache
+/phpunit.xml.bak
+
+# Doctrine migrations (keep the directory, ignore nothing here by default)
+# Uncomment if you want to ignore generated migration files:
+# /migrations/Version*.php
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+/build/
