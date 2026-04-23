@@ -1,0 +1,376 @@
+<mxfile host="Electron">
+  <diagram id="JxeK51KZ2uzxlNJPHQg3" name="Page-1">
+    <mxGraphModel dx="873" dy="654" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="1">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="bg-actors" parent="1" style="rounded=1;arcSize=2;fillColor=#F3F0FF;strokeColor=#9B8FE8;strokeWidth=2;opacity=40;" value="" vertex="1">
+          <mxGeometry height="980" width="160" x="30" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl-actors" parent="1" style="text;html=1;align=center;fontStyle=1;fontSize=11;fontColor=#6B5FD6;letterSpacing=2;" value="ACTEURS" vertex="1">
+          <mxGeometry height="20" width="160" x="30" y="108" as="geometry" />
+        </mxCell>
+        <mxCell id="bg-frontend" parent="1" style="rounded=1;arcSize=2;fillColor=#EBF5FF;strokeColor=#3B82C4;strokeWidth=2;opacity=40;" value="" vertex="1">
+          <mxGeometry height="980" width="340" x="210" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl-frontend" parent="1" style="text;html=1;align=center;fontStyle=1;fontSize=11;fontColor=#1A5FA8;letterSpacing=2;" value="FRONTEND" vertex="1">
+          <mxGeometry height="20" width="340" x="210" y="108" as="geometry" />
+        </mxCell>
+        <mxCell id="bg-backend" parent="1" style="rounded=1;arcSize=2;fillColor=#FFF3EE;strokeColor=#C05C30;strokeWidth=2;opacity=40;" value="" vertex="1">
+          <mxGeometry height="980" width="380" x="570" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl-backend" parent="1" style="text;html=1;align=center;fontStyle=1;fontSize=11;fontColor=#A04020;letterSpacing=2;" value="BACKEND — API REST" vertex="1">
+          <mxGeometry height="20" width="380" x="570" y="108" as="geometry" />
+        </mxCell>
+        <mxCell id="bg-data" parent="1" style="rounded=1;arcSize=2;fillColor=#F0FBF5;strokeColor=#2E8A5A;strokeWidth=2;opacity=40;" value="" vertex="1">
+          <mxGeometry height="980" width="340" x="960" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl-data" parent="1" style="text;html=1;align=center;fontStyle=1;fontSize=11;fontColor=#1A6B40;letterSpacing=2;" value="DONNÉES &amp; STOCKAGE" vertex="1">
+          <mxGeometry height="20" width="340" x="970" y="108" as="geometry" />
+        </mxCell>
+        <mxCell id="row-auth-lbl" parent="1" style="text;html=1;fontStyle=1;fontSize=9;fontColor=#000000;align=left;letterSpacing=1;" value="① AUTHENTIFICATION" vertex="1">
+          <mxGeometry height="16" width="180" x="60" y="139" as="geometry" />
+        </mxCell>
+        <mxCell id="row-upload-lbl" parent="1" style="text;html=1;fontStyle=1;fontSize=9;align=left;letterSpacing=1;" value="② UPLOAD" vertex="1">
+          <mxGeometry height="16" width="60" x="70" y="364" as="geometry" />
+        </mxCell>
+        <mxCell id="row-dl-lbl" parent="1" style="text;html=1;fontStyle=1;fontSize=9;fontColor=#FFFFFF;align=left;letterSpacing=1;" value="③ TÉLÉCHARGEMENT" vertex="1">
+          <mxGeometry height="16" width="120" x="55" y="575" as="geometry" />
+        </mxCell>
+        <mxCell id="row-mgmt-lbl" parent="1" style="text;html=1;fontStyle=1;fontSize=9;fontColor=#FFFFFF;align=left;letterSpacing=1;" value="④ GESTION FICHIERS" vertex="1">
+          <mxGeometry height="16" width="180" x="45" y="730" as="geometry" />
+        </mxCell>
+        <mxCell id="row-cron-lbl" parent="1" style="text;html=1;fontStyle=1;fontSize=9;fontColor=#FFFFFF;align=left;letterSpacing=1;" value="⑤ EXPIRATION AUTO" vertex="1">
+          <mxGeometry height="16" width="180" x="40" y="845" as="geometry" />
+        </mxCell>
+        <mxCell id="div1" edge="1" parent="1" style="endArrow=none;html=1;strokeColor=#CCCCCC;strokeWidth=1;dashed=1;" value="">
+          <mxGeometry relative="1" width="10" x="30" y="365" as="geometry">
+            <Array as="Array">
+              <mxPoint x="30" y="365" />
+              <mxPoint x="1310" y="365" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="div2" edge="1" parent="1" style="endArrow=none;html=1;strokeColor=#CCCCCC;strokeWidth=1;dashed=1;" value="">
+          <mxGeometry relative="1" width="10" x="30" y="575" as="geometry">
+            <Array as="Array">
+              <mxPoint x="30" y="575" />
+              <mxPoint x="1310" y="575" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="div3" edge="1" parent="1" style="endArrow=none;html=1;strokeColor=#CCCCCC;strokeWidth=1;dashed=1;" value="">
+          <mxGeometry relative="1" width="10" x="30" y="745" as="geometry">
+            <Array as="Array">
+              <mxPoint x="30" y="745" />
+              <mxPoint x="1310" y="745" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="div4" edge="1" parent="1" style="endArrow=none;html=1;strokeColor=#CCCCCC;strokeWidth=1;dashed=1;" value="">
+          <mxGeometry relative="1" width="10" x="30" y="965" as="geometry">
+            <Array as="Array">
+              <mxPoint x="30" y="965" />
+              <mxPoint x="1310" y="965" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a-user" parent="1" style="shape=mxgraph.basic.person;fillColor=#7B5EA7;strokeColor=#5A3D8A;fontColor=#FFFFFF;fontStyle=1;fontSize=12;whiteSpace=wrap;html=1;shadow=1;" value="👤 Utilisateur&lt;br&gt;&lt;b&gt;connecté&lt;/b&gt;" vertex="1">
+          <mxGeometry height="110" width="110" x="55" y="165" as="geometry" />
+        </mxCell>
+        <mxCell id="a-anon" parent="1" style="shape=mxgraph.basic.person;fillColor=#888780;strokeColor=#5F5E5A;fontColor=#FFFFFF;fontStyle=1;fontSize=12;whiteSpace=wrap;html=1;shadow=1;" value="👤 Utilisateur&lt;br&gt;&lt;b&gt;anonyme&lt;/b&gt;" vertex="1">
+          <mxGeometry height="110" width="110" x="40" y="385" as="geometry" />
+        </mxCell>
+        <mxCell id="a-dest" parent="1" style="shape=mxgraph.basic.person;fillColor=#1D9E75;strokeColor=#0F6E56;fontColor=#FFFFFF;fontStyle=1;fontSize=12;whiteSpace=wrap;html=1;shadow=1;" value="👤 Destinataire&lt;br&gt;&lt;b&gt;(lien unique)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="110" width="110" x="45" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="fe-register" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B82C4;strokeWidth=2;fontSize=12;shadow=1;arcSize=8;" value="&lt;font style=&quot;color: rgb(51, 51, 255);&quot;&gt;&lt;b&gt;Inscription&lt;/b&gt;&lt;br&gt;&lt;font&gt;POST /auth/register&lt;/font&gt;&lt;br&gt;email unique · mdp ≥8 car.&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="230" x="240" y="108" as="geometry" />
+        </mxCell>
+        <mxCell id="fe-login" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B82C4;strokeWidth=2;fontSize=12;shadow=1;arcSize=8;" value="&lt;font style=&quot;color: rgb(51, 51, 255);&quot;&gt;&lt;b&gt;Connexion&lt;/b&gt;&lt;br&gt;&lt;font&gt;POST /auth/login&lt;/font&gt;&lt;br&gt;email + mot de passe&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="230" x="240" y="182.5" as="geometry" />
+        </mxCell>
+        <mxCell id="fe-profile" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B82C4;strokeWidth=2;fontSize=12;shadow=1;arcSize=8;" value="&lt;font style=&quot;color: rgb(51, 51, 255);&quot;&gt;&lt;b style=&quot;&quot;&gt;Profil / Compte&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;&quot;&gt;GET · PUT · DELETE /users/me&lt;/font&gt;&lt;br&gt;lecture, update, suppression compte&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="230" x="240" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="be-auth" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF7043;strokeColor=#BF360C;strokeWidth=2;fontColor=#FFFFFF;fontSize=14;fontStyle=1;shadow=1;arcSize=6;" value="🔐 &lt;b&gt;Auth Service&lt;/b&gt;" vertex="1">
+          <mxGeometry height="44" width="340" x="590" y="155" as="geometry" />
+        </mxCell>
+        <mxCell id="be-auth-create" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;b&gt;CREATE&lt;/b&gt; user&lt;br&gt;hash bcrypt · email unique" vertex="1">
+          <mxGeometry height="50" width="155" x="590" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="be-auth-read" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;b&gt;READ&lt;/b&gt; user&lt;br&gt;GET /users/me · profil" vertex="1">
+          <mxGeometry height="50" width="155" x="755" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="be-auth-update" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;b&gt;UPDATE&lt;/b&gt; user&lt;br&gt;PUT /users/me · email/mdp" vertex="1">
+          <mxGeometry height="50" width="155" x="590" y="272" as="geometry" />
+        </mxCell>
+        <mxCell id="be-auth-delete" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;b&gt;DELETE&lt;/b&gt; user&lt;br&gt;DELETE /users/me · compte" vertex="1">
+          <mxGeometry height="50" width="155" x="755" y="272" as="geometry" />
+        </mxCell>
+        <mxCell id="be-jwt" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4A148C;strokeColor=#7B1FA2;fontColor=#FFFFFF;fontSize=11;shadow=1;arcSize=8;" value="🎫 &lt;b&gt;JWT Token&lt;/b&gt; — généré à la connexion · HS256 · stocké côté client" vertex="1">
+          <mxGeometry height="36" width="340" x="590" y="333" as="geometry" />
+        </mxCell>
+        <mxCell id="be-mw" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4A148C;strokeColor=#7B1FA2;fontColor=#FFFFFF;fontSize=11;shadow=1;arcSize=8;" value="🛡 &lt;b&gt;Middleware JWT&lt;/b&gt; — protège toutes les routes authentifiées" vertex="1">
+          <mxGeometry height="36" width="340" x="590" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="fe-upload" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B82C4;strokeWidth=2;fontSize=12;shadow=1;arcSize=8;" value="&lt;font style=&quot;color: rgb(51, 51, 255);&quot;&gt;📤 &lt;b&gt;Formulaire Upload&lt;/b&gt;&lt;br&gt;&lt;font&gt;POST /files&lt;/font&gt;&lt;br&gt;fichier · expiration 1-7j · mdp · tags&lt;br&gt;max 1 Go · validation côté client&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="230" x="240" y="349" as="geometry" />
+        </mxCell>
+        <mxCell id="badge-us07" parent="1" style="rounded=1;fillColor=#888780;strokeColor=#5F5E5A;fontColor=#FFFFFF;fontSize=10;fontStyle=1;shadow=1;" value="US07 — anonyme" vertex="1">
+          <mxGeometry height="15" width="140" x="280" y="343.5" as="geometry" />
+        </mxCell>
+        <mxCell id="badge-us01" parent="1" style="rounded=1;fillColor=#7B5EA7;strokeColor=#5A3D8A;fontColor=#FFFFFF;fontSize=10;fontStyle=1;shadow=1;" value="US01 — connecté" vertex="1">
+          <mxGeometry height="26" width="145" x="282.5" y="416" as="geometry" />
+        </mxCell>
+        <mxCell id="be-upload-svc" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF7043;strokeColor=#BF360C;strokeWidth=2;fontColor=#FFFFFF;fontSize=14;fontStyle=1;shadow=1;arcSize=6;" value="📦 &lt;b&gt;Upload Service&lt;/b&gt;" vertex="1">
+          <mxGeometry height="44" width="340" x="590" y="429" as="geometry" />
+        </mxCell>
+        <mxCell id="be-upload-detail" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;align=left;spacingLeft=8;shadow=1;" value="✅ génère token unique non-prédictible&lt;br&gt;✅ hash mdp si renseigné (≥6 car.)&lt;br&gt;✅ valide taille, type de fichier&lt;br&gt;✅ lie le fichier à l&#39;user_id (si connecté)" vertex="1">
+          <mxGeometry height="80" width="340" x="590" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="db-files" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D7F3E5;strokeColor=#2E8A5A;strokeWidth=2;fontSize=11;shadow=1;arcSize=6;" value="🗄 &lt;b&gt;TABLE files&lt;/b&gt;&lt;br&gt;id · token (UNIQUE) ·&amp;nbsp;&lt;div&gt;user_id (nullable)&lt;br&gt;original_name ·&amp;nbsp;&lt;/div&gt;&lt;div&gt;size ·&amp;nbsp;&lt;/div&gt;&lt;div&gt;mime_type&lt;br&gt;path ·&amp;nbsp;&lt;/div&gt;&lt;div&gt;password_hash&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(nullable)&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;·&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;expires_at&lt;br&gt;created_at · is_expired&lt;/div&gt;" vertex="1">
+          <mxGeometry height="165" width="310" x="980" y="475" as="geometry" />
+        </mxCell>
+        <mxCell id="storage" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#A5D6A7;strokeColor=#2E8A5A;strokeWidth=2;fontSize=12;shadow=1;arcSize=6;" value="💾 &lt;b&gt;Stockage Fichiers&lt;/b&gt;&lt;br&gt;📁 Système local &lt;i&gt;ou&lt;/i&gt; ☁️ AWS S3" vertex="1">
+          <mxGeometry height="55" width="310" x="985" y="909" as="geometry" />
+        </mxCell>
+        <mxCell id="fe-download" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B82C4;strokeWidth=2;fontSize=12;shadow=1;arcSize=8;" value="&lt;font style=&quot;color: rgb(51, 51, 255);&quot;&gt;&lt;b&gt;Page Téléchargement&lt;/b&gt;&lt;br&gt;&lt;font&gt;GET /files/:token&lt;/font&gt;&lt;br&gt;métadonnées · saisie mdp si protégé&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="230" x="260" y="595" as="geometry" />
+        </mxCell>
+        <mxCell id="be-download-svc" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF7043;strokeColor=#BF360C;strokeWidth=2;fontColor=#FFFFFF;fontSize=14;fontStyle=1;shadow=1;arcSize=6;" value="⬇️ &lt;b&gt;Download Service&lt;/b&gt;" vertex="1">
+          <mxGeometry height="44" width="340" x="590" y="595" as="geometry" />
+        </mxCell>
+        <mxCell id="be-download-detail" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;align=left;spacingLeft=8;shadow=1;" value="✅ vérifie token valide &amp; non-expiré&lt;br&gt;✅ contrôle mot de passe (bcrypt)&lt;br&gt;✅ retourne métadonnées + stream fichier&lt;br&gt;❌ lien expiré/invalide → erreur explicite" vertex="1">
+          <mxGeometry height="75" width="340" x="590" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="fe-history" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B82C4;strokeWidth=2;fontSize=12;shadow=1;arcSize=8;" value="&lt;font style=&quot;color: rgb(51, 51, 255);&quot;&gt;📋 &lt;b&gt;Historique&lt;/b&gt;&lt;br&gt;&lt;font&gt;GET /files&lt;/font&gt;&lt;br&gt;nom · taille · expiration · état&lt;/font&gt;" vertex="1">
+          <mxGeometry height="75" width="230" x="240" y="247" as="geometry" />
+        </mxCell>
+        <mxCell id="fe-tags" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B82C4;strokeWidth=2;fontSize=12;shadow=1;arcSize=8;" value="&lt;font style=&quot;color: rgb(51, 51, 255);&quot;&gt;&lt;b&gt;Tags&lt;/b&gt;&lt;br&gt;&lt;font&gt;PATCH /files/:id/tags&lt;/font&gt;&lt;br&gt;ajout · filtrage&lt;/font&gt;" vertex="1">
+          <mxGeometry height="75" width="305" x="230" y="765" as="geometry" />
+        </mxCell>
+        <mxCell id="fe-delete" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#E53935;strokeWidth=2;fontSize=12;shadow=1;arcSize=8;" value="&lt;font style=&quot;color: rgb(51, 51, 255);&quot;&gt;&lt;b&gt;Suppression&lt;/b&gt;&lt;br&gt;&lt;font&gt;DELETE /files/:id&lt;/font&gt;&lt;br&gt;confirmation requise&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="310" x="225" y="903" as="geometry" />
+        </mxCell>
+        <mxCell id="be-files-svc" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF7043;strokeColor=#BF360C;strokeWidth=2;fontColor=#FFFFFF;fontSize=14;fontStyle=1;shadow=1;arcSize=6;" value="📂 &lt;b&gt;File Manager — CRUD&lt;/b&gt;" vertex="1">
+          <mxGeometry height="44" width="340" x="590" y="765" as="geometry" />
+        </mxCell>
+        <mxCell id="be-files-create" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;b&gt;CREATE&lt;/b&gt;&lt;br&gt;enregistre métadonnées" vertex="1">
+          <mxGeometry height="44" width="160" x="590" y="820" as="geometry" />
+        </mxCell>
+        <mxCell id="be-files-read" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;b&gt;READ&lt;/b&gt;&lt;br&gt;liste fichiers user" vertex="1">
+          <mxGeometry height="44" width="160" x="760" y="820" as="geometry" />
+        </mxCell>
+        <mxCell id="be-files-update" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;b&gt;UPDATE&lt;/b&gt;&lt;br&gt;tags, options" vertex="1">
+          <mxGeometry height="44" width="160" x="760" y="871" as="geometry" />
+        </mxCell>
+        <mxCell id="be-files-delete" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFCCBC;strokeColor=#E53935;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;b&gt;DELETE&lt;/b&gt;&lt;br&gt;physique + métadonnées" vertex="1">
+          <mxGeometry height="44" width="160" x="587.5" y="920" as="geometry" />
+        </mxCell>
+        <mxCell id="db-tags" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D7F3E5;strokeColor=#2E8A5A;strokeWidth=2;fontSize=11;shadow=1;arcSize=6;" value="🗄 &lt;b&gt;TABLE tags&lt;/b&gt;&lt;br&gt;id · file_id (FK) · label (max 30)&lt;br&gt;UNIQUE(file_id, label)" vertex="1">
+          <mxGeometry height="80" width="310" x="980" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="be-cron" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F57F17;strokeColor=#E65100;fontColor=#FFFFFF;fontSize=12;shadow=1;arcSize=8;" value="⏰ &lt;b&gt;Scheduler (cron)&lt;/b&gt;&lt;br&gt;tâche quotidienne — purge fichiers expirés&lt;br&gt;suppression physique + métadonnées" vertex="1">
+          <mxGeometry height="75" width="340" x="590" y="985" as="geometry" />
+        </mxCell>
+        <mxCell id="cron-db" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D7F3E5;strokeColor=#2E8A5A;strokeWidth=2;fontSize=11;shadow=1;" value="🗄 purge &lt;b&gt;files&lt;/b&gt; expirées" vertex="1">
+          <mxGeometry height="44" width="150" x="1050" y="972" as="geometry" />
+        </mxCell>
+        <mxCell id="cron-storage" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#A5D6A7;strokeColor=#2E8A5A;strokeWidth=2;fontSize=11;shadow=1;" value="💾 purge fichiers physiques" vertex="1">
+          <mxGeometry height="44" width="150" x="1050" y="1036" as="geometry" />
+        </mxCell>
+        <mxCell id="security-box" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=2;fontSize=11;align=left;spacingLeft=10;shadow=1;arcSize=6;" value="🔒 &lt;b&gt;Sécurité transversale&lt;/b&gt;&lt;br&gt;• Validation serveur : taille, type fichier.&lt;br&gt;• Mdp fichier : cryptage/longueur minimale&lt;br&gt;• Accès : seul le propriétaire peut gérer ses fichiers&lt;br&gt;• Accessibilité" vertex="1">
+          <mxGeometry height="100" width="315" x="980" y="803" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-user-reg" edge="1" parent="1" source="a-user" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#7B5EA7;strokeWidth=2;exitX=1;exitY=0.3;entryX=0;entryY=0.5;" target="fe-register" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-user-login" edge="1" parent="1" source="a-user" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#7B5EA7;strokeWidth=2;exitX=1.006;exitY=0.416;entryX=0;entryY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" target="fe-login" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-reg-auth" edge="1" parent="1" source="fe-register" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#FF7043;strokeWidth=2;fontSize=10;fontColor=#BF360C;fontStyle=1;" target="be-auth" value="POST /auth/register">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-login-auth" edge="1" parent="1" source="fe-login" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#FF7043;strokeWidth=2;fontSize=10;fontColor=#BF360C;fontStyle=1;" target="be-auth" value="POST /auth/login">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-profile-auth" edge="1" parent="1" source="fe-profile" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#FF7043;strokeWidth=2;fontSize=10;fontColor=#BF360C;fontStyle=1;" target="be-auth" value="GET·PUT·DELETE /users/me">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="548" />
+              <mxPoint x="540" y="210" />
+              <mxPoint x="760" y="210" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arr-user-upload" edge="1" parent="1" source="a-user" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#7B5EA7;strokeWidth=2;exitX=0.413;exitY=1.004;exitDx=0;exitDy=0;exitPerimeter=0;" target="fe-upload" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="100" y="330" />
+              <mxPoint x="180" y="330" />
+              <mxPoint x="180" y="389" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arr-anon-upload" edge="1" parent="1" source="a-anon" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#888780;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#5F5E5A;" target="fe-upload" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-fe-upload" edge="1" parent="1" source="fe-upload" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#FF7043;strokeWidth=2;fontSize=10;fontColor=#BF360C;fontStyle=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" target="be-upload-svc" value="POST /files">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="514.1800000000001" y="462.1299999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arr-upload-db" edge="1" parent="1" source="be-upload-svc" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#2E8A5A;strokeWidth=2;fontSize=10;fontColor=#1A6B40;fontStyle=1;" target="db-files" value="écriture">
+          <mxGeometry relative="1" x="0.0029" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arr-dest-dl" edge="1" parent="1" source="a-dest" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#1D9E75;strokeWidth=2;" target="fe-download" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-fe-dl" edge="1" parent="1" source="fe-download" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#FF7043;strokeWidth=2;fontSize=10;fontColor=#BF360C;fontStyle=1;" target="be-download-svc" value="GET /files/:token">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-dl-db" edge="1" parent="1" source="be-download-svc" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#2E8A5A;strokeWidth=2;fontSize=10;fontColor=#1A6B40;fontStyle=1;" target="db-files" value="lecture">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-user-hist" edge="1" parent="1" source="a-user" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#7B5EA7;strokeWidth=2;entryX=-0.001;entryY=0.565;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1.022;exitY=0.811;exitDx=0;exitDy=0;exitPerimeter=0;" target="fe-history" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="254" />
+              <mxPoint x="180" y="285" />
+              <mxPoint x="220" y="285" />
+              <mxPoint x="220" y="289" />
+            </Array>
+            <mxPoint x="120" y="280" as="sourcePoint" />
+            <mxPoint x="230" y="434.9999999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arr-hist-fm" edge="1" parent="1" source="fe-history" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#FF7043;strokeWidth=2;fontSize=10;fontColor=#BF360C;fontStyle=1;" target="be-files-svc" value="GET /files">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="580" y="285" />
+              <mxPoint x="580" y="787" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arr-tags-fm" edge="1" parent="1" source="fe-tags" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#FF7043;strokeWidth=2;fontSize=10;fontColor=#BF360C;fontStyle=1;" target="be-files-svc" value="PATCH tags">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-del-fm" edge="1" parent="1" source="fe-delete" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#E53935;strokeWidth=2;fontSize=10;fontColor=#B71C1C;fontStyle=1;" target="be-files-delete" value="DELETE /files/:id">
+          <mxGeometry relative="1" x="-0.155" y="-15" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arr-fm-db" edge="1" parent="1" source="be-files-svc" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#2E8A5A;strokeWidth=2;fontSize=10;fontColor=#1A6B40;fontStyle=1;" target="db-tags" value="lecture/écriture&#xa;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-del-storage" edge="1" parent="1" source="be-files-delete" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#E53935;strokeWidth=2;dashed=1;fontSize=10;fontColor=#B71C1C;fontStyle=1;" target="storage" value="suppression physique">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-cron-db" edge="1" parent="1" source="be-cron" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#E65100;strokeWidth=2;dashed=1;fontSize=10;fontColor=#E65100;fontStyle=1;" target="cron-db" value="écriture&#xa;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-cron-storage" edge="1" parent="1" source="be-cron" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#E65100;strokeWidth=2;dashed=1;fontSize=10;fontColor=#E65100;fontStyle=1;" target="cron-storage" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-bg" parent="1" style="swimlane;startSize=28;fillColor=#FAFAFA;strokeColor=#BBBBBB;strokeWidth=1.5;fontSize=12;fontStyle=1;rounded=1;arcSize=4;shadow=1;fontColor=#000000;" value="📖 Légende" vertex="1">
+          <mxGeometry height="320" width="260" x="1330" y="155" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-user" parent="legend-bg" style="rounded=1;fillColor=#7B5EA7;strokeColor=#5A3D8A;fontColor=#FFFFFF;fontSize=11;shadow=1;" value="👤 Acteur utilisateur" vertex="1">
+          <mxGeometry height="30" width="240" x="10" y="38" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-anon" parent="legend-bg" style="rounded=1;fillColor=#888780;strokeColor=#5F5E5A;fontColor=#FFFFFF;fontSize=11;shadow=1;" value="👤 Acteur anonyme" vertex="1">
+          <mxGeometry height="30" width="240" x="10" y="78" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-fe" parent="legend-bg" style="rounded=1;fillColor=#FFFFFF;strokeColor=#3B82C4;strokeWidth=2;fontSize=11;shadow=1;fontColor=#000000;" value="📋 Page / composant Frontend" vertex="1">
+          <mxGeometry height="30" width="240" x="10" y="118" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-be" parent="legend-bg" style="rounded=1;fillColor=#FF7043;strokeColor=#BF360C;fontColor=#FFFFFF;fontSize=11;shadow=1;" value="⚙️ Service Backend" vertex="1">
+          <mxGeometry height="30" width="240" x="10" y="158" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-db" parent="legend-bg" style="rounded=1;fillColor=#D7F3E5;strokeColor=#2E8A5A;strokeWidth=2;fontSize=11;shadow=1;" value="🗄 Table base de données" vertex="1">
+          <mxGeometry height="30" width="240" x="10" y="198" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-cron" parent="legend-bg" style="rounded=1;fillColor=#F57F17;strokeColor=#E65100;fontColor=#FFFFFF;fontSize=11;shadow=1;" value="⏰ Tâche planifiée (cron)" vertex="1">
+          <mxGeometry height="30" width="240" x="10" y="238" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-jwt" parent="legend-bg" style="rounded=1;fillColor=#4A148C;strokeColor=#7B1FA2;fontColor=#FFFFFF;fontSize=11;shadow=1;" value="🎫 / 🛡 JWT · Middleware sécurité" vertex="1">
+          <mxGeometry height="30" width="240" x="10" y="278" as="geometry" />
+        </mxCell>
+        <mxCell id="title-bg" parent="1" style="rounded=1;arcSize=4;fillColor=#1A237E;strokeColor=#0D47A1;shadow=1;" value="" vertex="1">
+          <mxGeometry height="55" width="1560" x="30" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="title-text" parent="1" style="text;html=1;align=center;fontStyle=1;fontSize=22;fontColor=#FFFFFF;letterSpacing=1;" value="DataShare — Architecture Fonctionnelle Complète" vertex="1">
+          <mxGeometry height="55" width="1200" x="30" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="title-stack" parent="1" style="text;html=1;align=right;fontStyle=0;fontSize=11;fontColor=#90CAF9;" value="React / Symfony / Postgre / LocalDb" vertex="1">
+          <mxGeometry height="22" width="360" x="1230" y="42" as="geometry" />
+        </mxCell>
+        <mxCell id="kv4J0eTQm8sEbR6Y3O2v-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D7F3E5;strokeColor=#2E8A5A;strokeWidth=2;fontSize=11;shadow=1;arcSize=6;" value="🗄&amp;nbsp;&lt;span style=&quot;font-size: 12px; font-weight: 700; text-wrap-mode: nowrap;&quot;&gt;TABLE users&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 12px; font-weight: 700; text-wrap-mode: nowrap;&quot;&gt;id · email (UNIQUE) ·&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-size: 12px; font-weight: 700; text-wrap-mode: nowrap;&quot;&gt;&amp;nbsp;password_hash&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 12px; font-weight: 700; text-wrap-mode: nowrap;&quot;&gt;created_at ·&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 12px; font-weight: 700; text-wrap-mode: nowrap;&quot;&gt;updated_at&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="310" x="985" y="155" as="geometry" />
+        </mxCell>
+        <mxCell id="kv4J0eTQm8sEbR6Y3O2v-6" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#2E8A5A;strokeWidth=2;fontSize=10;fontColor=#1A6B40;fontStyle=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" target="kv4J0eTQm8sEbR6Y3O2v-1" value="Lecture/Ecriture">
+          <mxGeometry relative="1" x="-0.0425" y="12" as="geometry">
+            <mxPoint x="-10" y="-12" as="offset" />
+            <mxPoint x="930" y="181.5" as="sourcePoint" />
+            <mxPoint x="1000" y="171.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kv4J0eTQm8sEbR6Y3O2v-13" parent="1" style="rounded=1;fillColor=#7B5EA7;strokeColor=#5A3D8A;fontColor=#FFFFFF;fontSize=10;fontStyle=1;shadow=1;" value="US02 -  Téléchargement via lien " vertex="1">
+          <mxGeometry height="16" width="170" x="295" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="kv4J0eTQm8sEbR6Y3O2v-14" parent="1" style="rounded=1;fillColor=#7B5EA7;strokeColor=#5A3D8A;fontColor=#FFFFFF;fontSize=10;fontStyle=1;shadow=1;" value="US03 — Création Compte" vertex="1">
+          <mxGeometry height="16" width="150" x="280" y="169" as="geometry" />
+        </mxCell>
+        <mxCell id="kv4J0eTQm8sEbR6Y3O2v-15" parent="1" style="rounded=1;fillColor=#7B5EA7;strokeColor=#5A3D8A;fontColor=#FFFFFF;fontSize=10;fontStyle=1;shadow=1;" value="US04 — Connexion utilisateur" vertex="1">
+          <mxGeometry height="16" width="150" x="280" y="231" as="geometry" />
+        </mxCell>
+        <mxCell id="kv4J0eTQm8sEbR6Y3O2v-18" parent="1" style="rounded=1;fillColor=#7B5EA7;strokeColor=#5A3D8A;fontColor=#FFFFFF;fontSize=10;fontStyle=1;shadow=1;" value="US10 — Expiration automatique des fichiers" vertex="1">
+          <mxGeometry height="16" width="240" x="640" y="986" as="geometry" />
+        </mxCell>
+        <mxCell id="kv4J0eTQm8sEbR6Y3O2v-19" parent="1" style="rounded=1;fillColor=#7B5EA7;strokeColor=#5A3D8A;fontColor=#FFFFFF;fontSize=10;fontStyle=1;shadow=1;" value="US-09" vertex="1">
+          <mxGeometry height="16" width="55" x="1200" y="584" as="geometry" />
+        </mxCell>
+        <mxCell id="kv4J0eTQm8sEbR6Y3O2v-20" parent="1" style="rounded=1;fillColor=#7B5EA7;strokeColor=#5A3D8A;fontColor=#FFFFFF;fontSize=10;fontStyle=1;shadow=1;" value="US-05 — Consultation de l’historique" vertex="1">
+          <mxGeometry height="16" width="190" x="1070" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="kv4J0eTQm8sEbR6Y3O2v-22" edge="1" parent="1" source="kv4J0eTQm8sEbR6Y3O2v-1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#2E8A5A;strokeWidth=2;fontSize=10;fontColor=#1A6B40;fontStyle=1;exitX=0.463;exitY=1.005;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.617;entryY=-0.009;entryDx=0;entryDy=0;entryPerimeter=0;" target="db-files" value="FK id/id">
+          <mxGeometry relative="1" x="0.003" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="1070" y="350" as="sourcePoint" />
+            <mxPoint x="1275" y="374" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kv4J0eTQm8sEbR6Y3O2v-23" parent="1" style="rounded=1;fillColor=#7B5EA7;strokeColor=#5A3D8A;fontColor=#FFFFFF;fontSize=10;fontStyle=1;shadow=1;" value="US08 — Gestion des tags" vertex="1">
+          <mxGeometry height="25" width="160" x="302.5" y="829.5" as="geometry" />
+        </mxCell>
+        <mxCell id="kv4J0eTQm8sEbR6Y3O2v-24" edge="1" parent="1" source="a-user" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#7B5EA7;strokeWidth=2;exitX=0.668;exitY=0.993;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.018;entryY=-0.01;entryDx=0;entryDy=0;entryPerimeter=0;" target="fe-tags" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="130" y="274" />
+              <mxPoint x="130" y="345" />
+              <mxPoint x="236" y="345" />
+            </Array>
+            <mxPoint x="130" y="290" as="sourcePoint" />
+            <mxPoint x="270" y="404" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kv4J0eTQm8sEbR6Y3O2v-26" edge="1" parent="1" source="a-user" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#7B5EA7;strokeWidth=2;exitX=0.823;exitY=0.999;entryX=0.002;entryY=0.336;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="fe-profile" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="170" y="275" />
+              <mxPoint x="170" y="474" />
+            </Array>
+            <mxPoint x="180" y="301" as="sourcePoint" />
+            <mxPoint x="254" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kv4J0eTQm8sEbR6Y3O2v-27" parent="1" style="rounded=1;fillColor=#7B5EA7;strokeColor=#5A3D8A;fontColor=#FFFFFF;fontSize=10;fontStyle=1;shadow=1;" value="US-05 — Consultation de l’historique" vertex="1">
+          <mxGeometry height="16" width="190" x="267.5" y="317" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
