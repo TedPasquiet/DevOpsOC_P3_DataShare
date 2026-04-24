@@ -1,0 +1,491 @@
+openapi: 3.0.3
+
+info:
+  title: DataShare API
+  description: API REST pour le partage de fichiers sécurisé avec liens à durée limitée.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8000
+    description: Développement local
+
+tags:
+  - name: Authentification
+    description: Inscription, connexion et gestion du compte
+  - name: Fichiers
+    description: Upload, téléchargement et gestion des fichiers
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        email:
+          type: string
+          format: email
+          example: user@example.com
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    FileMetadata:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 42
+        token:
+          type: string
+          example: abc123xyz
+        original_name:
+          type: string
+          example: document.pdf
+        size:
+          type: integer
+          description: Taille en octets
+          example: 1048576
+        mime_type:
+          type: string
+          example: application/pdf
+        expires_at:
+          type: string
+          format: date-time
+        is_expired:
+          type: boolean
+          example: false
+        tags:
+          type: array
+          items:
+            type: string
+          example: ["projet", "urgent"]
+        created_at:
+          type: string
+          format: date-time
+
+    UploadResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          example: abc123xyz
+        download_url:
+          type: string
+          example: /files/abc123xyz
+        expires_at:
+          type: string
+          format: date-time
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Token invalide ou expiré.
+
+paths:
+
+  # ─── AUTHENTIFICATION ────────────────────────────────────────────
+
+  /auth/register:
+    post:
+      tags: [Authentification]
+      summary: Créer un compte utilisateur
+      operationId: register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                password:
+                  type: string
+                  minLength: 8
+                  example: motdepasse123
+      responses:
+        "201":
+          description: Compte créé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "409":
+          description: Email déjà utilisé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "422":
+          description: Données invalides (mdp < 8 car., email malformé…)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /auth/login:
+    post:
+      tags: [Authentification]
+      summary: Connexion et obtention du token JWT
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                password:
+                  type: string
+                  example: motdepasse123
+      responses:
+        "200":
+          description: Connexion réussie
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        "401":
+          description: Identifiants incorrects
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  # ─── PROFIL UTILISATEUR ──────────────────────────────────────────
+
+  /users/me:
+    get:
+      tags: [Authentification]
+      summary: Lire le profil du compte connecté
+      operationId: getMe
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Profil utilisateur
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          description: Token manquant ou invalide
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    put:
+      tags: [Authentification]
+      summary: Mettre à jour email ou mot de passe
+      operationId: updateMe
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: nouveau@example.com
+                password:
+                  type: string
+                  minLength: 8
+                  example: nouveaumdp123
+      responses:
+        "200":
+          description: Profil mis à jour
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          description: Token manquant ou invalide
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "409":
+          description: Email déjà utilisé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    delete:
+      tags: [Authentification]
+      summary: Supprimer son compte
+      operationId: deleteMe
+      security:
+        - bearerAuth: []
+      responses:
+        "204":
+          description: Compte supprimé
+        "401":
+          description: Token manquant ou invalide
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  # ─── FICHIERS ────────────────────────────────────────────────────
+
+  /files:
+    post:
+      tags: [Fichiers]
+      summary: Uploader un fichier
+      description: >
+        Accessible aux utilisateurs connectés (US01) et anonymes (US07).
+        Le fichier est lié au compte si un token JWT est fourni.
+      operationId: uploadFile
+      security:
+        - bearerAuth: []
+        - {}
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file, expires_in]
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Fichier à envoyer (max 1 Go)
+                expires_in:
+                  type: integer
+                  minimum: 1
+                  maximum: 7
+                  description: Durée d'expiration en jours
+                  example: 3
+                password:
+                  type: string
+                  minLength: 6
+                  description: Mot de passe de protection (optionnel)
+                tags:
+                  type: array
+                  items:
+                    type: string
+                    maxLength: 30
+                  description: Liste de tags (optionnel)
+      responses:
+        "201":
+          description: Fichier uploadé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UploadResponse"
+        "413":
+          description: Fichier trop volumineux (> 1 Go)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "422":
+          description: Type de fichier ou paramètres invalides
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    get:
+      tags: [Fichiers]
+      summary: Lister les fichiers de l'utilisateur connecté
+      description: Retourne l'historique des fichiers uploadés par le compte authentifié (US05).
+      operationId: listFiles
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Liste des fichiers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FileMetadata"
+        "401":
+          description: Token manquant ou invalide
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /files/{token}:
+    get:
+      tags: [Fichiers]
+      summary: Télécharger un fichier via son lien unique
+      description: >
+        Accessible sans authentification (US02).
+        Si le fichier est protégé par mot de passe, fournir le paramètre `password`.
+      operationId: downloadFile
+      parameters:
+        - name: token
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Token unique du fichier
+        - name: password
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Mot de passe si le fichier est protégé
+      responses:
+        "200":
+          description: Stream binaire du fichier
+          headers:
+            Content-Disposition:
+              schema:
+                type: string
+                example: attachment; filename="document.pdf"
+            Content-Type:
+              schema:
+                type: string
+                example: application/pdf
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        "401":
+          description: Mot de passe manquant ou incorrect
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Token invalide
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "410":
+          description: Lien expiré
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /files/{id}/tags:
+    patch:
+      tags: [Fichiers]
+      summary: Modifier les tags d'un fichier
+      description: Réservé au propriétaire du fichier (US08).
+      operationId: updateTags
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID du fichier
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [tags]
+              properties:
+                tags:
+                  type: array
+                  items:
+                    type: string
+                    maxLength: 30
+                  example: ["nouveau-tag", "autre"]
+      responses:
+        "200":
+          description: Fichier mis à jour
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FileMetadata"
+        "401":
+          description: Token manquant ou invalide
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403":
+          description: Accès refusé — fichier appartenant à un autre utilisateur
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Fichier introuvable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /files/{id}:
+    delete:
+      tags: [Fichiers]
+      summary: Supprimer un fichier
+      description: Supprime le fichier physiquement et ses métadonnées. Réservé au propriétaire.
+      operationId: deleteFile
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID du fichier
+      responses:
+        "204":
+          description: Fichier supprimé
+        "401":
+          description: Token manquant ou invalide
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403":
+          description: Accès refusé — fichier appartenant à un autre utilisateur
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Fichier introuvable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"

@@ -1,6 +1,6 @@
 <mxfile host="Electron">
   <diagram id="JxeK51KZ2uzxlNJPHQg3" name="Page-1">
-    <mxGraphModel dx="873" dy="654" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="1">
+    <mxGraphModel dx="912" dy="588" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="1">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -96,16 +96,16 @@
         <mxCell id="be-auth" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF7043;strokeColor=#BF360C;strokeWidth=2;fontColor=#FFFFFF;fontSize=14;fontStyle=1;shadow=1;arcSize=6;" value="🔐 &lt;b&gt;Auth Service&lt;/b&gt;" vertex="1">
           <mxGeometry height="44" width="340" x="590" y="155" as="geometry" />
         </mxCell>
-        <mxCell id="be-auth-create" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;b&gt;CREATE&lt;/b&gt; user&lt;br&gt;hash bcrypt · email unique" vertex="1">
+        <mxCell id="be-auth-create" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;&lt;b&gt;CREATE&lt;/b&gt; user&lt;br&gt;hash bcrypt · email unique&lt;/font&gt;" vertex="1">
           <mxGeometry height="50" width="155" x="590" y="210" as="geometry" />
         </mxCell>
-        <mxCell id="be-auth-read" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;b&gt;READ&lt;/b&gt; user&lt;br&gt;GET /users/me · profil" vertex="1">
+        <mxCell id="be-auth-read" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;&lt;b&gt;READ&lt;/b&gt; user&lt;br&gt;GET /users/me · profil&lt;/font&gt;" vertex="1">
           <mxGeometry height="50" width="155" x="755" y="210" as="geometry" />
         </mxCell>
-        <mxCell id="be-auth-update" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;b&gt;UPDATE&lt;/b&gt; user&lt;br&gt;PUT /users/me · email/mdp" vertex="1">
+        <mxCell id="be-auth-update" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;&lt;b&gt;UPDATE&lt;/b&gt; user&lt;br&gt;PUT /users/me · email/mdp&lt;/font&gt;" vertex="1">
           <mxGeometry height="50" width="155" x="590" y="272" as="geometry" />
         </mxCell>
-        <mxCell id="be-auth-delete" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;b&gt;DELETE&lt;/b&gt; user&lt;br&gt;DELETE /users/me · compte" vertex="1">
+        <mxCell id="be-auth-delete" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;&lt;b&gt;DELETE&lt;/b&gt; user&lt;br&gt;DELETE /users/me · compte&lt;/font&gt;" vertex="1">
           <mxGeometry height="50" width="155" x="755" y="272" as="geometry" />
         </mxCell>
         <mxCell id="be-jwt" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4A148C;strokeColor=#7B1FA2;fontColor=#FFFFFF;fontSize=11;shadow=1;arcSize=8;" value="🎫 &lt;b&gt;JWT Token&lt;/b&gt; — généré à la connexion · HS256 · stocké côté client" vertex="1">
@@ -126,13 +126,13 @@
         <mxCell id="be-upload-svc" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF7043;strokeColor=#BF360C;strokeWidth=2;fontColor=#FFFFFF;fontSize=14;fontStyle=1;shadow=1;arcSize=6;" value="📦 &lt;b&gt;Upload Service&lt;/b&gt;" vertex="1">
           <mxGeometry height="44" width="340" x="590" y="429" as="geometry" />
         </mxCell>
-        <mxCell id="be-upload-detail" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;align=left;spacingLeft=8;shadow=1;" value="✅ génère token unique non-prédictible&lt;br&gt;✅ hash mdp si renseigné (≥6 car.)&lt;br&gt;✅ valide taille, type de fichier&lt;br&gt;✅ lie le fichier à l&#39;user_id (si connecté)" vertex="1">
+        <mxCell id="be-upload-detail" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;align=left;spacingLeft=8;shadow=1;" value="&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;✅ génère token unique non-prédictible&lt;br&gt;✅ hash mdp si renseigné (≥6 car.)&lt;br&gt;✅ valide taille, type de fichier&lt;br&gt;✅ lie le fichier à l&#39;user_id (si connecté)&lt;/font&gt;" vertex="1">
           <mxGeometry height="80" width="340" x="590" y="490" as="geometry" />
         </mxCell>
-        <mxCell id="db-files" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D7F3E5;strokeColor=#2E8A5A;strokeWidth=2;fontSize=11;shadow=1;arcSize=6;" value="🗄 &lt;b&gt;TABLE files&lt;/b&gt;&lt;br&gt;id · token (UNIQUE) ·&amp;nbsp;&lt;div&gt;user_id (nullable)&lt;br&gt;original_name ·&amp;nbsp;&lt;/div&gt;&lt;div&gt;size ·&amp;nbsp;&lt;/div&gt;&lt;div&gt;mime_type&lt;br&gt;path ·&amp;nbsp;&lt;/div&gt;&lt;div&gt;password_hash&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(nullable)&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;·&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;expires_at&lt;br&gt;created_at · is_expired&lt;/div&gt;" vertex="1">
+        <mxCell id="db-files" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D7F3E5;strokeColor=#2E8A5A;strokeWidth=2;fontSize=11;shadow=1;arcSize=6;" value="&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;🗄 &lt;b&gt;TABLE files&lt;/b&gt;&lt;br&gt;id · token (UNIQUE) ·&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;user_id (nullable)&lt;br&gt;original_name ·&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;size ·&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;mime_type&lt;br&gt;path ·&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;password_hash&amp;nbsp;&lt;span style=&quot;background-color: transparent;&quot;&gt;(nullable)&lt;/span&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;·&amp;nbsp;&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;expires_at&lt;br&gt;created_at · is_expired&lt;/font&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="165" width="310" x="980" y="475" as="geometry" />
         </mxCell>
-        <mxCell id="storage" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#A5D6A7;strokeColor=#2E8A5A;strokeWidth=2;fontSize=12;shadow=1;arcSize=6;" value="💾 &lt;b&gt;Stockage Fichiers&lt;/b&gt;&lt;br&gt;📁 Système local &lt;i&gt;ou&lt;/i&gt; ☁️ AWS S3" vertex="1">
+        <mxCell id="storage" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#A5D6A7;strokeColor=#2E8A5A;strokeWidth=2;fontSize=12;shadow=1;arcSize=6;" value="&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;💾 &lt;b&gt;Stockage Fichiers&lt;/b&gt;&lt;br&gt;📁 Système local &lt;i&gt;ou&lt;/i&gt; ☁️ AWS S3&lt;/font&gt;" vertex="1">
           <mxGeometry height="55" width="310" x="985" y="909" as="geometry" />
         </mxCell>
         <mxCell id="fe-download" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B82C4;strokeWidth=2;fontSize=12;shadow=1;arcSize=8;" value="&lt;font style=&quot;color: rgb(51, 51, 255);&quot;&gt;&lt;b&gt;Page Téléchargement&lt;/b&gt;&lt;br&gt;&lt;font&gt;GET /files/:token&lt;/font&gt;&lt;br&gt;métadonnées · saisie mdp si protégé&lt;/font&gt;" vertex="1">
@@ -141,7 +141,7 @@
         <mxCell id="be-download-svc" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF7043;strokeColor=#BF360C;strokeWidth=2;fontColor=#FFFFFF;fontSize=14;fontStyle=1;shadow=1;arcSize=6;" value="⬇️ &lt;b&gt;Download Service&lt;/b&gt;" vertex="1">
           <mxGeometry height="44" width="340" x="590" y="595" as="geometry" />
         </mxCell>
-        <mxCell id="be-download-detail" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;align=left;spacingLeft=8;shadow=1;" value="✅ vérifie token valide &amp; non-expiré&lt;br&gt;✅ contrôle mot de passe (bcrypt)&lt;br&gt;✅ retourne métadonnées + stream fichier&lt;br&gt;❌ lien expiré/invalide → erreur explicite" vertex="1">
+        <mxCell id="be-download-detail" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;align=left;spacingLeft=8;shadow=1;" value="&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;✅ vérifie token valide &amp;amp; non-expiré&lt;br&gt;✅ contrôle mot de passe (bcrypt)&lt;br&gt;✅ retourne métadonnées + stream fichier&lt;br&gt;❌ lien expiré/invalide → erreur explicite&lt;/font&gt;" vertex="1">
           <mxGeometry height="75" width="340" x="590" y="650" as="geometry" />
         </mxCell>
         <mxCell id="fe-history" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B82C4;strokeWidth=2;fontSize=12;shadow=1;arcSize=8;" value="&lt;font style=&quot;color: rgb(51, 51, 255);&quot;&gt;📋 &lt;b&gt;Historique&lt;/b&gt;&lt;br&gt;&lt;font&gt;GET /files&lt;/font&gt;&lt;br&gt;nom · taille · expiration · état&lt;/font&gt;" vertex="1">
@@ -156,31 +156,31 @@
         <mxCell id="be-files-svc" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF7043;strokeColor=#BF360C;strokeWidth=2;fontColor=#FFFFFF;fontSize=14;fontStyle=1;shadow=1;arcSize=6;" value="📂 &lt;b&gt;File Manager — CRUD&lt;/b&gt;" vertex="1">
           <mxGeometry height="44" width="340" x="590" y="765" as="geometry" />
         </mxCell>
-        <mxCell id="be-files-create" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;b&gt;CREATE&lt;/b&gt;&lt;br&gt;enregistre métadonnées" vertex="1">
+        <mxCell id="be-files-create" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;&lt;b&gt;CREATE&lt;/b&gt;&lt;br&gt;enregistre métadonnées&lt;/font&gt;" vertex="1">
           <mxGeometry height="44" width="160" x="590" y="820" as="geometry" />
         </mxCell>
-        <mxCell id="be-files-read" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;b&gt;READ&lt;/b&gt;&lt;br&gt;liste fichiers user" vertex="1">
+        <mxCell id="be-files-read" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;&lt;b&gt;READ&lt;/b&gt;&lt;br&gt;liste fichiers user&lt;/font&gt;" vertex="1">
           <mxGeometry height="44" width="160" x="760" y="820" as="geometry" />
         </mxCell>
-        <mxCell id="be-files-update" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;b&gt;UPDATE&lt;/b&gt;&lt;br&gt;tags, options" vertex="1">
+        <mxCell id="be-files-update" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE9E7;strokeColor=#FF7043;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;&lt;b&gt;UPDATE&lt;/b&gt;&lt;br&gt;tags, options&lt;/font&gt;" vertex="1">
           <mxGeometry height="44" width="160" x="760" y="871" as="geometry" />
         </mxCell>
-        <mxCell id="be-files-delete" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFCCBC;strokeColor=#E53935;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;b&gt;DELETE&lt;/b&gt;&lt;br&gt;physique + métadonnées" vertex="1">
+        <mxCell id="be-files-delete" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFCCBC;strokeColor=#E53935;strokeWidth=1.5;fontSize=11;shadow=1;" value="&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;&lt;b&gt;DELETE&lt;/b&gt;&lt;br&gt;physique + métadonnées&lt;/font&gt;" vertex="1">
           <mxGeometry height="44" width="160" x="587.5" y="920" as="geometry" />
         </mxCell>
-        <mxCell id="db-tags" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D7F3E5;strokeColor=#2E8A5A;strokeWidth=2;fontSize=11;shadow=1;arcSize=6;" value="🗄 &lt;b&gt;TABLE tags&lt;/b&gt;&lt;br&gt;id · file_id (FK) · label (max 30)&lt;br&gt;UNIQUE(file_id, label)" vertex="1">
+        <mxCell id="db-tags" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D7F3E5;strokeColor=#2E8A5A;strokeWidth=2;fontSize=11;shadow=1;arcSize=6;" value="&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;🗄 &lt;b&gt;TABLE tags&lt;/b&gt;&lt;br&gt;id · file_id (FK) · label (max 30)&lt;br&gt;UNIQUE(file_id, label)&lt;/font&gt;" vertex="1">
           <mxGeometry height="80" width="310" x="980" y="710" as="geometry" />
         </mxCell>
-        <mxCell id="be-cron" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F57F17;strokeColor=#E65100;fontColor=#FFFFFF;fontSize=12;shadow=1;arcSize=8;" value="⏰ &lt;b&gt;Scheduler (cron)&lt;/b&gt;&lt;br&gt;tâche quotidienne — purge fichiers expirés&lt;br&gt;suppression physique + métadonnées" vertex="1">
+        <mxCell id="be-cron" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F57F17;strokeColor=#E65100;fontColor=#FFFFFF;fontSize=12;shadow=1;arcSize=8;" value="&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;⏰ &lt;b&gt;Scheduler (cron)&lt;/b&gt;&lt;br&gt;tâche quotidienne — purge fichiers expirés&lt;br&gt;suppression physique + métadonnées&lt;/font&gt;" vertex="1">
           <mxGeometry height="75" width="340" x="590" y="985" as="geometry" />
         </mxCell>
-        <mxCell id="cron-db" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D7F3E5;strokeColor=#2E8A5A;strokeWidth=2;fontSize=11;shadow=1;" value="🗄 purge &lt;b&gt;files&lt;/b&gt; expirées" vertex="1">
+        <mxCell id="cron-db" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D7F3E5;strokeColor=#2E8A5A;strokeWidth=2;fontSize=11;shadow=1;" value="&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;🗄 purge &lt;b&gt;files&lt;/b&gt; expirées&lt;/font&gt;" vertex="1">
           <mxGeometry height="44" width="150" x="1050" y="972" as="geometry" />
         </mxCell>
-        <mxCell id="cron-storage" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#A5D6A7;strokeColor=#2E8A5A;strokeWidth=2;fontSize=11;shadow=1;" value="💾 purge fichiers physiques" vertex="1">
+        <mxCell id="cron-storage" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#A5D6A7;strokeColor=#2E8A5A;strokeWidth=2;fontSize=11;shadow=1;" value="&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;💾 purge fichiers physiques&lt;/font&gt;" vertex="1">
           <mxGeometry height="44" width="150" x="1050" y="1036" as="geometry" />
         </mxCell>
-        <mxCell id="security-box" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=2;fontSize=11;align=left;spacingLeft=10;shadow=1;arcSize=6;" value="🔒 &lt;b&gt;Sécurité transversale&lt;/b&gt;&lt;br&gt;• Validation serveur : taille, type fichier.&lt;br&gt;• Mdp fichier : cryptage/longueur minimale&lt;br&gt;• Accès : seul le propriétaire peut gérer ses fichiers&lt;br&gt;• Accessibilité" vertex="1">
+        <mxCell id="security-box" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=2;fontSize=11;align=left;spacingLeft=10;shadow=1;arcSize=6;" value="&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;🔒 &lt;b&gt;Sécurité transversale&lt;/b&gt;&lt;br&gt;• Validation serveur : taille, type fichier.&lt;br&gt;• Mdp fichier : cryptage/longueur minimale&lt;br&gt;• Accès : seul le propriétaire peut gérer ses fichiers&lt;br&gt;• Accessibilité&lt;/font&gt;" vertex="1">
           <mxGeometry height="100" width="315" x="980" y="803" as="geometry" />
         </mxCell>
         <mxCell id="arr-user-reg" edge="1" parent="1" source="a-user" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#7B5EA7;strokeWidth=2;exitX=1;exitY=0.3;entryX=0;entryY=0.5;" target="fe-register" value="">
@@ -308,7 +308,7 @@
         <mxCell id="title-stack" parent="1" style="text;html=1;align=right;fontStyle=0;fontSize=11;fontColor=#90CAF9;" value="React / Symfony / Postgre / LocalDb" vertex="1">
           <mxGeometry height="22" width="360" x="1230" y="42" as="geometry" />
         </mxCell>
-        <mxCell id="kv4J0eTQm8sEbR6Y3O2v-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D7F3E5;strokeColor=#2E8A5A;strokeWidth=2;fontSize=11;shadow=1;arcSize=6;" value="🗄&amp;nbsp;&lt;span style=&quot;font-size: 12px; font-weight: 700; text-wrap-mode: nowrap;&quot;&gt;TABLE users&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 12px; font-weight: 700; text-wrap-mode: nowrap;&quot;&gt;id · email (UNIQUE) ·&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-size: 12px; font-weight: 700; text-wrap-mode: nowrap;&quot;&gt;&amp;nbsp;password_hash&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 12px; font-weight: 700; text-wrap-mode: nowrap;&quot;&gt;created_at ·&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 12px; font-weight: 700; text-wrap-mode: nowrap;&quot;&gt;updated_at&lt;/span&gt;&lt;/div&gt;" vertex="1">
+        <mxCell id="kv4J0eTQm8sEbR6Y3O2v-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D7F3E5;strokeColor=#2E8A5A;strokeWidth=2;fontSize=11;shadow=1;arcSize=6;" value="&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;🗄&amp;nbsp;&lt;span style=&quot;font-size: 12px; font-weight: 700; text-wrap-mode: nowrap;&quot;&gt;TABLE users&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 12px; font-weight: 700; text-wrap-mode: nowrap;&quot;&gt;id · email (UNIQUE) ·&lt;/span&gt;&lt;/font&gt;&lt;div&gt;&lt;span style=&quot;font-size: 12px; font-weight: 700; text-wrap-mode: nowrap;&quot;&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;&amp;nbsp;password_hash&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 12px; font-weight: 700; text-wrap-mode: nowrap;&quot;&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;created_at ·&amp;nbsp;&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 12px; font-weight: 700; text-wrap-mode: nowrap;&quot;&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;updated_at&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="120" width="310" x="985" y="155" as="geometry" />
         </mxCell>
         <mxCell id="kv4J0eTQm8sEbR6Y3O2v-6" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#2E8A5A;strokeWidth=2;fontSize=10;fontColor=#1A6B40;fontStyle=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" target="kv4J0eTQm8sEbR6Y3O2v-1" value="Lecture/Ecriture">
