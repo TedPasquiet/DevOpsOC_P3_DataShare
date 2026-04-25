@@ -106,3 +106,11 @@
     font-size: 14px;
   }
 }
+.select-container{
+  display: flex;
+  align-items: baseline;
+  flex-direction: column;
+}
+.select-label{
+  margin-bottom: 6px;
+}
