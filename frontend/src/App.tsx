@@ -2,6 +2,10 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
+import { Callout } from './components/callout'
+import { Header } from './components/header'
+import { Button } from './components/button'
+
 import './App.css'
 
 function App() {
@@ -9,6 +13,9 @@ function App() {
 
   return (
     <>
+    <Callout variant='info' label='test'></Callout>
+    <Header loggedIn={true}></Header>
+    <Button variant='filled' disabled={false} label='test'></Button>
       <section id="center">
         <div className="hero">
           <img src={heroImg} className="base" width="170" height="179" alt="" />

@@ -1,3 +1,5 @@
+import "./components.css";
+
 type CalloutVariant = "info" | "warning" | "error";
 
 interface CalloutProps {
@@ -5,7 +7,7 @@ interface CalloutProps {
   label: string;
 }
 
-const variants: Record<CalloutVariant,{ bg: string; border: string; icon: string; iconColor: string; textColor: string }> = {
+const variants: Record<CalloutVariant, { bg: string; border: string; icon: string; iconColor: string; textColor: string }> = {
   info: {
     bg: "#E2ECFF",
     border: "#B1C9F5",
@@ -29,26 +31,26 @@ const variants: Record<CalloutVariant,{ bg: string; border: string; icon: string
   },
 };
 
+const roleMap: Record<CalloutVariant, "alert" | "status"> = {
+  error: "alert",
+  warning: "alert",
+  info: "status",
+};
+
 export function Callout({ variant = "info", label }: CalloutProps) {
   const v = variants[variant];
 
   return (
     <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "10px",
-        padding: "14px 18px",
-        borderRadius: "12px",
-        border: `1px solid ${v.border}`,
-        backgroundColor: v.bg,
-        fontFamily: "inherit",
-      }}
+      role={roleMap[variant]}
+      aria-live={variant === "error" || variant === "warning" ? "assertive" : "polite"}
+      className="callout"
+      style={{ border: `1px solid ${v.border}`, backgroundColor: v.bg }}
     >
-      <span style={{ color: v.iconColor, fontSize: "18px", lineHeight: 1, flexShrink: 0 }}>
+      <span aria-hidden="true" className="callout-icon" style={{ color: v.iconColor }}>
         {v.icon}
       </span>
-      <span style={{ color: v.textColor, fontSize: "15px", fontWeight: 500 }}>{label}</span>
+      <span className="callout-text" style={{ color: v.textColor }}>{label}</span>
     </div>
   );
 }

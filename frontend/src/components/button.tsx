@@ -1,9 +1,14 @@
+import "./components.css";
+
 type ButtonVariant = "filled" | "outlined" | "ghost" | "dark";
 
 interface ButtonProps {
   variant?: ButtonVariant;
   disabled?: boolean;
+  fullWidth?: boolean;
   label: string;
+  onClick?: () => void;
+  type?: "button" | "submit" | "reset";
 }
 
 const variants: Record<ButtonVariant, {
@@ -33,34 +38,25 @@ export const UploadCloud = (props: React.SVGProps<SVGSVGElement>) => (
     <polyline points="16 16 12 12 8 16" />
     <line x1="12" y1="12" x2="12" y2="21" />
     <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3" />
-    <polyline points="16 16 12 12 8 16" />
   </svg>
 );
 
-export function Button({ variant = "filled", disabled = false, label }: ButtonProps) {
+export function Button({ variant = "filled", disabled = false, fullWidth = false, label, onClick, type = "button" }: ButtonProps) {
   const v = variants[variant][disabled ? "disabled" : "active"];
   return (
-    <div
+    <button
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
+      className={`btn ${fullWidth ? "btn--full" : "btn--fixed"}`}
       style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "10px",
-        width: "147px",
-        height: "40px",
-        padding: "14px 18px",
-        borderRadius: "12px",
         border: `1px solid ${v.border}`,
         backgroundColor: v.bg,
-        fontFamily: "inherit",
-        fontSize: "16px",
-        fontWeight: 400,
         cursor: disabled ? "not-allowed" : "pointer",
       }}
     >
-      <UploadCloud style={{ color: v.iconColor, fontSize: "18px", flexShrink: 0 }} />
+      <UploadCloud aria-hidden="true" style={{ color: v.iconColor, fontSize: "18px", flexShrink: 0 }} />
       <span style={{ color: v.textColor }}>{label}</span>
-      <UploadCloud style={{ color: v.iconColor, fontSize: "18px", flexShrink: 0 }} />
-    </div>
+    </button>
   );
 }
