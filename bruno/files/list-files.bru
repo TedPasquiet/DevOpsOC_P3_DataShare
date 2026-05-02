@@ -1,0 +1,30 @@
+meta {
+  name: List My Files
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/files
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+script:after-response {
+  if (res.status === 200 && res.body.length > 0) {
+    const first = res.body[0];
+    bru.setEnvVar("fileId", String(first.id));
+    bru.setEnvVar("fileToken", first.token);
+    console.log("Saved first file — id: " + first.id + ", token: " + first.token);
+  }
+}
+
+docs {
+  Returns all files uploaded by the authenticated user.
+  Automatically saves the first file's `id` and `token` to env variables
+  so Download, Update Tags, and Delete requests work immediately after.
+}

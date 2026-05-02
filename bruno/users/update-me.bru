@@ -1,0 +1,31 @@
+meta {
+  name: Update Profile
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/users/me
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "email": "nouveau@example.com",
+    "password": "nouveaumdp123"
+  }
+}
+
+docs {
+  Updates email and/or password for the authenticated user.
+  Both fields are optional — send only what you want to change.
+}

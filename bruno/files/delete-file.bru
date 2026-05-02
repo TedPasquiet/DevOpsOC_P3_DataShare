@@ -1,0 +1,29 @@
+meta {
+  name: Delete File
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/files/{{fileId}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+script:after-response {
+  if (res.status === 204) {
+    bru.setEnvVar("fileId", "");
+    bru.setEnvVar("fileToken", "");
+    console.log("File deleted — fileId and fileToken cleared.");
+  }
+}
+
+docs {
+  Permanently deletes the file (physical + metadata). Owner only.
+  `fileId` is set automatically after Upload or List My Files.
+  Clears `fileId` and `fileToken` env vars after a successful deletion.
+}

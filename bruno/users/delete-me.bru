@@ -1,0 +1,27 @@
+meta {
+  name: Delete Account
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/users/me
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+script:after-response {
+  if (res.status === 204) {
+    bru.setEnvVar("token", "");
+    console.log("Account deleted — token cleared.");
+  }
+}
+
+docs {
+  Permanently deletes the authenticated user's account and all associated files.
+  The JWT token is cleared from env after a successful deletion.
+}

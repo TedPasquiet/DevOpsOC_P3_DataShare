@@ -1,0 +1,18 @@
+meta {
+  name: Download File
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/files/{{fileToken}}
+  body: none
+  auth: none
+}
+
+docs {
+  Downloads a file by its unique token. No authentication required (public link).
+  - `fileToken` is set automatically after Upload or List My Files.
+  - To download a password-protected file, add ?password=yourpassword to the URL:
+    {{baseUrl}}/files/{{fileToken}}?password=yourpassword
+}

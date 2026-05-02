@@ -1,0 +1,32 @@
+meta {
+  name: Update Tags
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{baseUrl}}/files/{{fileId}}/tags
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "tags": ["nouveau-tag", "autre"]
+  }
+}
+
+docs {
+  Replaces all tags on a file. Owner only.
+  `fileId` is set automatically after Upload or List My Files.
+  The tags array fully replaces the existing ones (not additive).
+  Each tag is trimmed and capped at 30 characters.
+}

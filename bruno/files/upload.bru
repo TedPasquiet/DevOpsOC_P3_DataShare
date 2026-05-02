@@ -1,0 +1,40 @@
+meta {
+  name: Upload File
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/files
+  body: multipart-form
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:multipart-form {
+  file: @file({{filePath}})
+  expires_in: 3
+  password:
+  tags[]: projet
+  tags[]: urgent
+}
+
+script:after-response {
+  if (res.status === 201 && res.body.token) {
+    bru.setEnvVar("fileToken", res.body.token);
+    console.log("File token saved: " + res.body.token);
+  }
+}
+
+docs {
+  Uploads a file. Works for both authenticated and anonymous users.
+  - Set `filePath` in the environment to point to a local file.
+  - `expires_in` must be between 1 and 7 (days).
+  - `password` is optional. Leave empty for no protection.
+  - `tags[]` can be repeated for multiple tags (max 30 chars each).
+  - The returned `token` is saved automatically to `fileToken`.
+  - Remove the Bearer token to test anonymous upload (US07).
+}
