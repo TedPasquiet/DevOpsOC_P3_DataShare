@@ -1,0 +1,49 @@
+security:
+  password_hashers:
+    App\Entity\User:
+      algorithm: auto
+
+  providers:
+    app_user_provider:
+      entity:
+        class: App\Entity\User
+        property: email
+
+  firewalls:
+    dev:
+      pattern: ^/(_(profiler|wdt)|css|images|js)/
+      security: false
+
+    # Stateless JSON login — Lexik success handler returns the JWT token
+    login:
+      pattern: ^/auth/login$
+      stateless: true
+      json_login:
+        check_path: /auth/login
+        username_path: email
+        password_path: password
+        success_handler: lexik_jwt_authentication.handler.authentication_success
+        failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
+    api:
+      pattern: ^/
+      stateless: true
+      # JWT is parsed when present; absent token = anonymous user
+      jwt: ~
+
+  access_control:
+    - { path: ^/auth/register$, roles: PUBLIC_ACCESS }
+    - { path: ^/auth/login$,    roles: PUBLIC_ACCESS }
+    # Public file download by token (32-char hex)
+    - { path: ^/files/[0-9a-f]{32}$, roles: PUBLIC_ACCESS, methods: [GET] }
+    # Anonymous file upload allowed
+    - { path: ^/files$, roles: PUBLIC_ACCESS, methods: [POST] }
+    # Everything else requires a valid JWT
+    - { path: ^/users, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/files, roles: IS_AUTHENTICATED_FULLY }
+
+when@test:
+  security:
+    password_hashers:
+      App\Entity\User:
+        algorithm: plaintext
