@@ -7,7 +7,7 @@
     "jsx": "react-jsx",
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "types": ["jest", "@testing-library/jest-dom"]
+    "types": ["jest", "@testing-library/jest-dom", "react", "react-dom"]
   },
   "include": [
     "src/vite-env.d.ts",
