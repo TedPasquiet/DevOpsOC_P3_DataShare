@@ -5,6 +5,7 @@ import heroImg from './assets/hero.png'
 import { Callout } from './components/callout'
 import { Header } from './components/header'
 import { Button } from './components/button'
+import { Input } from './components/input'
 
 import './App.css'
 
@@ -16,6 +17,7 @@ function App() {
     <Callout variant='info' label='test'></Callout>
     <Header loggedIn={true}></Header>
     <Button variant='filled' disabled={false} label='test'></Button>
+    <Input label='label' placeHolder='placeholder'></Input>
       <section id="center">
         <div className="hero">
           <img src={heroImg} className="base" width="170" height="179" alt="" />
