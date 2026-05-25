@@ -79,7 +79,8 @@
   border-radius: 12px;
   font-family: inherit;
   box-sizing: border-box;
-  width: 100%;
+  width: 297px;
+  align-items: center;
 }
 
 @media (max-width: 1024px) {

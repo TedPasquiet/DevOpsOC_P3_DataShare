@@ -12,22 +12,22 @@ const variants: Record<CalloutVariant, { bg: string; border: string; icon: strin
     bg: "#E2ECFF",
     border: "#B1C9F5",
     icon: "ℹ",
-    iconColor: "#6366F1",
-    textColor: "#6366F1",
+    iconColor: "#2A3F72",
+    textColor: "#2A3F72",
   },
   warning: {
     bg: "#FFF5ED",
     border: "#E6CBB5",
     icon: "⚠",
-    iconColor: "#D97706",
-    textColor: "#D97706",
+    iconColor: "#AA642B",
+    textColor: "#AA642B",
   },
   error: {
     bg: "#FFE2E2",
     border: "#E8A6A6",
     icon: "⊛",
-    iconColor: "#DC2626",
-    textColor: "#DC2626",
+    iconColor: "#9C3333",
+    textColor: "#9C3333",
   },
 };
 
