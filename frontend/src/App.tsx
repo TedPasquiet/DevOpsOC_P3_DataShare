@@ -17,7 +17,7 @@ function App() {
     <Callout variant='info' label='test'></Callout>
     <Header loggedIn={true}></Header>
     <Button variant='filled' disabled={false} label='test'></Button>
-    <Input label='label' placeHolder='Optionnel'></Input>
+    <Input label='Mot de passe' placeHolder='Optionnel'></Input>
       <section id="center">
         <div className="hero">
           <img src={heroImg} className="base" width="170" height="179" alt="" />
