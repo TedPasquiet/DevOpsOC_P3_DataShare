@@ -16,7 +16,7 @@ export function Select({ text, option, id, required, placeholder = "--Veuillez c
   return (
     <div className="select-container">
       <label className="select-label" htmlFor={selectId}>{text}</label>
-      <select id={selectId} required={required} aria-required={required}>
+      <select className="select-field" id={selectId} required={required} aria-required={required}>
         <option value="">{placeholder}</option>
         {option?.map((element) => (
           <option key={element} value={element}>{element}</option>

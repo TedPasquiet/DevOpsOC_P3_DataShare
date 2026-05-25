@@ -171,3 +171,32 @@ label{
   background-color: white;
 }
 /* --space-200 environ 8px */
+.select-container{
+  background-color: white;
+  width: 297px;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+}
+.select-label{
+  margin-bottom: 6px;
+  height: 24px;
+}
+.select-field{
+  height: 40px;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 5px;
+  background-color: #FFFFFF;
+  border: 1px solid #D9D9D9;
+  padding: 0 48px 0 12px;
+  color: #000000;
+  font-size: 16px;
+  /* Necessaire pour l'apparence du dropdown */
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231E1E1E' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  cursor: pointer;
+}
