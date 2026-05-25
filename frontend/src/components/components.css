@@ -210,3 +210,22 @@ label{
   border-radius: 15px;
   cursor: pointer;
 }
+
+.activated,
+.disactivated {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  user-select: none;
+}
+
+.disactivated {
+  background-color: transparent;
+  color: #1E1E1E;
+}
