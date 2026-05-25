@@ -34,7 +34,7 @@
   :root {
     --text: #9ca3af;
     --text-h: #f3f4f6;
-    --bg: #16171d;
+    --bg: linear-gradient(#FFB88C, #DE6262);;
     --border: #2e303a;
     --code-bg: #1f2028;
     --accent: #c084fc;
@@ -108,4 +108,13 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+}
+.title-login{
+  width: 345px;
+  height: 80px;
+  font-weight: 300;
+  font-size: 30px;
+  line-height: 40px;
+  color: #000000;
+  box-sizing: border-box;
 }
