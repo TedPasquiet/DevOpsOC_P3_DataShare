@@ -200,3 +200,13 @@ label{
   background-position: right 16px center;
   cursor: pointer;
 }
+.switch-container{
+  display: flex;
+  align-items: center;
+  width: 220px;
+  height: 32px;
+  background-color: white;
+  justify-content: space-around;
+  border-radius: 15px;
+  cursor: pointer;
+}
