@@ -109,12 +109,3 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
-.title-login{
-  width: 345px;
-  height: 80px;
-  font-weight: 300;
-  font-size: 30px;
-  line-height: 40px;
-  color: #000000;
-  box-sizing: border-box;
-}

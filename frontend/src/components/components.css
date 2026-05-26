@@ -1,6 +1,7 @@
 /* ─── Header ─────────────────────────────────────────── */
 .header {
   padding: 16px 24px;
+  height: 72px;
 }
 
 @media (max-width: 1024px) {
@@ -230,4 +231,36 @@ label{
 .disactivated {
   background-color: transparent;
   color: #1E1E1E;
+}
+/* ─── Login page ─────────────────────────────────────── */
+.login-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  padding: 0 24px 48px;
+}
+
+.title-text {
+  font-size: 28px;
+  font-weight: 300;
+  color: #000000;
+  text-align: center;
+  line-height: 1.4;
+  margin: 0;
+  max-width: 280px;
+}
+
+.upload-icon {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
 }
