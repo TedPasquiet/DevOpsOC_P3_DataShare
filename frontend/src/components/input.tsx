@@ -9,7 +9,7 @@ interface InputProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function Input({ id, label = null, placeHolder = null, type = "text", value, onChange }: InputProps) {
+export function Input({ id, label, placeHolder, type = "text", value, onChange }: InputProps) {
   return (
     <div className="input-container input-flex">
       <label className="input-label" htmlFor={id}>{label}</label>
