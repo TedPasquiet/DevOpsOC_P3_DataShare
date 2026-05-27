@@ -1,6 +1,6 @@
 /* ─── Header ─────────────────────────────────────────── */
 .header {
-  padding: 16px 24px;
+  padding: 16px 5.56%;
   height: 72px;
 }
 
@@ -375,4 +375,29 @@ label{
   box-sizing: border-box;
   height: 88px;
   gap: 8px;
+}
+
+/* ─── Footer ─────────────────────────────────────────── */
+.footer {
+  height: 24px;
+  color: #FFFFFF;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 16px 5.56%;
+  gap: 10px;
+}
+
+.footer p {
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .footer {
+    display: none;
+  }
+
+  .footer--mobile-visible {
+    display: block;
+  }
 }
