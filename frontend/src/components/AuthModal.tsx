@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Input } from "./input";
+import { Button } from "./button";
 import "./components.css";
 
 interface AuthModalProps {
@@ -31,7 +32,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
         {/* Login form */}
         {activeTab === "login" && (
           <form className="modal-form" onSubmit={(e) => e.preventDefault()}>
-            <h2>Test</h2>
+            <h2>Connexion</h2>
             <Input
               id="login-email"
               label="Email"
@@ -48,9 +49,11 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               value={loginPassword}
               onChange={(e) => setLoginPassword(e.target.value)}
             />
-            <button type="submit" className="modal-submit-btn">
-              Se connecter
-            </button>
+            <div className="modal-btn-container">
+              <Button  variant="filled" disabled={false} fullWidth={false} label="Créer un compte" type = "button" />
+              <Button  variant="outlined" disabled={false} fullWidth={false} label="Créer un compte" type = "button" />
+            </div>
+
           </form>
         )}
 
@@ -82,12 +85,13 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               value={registerConfirm}
               onChange={(e) => setRegisterConfirm(e.target.value)}
             />
-            <button type="submit" className="modal-submit-btn">
+            {/* <button type="submit" className="modal-submit-btn">
               Créer un compte
             </button>
             <button type="submit" className="modal-submit-btn">
               Connexion
-            </button>
+            </button> */}
+            {/* <Button  variant="filled" disabled={false} fullWidth={false} label="Créer un compte" type = "button" /> */}
           </form>
         )}
       </div>
