@@ -50,8 +50,8 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               onChange={(e) => setLoginPassword(e.target.value)}
             />
             <div className="modal-btn-container">
-              <Button  variant="filled" disabled={false} fullWidth={false} label="Créer un compte" type = "button" onClick={() => setActiveTab("register")} />
-              <Button  variant="outlined" disabled={false} fullWidth={false} label="Connexion" type = "button" />
+              <Button  variant="ghost" disabled={false} fullWidth={false} label="Créer un compte" type = "button" onClick={() => setActiveTab("register")} />
+              <Button  variant="filled" disabled={false} fullWidth={false} label="Connexion" type = "button" />
             </div>
 
           </form>
@@ -86,8 +86,8 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               onChange={(e) => setRegisterConfirm(e.target.value)}
             />
             <div className="modal-btn-container">
-              <Button variant="filled" fullWidth label="J'ai déjà un compte" type="submit" onClick={() => setActiveTab("login")} />
-              <Button variant="outlined" fullWidth label="Connexion" type="button"  />
+              <Button variant="ghost" fullWidth label="J'ai déjà un compte" type="submit" onClick={() => setActiveTab("login")} />
+              <Button variant="filled" fullWidth label="Connexion" type="button"  />
             </div>
           </form>
         )}
