@@ -50,8 +50,8 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               onChange={(e) => setLoginPassword(e.target.value)}
             />
             <div className="modal-btn-container">
-              <Button  variant="filled" disabled={false} fullWidth={false} label="Créer un compte" type = "button" />
-              <Button  variant="outlined" disabled={false} fullWidth={false} label="Créer un compte" type = "button" />
+              <Button  variant="filled" disabled={false} fullWidth={false} label="Créer un compte" type = "button" onClick={() => setActiveTab("register")} />
+              <Button  variant="outlined" disabled={false} fullWidth={false} label="Connexion" type = "button" />
             </div>
 
           </form>
@@ -79,19 +79,16 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
             />
             <Input
               id="register-confirm"
-              label="Confirmer le mot de passe"
+              label="Vérification du mot de passe"
               type="password"
               placeHolder="••••••••"
               value={registerConfirm}
               onChange={(e) => setRegisterConfirm(e.target.value)}
             />
-            {/* <button type="submit" className="modal-submit-btn">
-              Créer un compte
-            </button>
-            <button type="submit" className="modal-submit-btn">
-              Connexion
-            </button> */}
-            {/* <Button  variant="filled" disabled={false} fullWidth={false} label="Créer un compte" type = "button" /> */}
+            <div className="modal-btn-container">
+              <Button variant="filled" fullWidth label="J'ai déjà un compte" type="submit" onClick={() => setActiveTab("login")} />
+              <Button variant="outlined" fullWidth label="Connexion" type="button"  />
+            </div>
           </form>
         )}
       </div>

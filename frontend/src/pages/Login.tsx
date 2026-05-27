@@ -1,14 +1,17 @@
+import { useState } from "react";
 import { Header } from "../components/header";
-import Frame from "../../public/Frame 3.png";
-
+import { AuthModal } from "../components/AuthModal";
 export function Login() {
+  const [modalOpen, setModalOpen] = useState(false);
+
   return (
     <main className="login-page">
-      <Header />
+      <Header onAuthClick={() => setModalOpen(true)} />
       <div className="login-content">
         <p className="title-text">Tu veux partager un fichier ?</p>
-        <img src={Frame} alt="Upload Icon" className="upload-icon" />
+        <img src="/Frame 3.png" alt="Upload Icon" className="supload-icon" />
       </div>
+      <AuthModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </main>
   );
 }
