@@ -9,6 +9,7 @@ interface ButtonProps {
   label: string;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
+  iconActivated?: boolean;
 }
 
 const variants: Record<ButtonVariant, {
@@ -16,15 +17,15 @@ const variants: Record<ButtonVariant, {
   disabled: { bg: string; border: string; iconColor: string; textColor: string };
 }> = {
   filled: {
-    active:   { bg: "#FFF5ED",    border: "transparent", iconColor: "#D97706", textColor: "#D97706" },
-    disabled: { bg: "#B7A79C33", border: "transparent", iconColor: "#AEA49B", textColor: "#AEA49B" },
+    active:   { bg: "#FF812D21",    border: "#CD5E1480", iconColor: "#D97706", textColor: "#BA681F" },
+    disabled: { bg: "#B7A79C33", border: "#B7A79C33", iconColor: "#AEA49B", textColor: "#AEA49B" },
   },
   outlined: {
     active:   { bg: "transparent", border: "#D97706", iconColor: "#D97706", textColor: "#D97706" },
     disabled: { bg: "transparent", border: "#AEA49B", iconColor: "#AEA49B", textColor: "#AEA49B" },
   },
   ghost: {
-    active:   { bg: "transparent", border: "transparent", iconColor: "#D97706", textColor: "#D97706" },
+    active:   { bg: "transparent", border: "transparent", iconColor: "#D97706", textColor: "#E27F29" },
     disabled: { bg: "transparent", border: "transparent", iconColor: "#AEA49B", textColor: "#AEA49B" },
   },
   dark: {
@@ -41,7 +42,7 @@ export const UploadCloud = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-export function Button({ variant = "filled", disabled = false, fullWidth = false, label, onClick, type = "button" }: ButtonProps) {
+export function Button({ variant = "filled", disabled = false, fullWidth = false, label, onClick, type = "button", iconActivated = false }: ButtonProps) {
   const v = variants[variant][disabled ? "disabled" : "active"];
   return (
     <button
@@ -55,7 +56,9 @@ export function Button({ variant = "filled", disabled = false, fullWidth = false
         cursor: disabled ? "not-allowed" : "pointer",
       }}
     >
+      {iconActivated && (
       <UploadCloud aria-hidden="true" style={{ color: v.iconColor, fontSize: "18px", flexShrink: 0 }} />
+      )}
       <span style={{ color: v.textColor }}>{label}</span>
     </button>
   );
