@@ -35,4 +35,14 @@ describe('Button', () => {
     render(<Button label="Upload" />);
     expect(screen.getByRole('button')).toHaveClass('btn--fixed');
   });
+
+  it('renders the icon when iconActivated is true', () => {
+    render(<Button label="Upload" iconActivated />);
+    expect(screen.getByRole('button').querySelector('svg')).toBeInTheDocument();
+  });
+
+  it('does not render the icon by default', () => {
+    render(<Button label="Upload" />);
+    expect(screen.getByRole('button').querySelector('svg')).toBeNull();
+  });
 });
