@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Header } from "../components/header";
-import { AuthModal } from "../components/AuthModal";
+import { AuthModal } from "../components/authModal";
 import { Footer } from "../components/footer";
 
 export function Login() {

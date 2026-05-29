@@ -17,6 +17,6 @@ describe('Navigation', () => {
 
   it('renders MonEspace at "/mon-espace"', () => {
     cy.visit('/mon-espace');
-    cy.get('h1').should('have.text', 'Mon Espace');
+    cy.get('h2').should('have.text', 'Mes fichiers');
   });
 });

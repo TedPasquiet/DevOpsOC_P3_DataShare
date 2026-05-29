@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { AuthModal } from '../AuthModal';
+import { AuthModal } from '../authModal';
 
 describe('AuthModal', () => {
   const onClose = jest.fn();

@@ -45,4 +45,27 @@ describe('Button', () => {
     render(<Button label="Upload" />);
     expect(screen.getByRole('button').querySelector('svg')).toBeNull();
   });
+
+  it('renders with type="submit" when type prop is submit', () => {
+    render(<Button label="Upload" type="submit" />);
+    expect(screen.getByRole('button')).toHaveAttribute('type', 'submit');
+  });
+
+  it('defaults to type="button"', () => {
+    render(<Button label="Upload" />);
+    expect(screen.getByRole('button')).toHaveAttribute('type', 'button');
+  });
+
+  it('renders a custom icon node when icon prop is provided', () => {
+    const customIcon = <span data-testid="custom-icon">★</span>;
+    render(<Button label="Upload" icon={customIcon} />);
+    expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
+  });
+
+  it('does not render UploadCloud when a custom icon is provided alongside iconActivated', () => {
+    const customIcon = <span data-testid="custom-icon">★</span>;
+    render(<Button label="Upload" icon={customIcon} iconActivated />);
+    expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
+    expect(screen.getByRole('button').querySelector('svg')).toBeNull();
+  });
 });
