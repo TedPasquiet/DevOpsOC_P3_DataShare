@@ -56,7 +56,7 @@
 }
 
 .btn--fixed {
-  width: 100%;
+  width: auto;
 }
 
 .btn--full {
@@ -410,6 +410,20 @@ label{
   flex-direction: column;
 }
 
+@media (min-width: 1024px) {
+  .mon-espace {
+    flex-direction: row;
+  }
+}
+
+/* ─── Mon Espace main wrapper (right side on desktop) ── */
+.mon-espace-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
 /* ─── Mobile header ──────────────────────────────────── */
 .mon-espace-header {
   display: flex;
@@ -417,6 +431,48 @@ label{
   justify-content: space-between;
   padding: 12px 20px;
   background-color: #fef4f0;
+}
+
+@media (min-width: 1024px) {
+  .mon-espace-header {
+    display: none;
+  }
+}
+
+/* ─── Desktop header ─────────────────────────────────── */
+.mon-espace-desktop-header {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .mon-espace-desktop-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+    padding: 16px 32px;
+    background-color: #FFEEE3;
+    border-bottom: 1px solid #D8611C4A;
+  }
+}
+
+
+.desktop-logout-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  font-size: 15px;
+  font-weight: 400;
+  color: #E77A6E;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+}
+
+.desktop-logout-btn:hover {
+  text-decoration: underline;
 }
 
 .hamburger-btn {
@@ -476,7 +532,13 @@ label{
 
 @media (min-width: 1024px) {
   .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100svh;
     width: 21.9vw;
+    transform: none;
+    flex-shrink: 0;
+    z-index: auto;
   }
 }
 
@@ -505,6 +567,12 @@ label{
 
 .sidebar-close:hover {
   background: rgba(0, 0, 0, 0.08);
+}
+
+@media (min-width: 1024px) {
+  .sidebar-close {
+    display: none;
+  }
 }
 
 .sidebar-title {
@@ -559,6 +627,12 @@ label{
   gap: 20px;
 }
 
+@media (min-width: 1024px) {
+  .mon-espace-content {
+    padding: 24px 32px;
+  }
+}
+
 .mon-espace-content h2 {
   font-size: 28px;
   font-weight: 700;
@@ -570,24 +644,30 @@ label{
   width: 100%;
 }
 
+@media (min-width: 1024px) {
+  .mon-espace-content .switch-container {
+    width: 220px;
+  }
+}
+
 /* ─── File list ──────────────────────────────────────── */
 .file-list {
   list-style: none;
-  padding: 0;
+  padding: 12px;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .file-card {
   display: flex;
   align-items: center;
   gap: 12px;
-  background: #ffffff;
+  height: 56px;
   border-radius: 12px;
   padding: 14px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+  border: 1px solid #D7630B33;
 }
 
 .file-card-icon {
@@ -604,9 +684,9 @@ label{
 }
 
 .file-card-name {
-  font-size: 14px;
-  font-weight: 500;
-  color: #1e1e1e;
+  font-size: 16px;
+  font-weight: 600;
+  color: #000000;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -652,4 +732,34 @@ label{
 
 .file-card-menu-btn:hover {
   background-color: #fff0ee;
+}
+
+@media (min-width: 1024px) {
+  .file-card-menu-btn {
+    display: none;
+  }
+}
+
+/* ─── Desktop-only file card buttons ─────────────────── */
+.file-card-desktop-actions {
+  display: none;
+  align-items: center;
+  gap: 8px;
+}
+
+.file-card-expired-msg {
+  display: none;
+  font-size: 13px;
+  color: #888;
+  white-space: nowrap;
+}
+
+@media (min-width: 1024px) {
+  .file-card-desktop-actions {
+    display: flex;
+  }
+
+  .file-card-expired-msg {
+    display: block;
+  }
 }

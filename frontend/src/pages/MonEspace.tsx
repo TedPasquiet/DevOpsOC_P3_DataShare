@@ -1,17 +1,18 @@
 import { useState } from "react";
 import { Switch } from "../components/switch";
-import "../components/components.css";
+import { Button } from "../components/button";
 
 type FilterType = "Tous" | "Actifs" | "Expiré";
 
 interface FileItem {
   id: string;
   name: string;
-  daysLeft: number | null; // null = expired
+  daysLeft: number | null;
+  locked?: boolean;
 }
 
 const MOCK_FILES: FileItem[] = [
-  { id: "1", name: "IMG_9210_123123131313...", daysLeft: 2 },
+  { id: "1", name: "IMG_9210_12312313131313213231.jpg", daysLeft: 2, locked: true },
   { id: "2", name: "compo2.mp3", daysLeft: 1 },
   { id: "3", name: "vacances_ardeche.mp4", daysLeft: null },
 ];
@@ -79,6 +80,65 @@ interface MonEspaceProps {
   avatarSrc?: string;
 }
 
+interface SidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+function Sidebar({ isOpen, onClose }: SidebarProps) {
+  return (
+    <>
+      <aside className={`sidebar${isOpen ? " sidebar--open" : ""}`}>
+        <div className="sidebar-header">
+          <button className="sidebar-close" onClick={onClose} aria-label="Fermer le menu">
+            ✕
+          </button>
+          <h1 className="sidebar-title">DataShare</h1>
+        </div>
+        <nav className="sidebar-nav">
+          <span className="sidebar-nav-item sidebar-nav-item--active">Mes fichiers</span>
+        </nav>
+        <p className="sidebar-footer">Copyright DataShare® 2025</p>
+      </aside>
+      {isOpen && <div className="sidebar-overlay" onClick={onClose} />}
+    </>
+  );
+}
+
+function FileCard({ file }: { file: FileItem }) {
+  const expired = file.daysLeft === null;
+  return (
+    <li className="file-card">
+      <FileIcon />
+      <div className="file-card-info">
+        <span className="file-card-name">{file.name}</span>
+        <span className={`file-card-status${expired ? " file-card-status--expired" : ""}`}>
+          {getStatusLabel(file.daysLeft)}
+        </span>
+      </div>
+      <div className="file-card-actions">
+        {file.locked && <LockIcon />}
+        {!expired && (
+          <button className="file-card-menu-btn" aria-label="Options du fichier">
+            ⋮
+          </button>
+        )}
+        {!expired && (
+          <div className="file-card-desktop-actions">
+            <Button variant="ghost" label="Supprimer" />
+            <Button variant="outlined" label="Accéder →" />
+          </div>
+        )}
+        {expired && (
+          <span className="file-card-expired-msg">
+            Ce fichier à expiré, il n'est plus stocké chez nous
+          </span>
+        )}
+      </div>
+    </li>
+  );
+}
+
 export function MonEspace({ userName = "Claire Marie", avatarSrc = MOCK_AVATAR }: MonEspaceProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [filter, setFilter] = useState<FilterType>("Tous");
@@ -91,75 +151,46 @@ export function MonEspace({ userName = "Claire Marie", avatarSrc = MOCK_AVATAR }
 
   return (
     <div className="mon-espace">
-      <header className="mon-espace-header">
-        <button
-          className="hamburger-btn"
-          onClick={() => setSidebarOpen(true)}
-          aria-label="Ouvrir le menu"
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-        <div className="user-info">
-          <img className="avatar" src={avatarSrc} alt={userName} />
-          <span className="user-name">{userName}</span>
-        </div>
-      </header>
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <aside className={`sidebar${sidebarOpen ? " sidebar--open" : ""}`}>
-        <div className="sidebar-header">
+      <div className="mon-espace-main">
+        <header className="mon-espace-header">
           <button
-            className="sidebar-close"
-            onClick={() => setSidebarOpen(false)}
-            aria-label="Fermer le menu"
+            className="hamburger-btn"
+            onClick={() => setSidebarOpen(true)}
+            aria-label="Ouvrir le menu"
           >
-            ✕
+            <span />
+            <span />
+            <span />
           </button>
-          <h1 className="sidebar-title">DataShare</h1>
-        </div>
-        <nav className="sidebar-nav">
-          <span className="sidebar-nav-item sidebar-nav-item--active">Mes fichiers</span>
-        </nav>
-        <p className="sidebar-footer">Copyright DataShare® 2025</p>
-      </aside>
-      {sidebarOpen && (
-        <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)} />
-      )}
+          <div className="user-info">
+            <img className="avatar" src={avatarSrc} alt={userName} />
+            <span className="user-name">{userName}</span>
+          </div>
+        </header>
 
-      <main className="mon-espace-content">
-        <h2>Mes fichiers</h2>
-        <Switch
-          options={["Tous", "Actifs", "Expiré"]}
-          onChange={(val) => setFilter(val as FilterType)}
-        />
-        <ul className="file-list">
-          {filtered.map((file) => {
-            const expired = file.daysLeft === null;
-            return (
-              <li key={file.id} className="file-card">
-                <FileIcon />
-                <div className="file-card-info">
-                  <span className="file-card-name">{file.name}</span>
-                  <span
-                    className={`file-card-status${expired ? " file-card-status--expired" : ""}`}
-                  >
-                    {getStatusLabel(file.daysLeft)}
-                  </span>
-                </div>
-                <div className="file-card-actions">
-                  <LockIcon />
-                  {!expired && (
-                    <button className="file-card-menu-btn" aria-label="Options du fichier">
-                      ⋮
-                    </button>
-                  )}
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </main>
+        <header className="mon-espace-desktop-header">
+          <Button variant="dark" label="Ajouter des fichiers" />
+          <button className="desktop-logout-btn" aria-label="Déconnexion">
+            <img src="/RightArrow.png" alt="" width="16" height="16" />
+            Déconnexion
+          </button>
+        </header>
+
+        <main className="mon-espace-content">
+          <h2>Mes fichiers</h2>
+          <Switch
+            options={["Tous", "Actifs", "Expiré"]}
+            onChange={(val) => setFilter(val as FilterType)}
+          />
+          <ul className="file-list">
+            {filtered.map((file) => (
+              <FileCard key={file.id} file={file} />
+            ))}
+          </ul>
+        </main>
+      </div>
     </div>
   );
 }

@@ -10,6 +10,7 @@ interface ButtonProps {
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
   iconActivated?: boolean;
+  icon?: React.ReactNode;
 }
 
 const variants: Record<ButtonVariant, {
@@ -42,7 +43,7 @@ export const UploadCloud = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-export function Button({ variant = "filled", disabled = false, fullWidth = false, label, onClick, type = "button", iconActivated = false }: ButtonProps) {
+export function Button({ variant = "filled", disabled = false, fullWidth = false, label, onClick, type = "button", iconActivated = false, icon }: ButtonProps) {
   const v = variants[variant][disabled ? "disabled" : "active"];
   return (
     <button
@@ -56,8 +57,9 @@ export function Button({ variant = "filled", disabled = false, fullWidth = false
         cursor: disabled ? "not-allowed" : "pointer",
       }}
     >
-      {iconActivated && (
-      <UploadCloud aria-hidden="true" style={{ color: v.iconColor, fontSize: "18px", flexShrink: 0 }} />
+      {icon && <span aria-hidden="true" style={{ color: v.iconColor, display: "flex", alignItems: "center", flexShrink: 0 }}>{icon}</span>}
+      {!icon && iconActivated && (
+        <UploadCloud aria-hidden="true" style={{ color: v.iconColor, fontSize: "18px", flexShrink: 0 }} />
       )}
       <span style={{ color: v.textColor }}>{label}</span>
     </button>
