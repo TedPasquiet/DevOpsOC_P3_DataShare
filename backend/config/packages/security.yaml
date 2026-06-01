@@ -34,6 +34,8 @@ security:
   access_control:
     - { path: ^/auth/register$, roles: PUBLIC_ACCESS }
     - { path: ^/auth/login$,    roles: PUBLIC_ACCESS }
+    # Public file info endpoint (metadata without streaming, no password check)
+    - { path: ^/files/[0-9a-f]{32,64}/info$, roles: PUBLIC_ACCESS, methods: [GET] }
     # Public file download by token (32-char hex)
     - { path: ^/files/[0-9a-f]{32}$, roles: PUBLIC_ACCESS, methods: [GET] }
     # Anonymous file upload allowed
