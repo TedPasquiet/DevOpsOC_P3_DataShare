@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { Header } from "../components/header";
 import { Input } from "../components/input";
 import { Select } from "../components/select";
@@ -40,7 +40,17 @@ export function Televersement() {
   const [file, setFile] = useState<File | null>(null);
   const [password, setPassword] = useState("");
   const [link, setLink] = useState("");
+  const [copied, setCopied] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleCopy = useCallback(() => {
+    navigator.clipboard.writeText(link).then(() => {
+      setCopied(true);
+      if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
+      copyTimeoutRef.current = setTimeout(() => setCopied(false), 2000);
+    });
+  }, [link]);
 
   const oversized = file !== null && file.size > MAX_SIZE;
 
@@ -75,7 +85,7 @@ export function Televersement() {
       <main id="main-content" className={`televersement-bg${pageState !== "idle" ? " televersement-bg--has-card" : ""}`}>
         {pageState === "idle" && (
           <div className="televersement-idle">
-            <p className="title-text">Tu veux partager un fichier ?</p>
+            <h1 className="title-text">Tu veux partager un fichier ?</h1>
             <button
               className="televersement-upload-btn"
               onClick={() => fileInputRef.current?.click()}
@@ -127,6 +137,13 @@ export function Televersement() {
                 >
                   {link}
                 </a>
+                <p
+                  aria-live="polite"
+                  aria-atomic="true"
+                  className="sr-only"
+                >
+                  {copied ? "Lien copié dans le presse-papier." : ""}
+                </p>
               </>
             )}
 
@@ -135,9 +152,11 @@ export function Televersement() {
                 <Input
                   id="tv-password"
                   label="Mot de passe"
+                  type="password"
                   placeHolder="Optionnel"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="off"
                 />
                 <Select
                   text="Expiration"
@@ -163,9 +182,9 @@ export function Televersement() {
                   <div className="televersement-copy-desktop">
                     <Button
                       variant="outlined"
-                      label="Copier le lien"
+                      label={copied ? "Copié !" : "Copier le lien"}
                       icon={<CopyIcon />}
-                      onClick={() => navigator.clipboard.writeText(link)}
+                      onClick={handleCopy}
                       fullWidth
                     />
                   </div>

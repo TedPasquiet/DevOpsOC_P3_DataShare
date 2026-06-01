@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Switch } from "../components/switch";
 import { Button } from "../components/button";
 
@@ -56,15 +56,61 @@ interface MonEspaceProps {
   avatarSrc?: string;
 }
 
+const SIDEBAR_FOCUSABLE = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
 function Sidebar({ isOpen, onClose }: SidebarProps) {
+  const sidebarRef = useRef<HTMLElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      previousFocusRef.current = document.activeElement as HTMLElement;
+      const first = sidebarRef.current?.querySelectorAll<HTMLElement>(SIDEBAR_FOCUSABLE)[0];
+      first?.focus();
+    } else {
+      previousFocusRef.current?.focus();
+      previousFocusRef.current = null;
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") { onClose(); return; }
+      if (e.key !== "Tab") return;
+
+      const focusable = Array.from(
+        sidebarRef.current?.querySelectorAll<HTMLElement>(SIDEBAR_FOCUSABLE) ?? []
+      );
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+
   return (
     <>
-      <aside className={`sidebar${isOpen ? " sidebar--open" : ""}`}>
+      <aside
+        ref={sidebarRef}
+        className={`sidebar${isOpen ? " sidebar--open" : ""}`}
+        aria-hidden={!isOpen}
+      >
         <div className="sidebar-header">
           <button className="sidebar-close" onClick={onClose} aria-label="Fermer le menu">
             ✕
@@ -130,7 +176,7 @@ export function MonEspace({ userName = "Claire Marie", avatarSrc = MOCK_AVATAR }
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="mon-espace-main">
-        <header className="mon-espace-header">
+        <div className="mon-espace-header">
           <button
             className="hamburger-btn"
             onClick={() => setSidebarOpen(true)}
@@ -144,15 +190,15 @@ export function MonEspace({ userName = "Claire Marie", avatarSrc = MOCK_AVATAR }
             <img className="avatar" src={avatarSrc} alt={`Avatar de ${userName}`} />
             <span className="user-name">{userName}</span>
           </div>
-        </header>
+        </div>
 
-        <header className="mon-espace-desktop-header">
+        <div className="mon-espace-desktop-header">
           <Button variant="dark" label="Ajouter des fichiers" />
-          <button className="desktop-logout-btn" aria-label="Déconnexion">
-            <img src="/RightArrow.png" alt="Bouton de deconnexion" width="16" height="16" />
+          <button className="desktop-logout-btn">
+            <img src="/RightArrow.png" alt="" width="16" height="16" />
             Déconnexion
           </button>
-        </header>
+        </div>
 
         <main id="main-content" className="mon-espace-content">
           <h1>Mes fichiers</h1>
