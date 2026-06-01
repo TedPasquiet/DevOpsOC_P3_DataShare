@@ -76,6 +76,7 @@ export function Telechargement() {
               placeHolder="Saisissez le mot de passe..."
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              autoComplete="current-password"
             />
           )}
 

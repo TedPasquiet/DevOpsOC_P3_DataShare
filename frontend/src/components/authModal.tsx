@@ -21,6 +21,16 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const [registerConfirm, setRegisterConfirm] = useState("");
 
   const dialogRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      previousFocusRef.current = document.activeElement as HTMLElement;
+    } else {
+      previousFocusRef.current?.focus();
+      previousFocusRef.current = null;
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -95,6 +105,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               placeHolder="exemple@email.com"
               value={loginEmail}
               onChange={(e) => setLoginEmail(e.target.value)}
+              autoComplete="email"
             />
             <Input
               id="login-password"
@@ -103,6 +114,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               placeHolder="••••••••"
               value={loginPassword}
               onChange={(e) => setLoginPassword(e.target.value)}
+              autoComplete="current-password"
             />
             <div className="modal-btn-container">
               <Button variant="ghost" disabled={false} fullWidth={false} label="Créer un compte" type="button" onClick={() => setActiveTab("register")} />
@@ -121,6 +133,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               placeHolder="exemple@email.com"
               value={registerEmail}
               onChange={(e) => setRegisterEmail(e.target.value)}
+              autoComplete="email"
             />
             <Input
               id="register-password"
@@ -129,6 +142,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               placeHolder="••••••••"
               value={registerPassword}
               onChange={(e) => setRegisterPassword(e.target.value)}
+              autoComplete="new-password"
             />
             <Input
               id="register-confirm"
@@ -137,6 +151,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               placeHolder="••••••••"
               value={registerConfirm}
               onChange={(e) => setRegisterConfirm(e.target.value)}
+              autoComplete="new-password"
             />
             <div className="modal-btn-container">
               <Button variant="ghost" fullWidth label="J'ai déjà un compte" type="button" onClick={() => setActiveTab("login")} />
