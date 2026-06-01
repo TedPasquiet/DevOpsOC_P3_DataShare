@@ -9,25 +9,25 @@ interface CalloutProps {
 
 const variants: Record<CalloutVariant, { bg: string; border: string; icon: string; iconAlt: string; textColor: string }> = {
   info: {
-    bg: "#E2ECFF",
-    border: "#B1C9F5",
+    bg: "var(--ds-info-bg)",
+    border: "var(--ds-info-border)",
     icon: "/infoIcon.png",
     iconAlt: "blue circle with exclamation mark",
-    textColor: "#2A3F72",
+    textColor: "var(--ds-info-text)",
   },
   warning: {
-    bg: "#FFF5ED",
-    border: "#E6CBB5",
+    bg: "var(--ds-warn-bg)",
+    border: "var(--ds-warn-border)",
     icon: "/warningIcon.png",
     iconAlt: "yellow triangle with exclamation mark",
-    textColor: "#AA642B",
+    textColor: "var(--ds-warn-text)",
   },
   error: {
-    bg: "#FFE2E2",
-    border: "#E8A6A6",
+    bg: "var(--ds-cerr-bg)",
+    border: "var(--ds-cerr-border)",
     icon: "/errorIcon.png",
     iconAlt: "red hexagon with exclamation mark",
-    textColor: "#9C3333",
+    textColor: "var(--ds-cerr-text)",
   },
 };
 

@@ -3,6 +3,7 @@ import { Login } from "./pages/Login";
 import { Telechargement } from "./pages/Telechargement";
 import { Televersement } from "./pages/Televersement";
 import { MonEspace } from "./pages/MonEspace";
+import { HighContrastToggle } from "./components/HighContrastToggle";
 import "./App.css";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         {/* Fallback : page inconnue → login */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
+      <HighContrastToggle />
     </BrowserRouter>
   );
 }

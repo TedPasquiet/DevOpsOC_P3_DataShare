@@ -5,14 +5,14 @@ type SwitchVariant = "active" | "disabled";
 
 const variants: Record<SwitchVariant, { bg: string; borderColor: string; textColor: string }> = {
   active: {
-    bg: "#E77A6E",
-    textColor: "#FFFFFF",
-    borderColor: "#D7630B33",
+    bg: "var(--ds-switch-on)",
+    textColor: "var(--ds-text-on-dark)",
+    borderColor: "var(--ds-border-card)",
   },
   disabled: {
-    bg: "#FFC19129",
-    textColor: "#000000",
-    borderColor: "#F2D2B9",
+    bg: "var(--ds-switch-off-bg)",
+    textColor: "var(--ds-text-strong)",
+    borderColor: "var(--ds-switch-off-border)",
   },
 };
 

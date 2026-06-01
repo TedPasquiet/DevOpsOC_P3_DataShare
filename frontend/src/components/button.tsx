@@ -18,20 +18,20 @@ const variants: Record<ButtonVariant, {
   disabled: { bg: string; border: string; iconColor: string; textColor: string };
 }> = {
   filled: {
-    active:   { bg: "#FF812D21",    border: "#CD5E1480", iconColor: "#D97706", textColor: "#BA681F" },
-    disabled: { bg: "#B7A79C33", border: "#B7A79C33", iconColor: "#AEA49B", textColor: "#AEA49B" },
+    active:   { bg: "var(--ds-btn-filled-bg)",    border: "var(--ds-btn-filled-border)", iconColor: "var(--ds-orange)", textColor: "var(--ds-btn-filled-text)" },
+    disabled: { bg: "var(--ds-btn-disabled-bg)", border: "var(--ds-btn-disabled-bg)", iconColor: "var(--ds-btn-disabled)", textColor: "var(--ds-btn-disabled)" },
   },
   outlined: {
-    active:   { bg: "transparent", border: "#D97706", iconColor: "#D97706", textColor: "#D97706" },
-    disabled: { bg: "transparent", border: "#AEA49B", iconColor: "#AEA49B", textColor: "#AEA49B" },
+    active:   { bg: "transparent", border: "var(--ds-orange)", iconColor: "var(--ds-orange)", textColor: "var(--ds-orange)" },
+    disabled: { bg: "transparent", border: "var(--ds-btn-disabled)", iconColor: "var(--ds-btn-disabled)", textColor: "var(--ds-btn-disabled)" },
   },
   ghost: {
-    active:   { bg: "transparent", border: "transparent", iconColor: "#D97706", textColor: "#E27F29" },
-    disabled: { bg: "transparent", border: "transparent", iconColor: "#AEA49B", textColor: "#AEA49B" },
+    active:   { bg: "transparent", border: "transparent", iconColor: "var(--ds-orange)", textColor: "var(--ds-orange-ghost)" },
+    disabled: { bg: "transparent", border: "transparent", iconColor: "var(--ds-btn-disabled)", textColor: "var(--ds-btn-disabled)" },
   },
   dark: {
-    active:   { bg: "#1C1917", border: "transparent", iconColor: "#FFFFFF", textColor: "#FFFFFF" },
-    disabled: { bg: "#B7A79C33", border: "transparent", iconColor: "#AEA49B", textColor: "#AEA49B" },
+    active:   { bg: "var(--ds-dark-deep)", border: "transparent", iconColor: "var(--ds-text-on-dark)", textColor: "var(--ds-text-on-dark)" },
+    disabled: { bg: "var(--ds-btn-disabled-bg)", border: "transparent", iconColor: "var(--ds-btn-disabled)", textColor: "var(--ds-btn-disabled)" },
   },
 };
 
