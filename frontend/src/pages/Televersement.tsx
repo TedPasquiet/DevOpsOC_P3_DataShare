@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { Header } from "../components/header";
 import { Input } from "../components/input";
 import { Select } from "../components/select";
-import { Button, UploadCloud } from "../components/button";
+import { Button } from "../components/button";
 import { Footer } from "../components/footer";
 import "../components/components.css";
 
@@ -18,21 +18,20 @@ function formatSize(bytes: number): string {
 
 function FileDocIcon() {
   return (
-    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
-      <rect width="36" height="36" rx="6" fill="#F5F5F5" />
-      <path d="M10 8h10l6 6v14a2 2 0 01-2 2H10a2 2 0 01-2-2V10a2 2 0 012-2z" stroke="#6B6375" strokeWidth="1.5" fill="none" />
-      <path d="M20 8v6h6" stroke="#6B6375" strokeWidth="1.5" fill="none" />
-      <path d="M13 22l3-4 2.5 3 2-2.5 2.5 3.5H13z" stroke="#6B6375" strokeWidth="1" fill="none" />
-    </svg>
+    <img
+      src="/fileIcon.png"
+      alt="Fichier"
+      aria-hidden="true"
+      width="36"
+      height="36"
+      style={{ flexShrink: 0 }}
+    />
   );
 }
 
 function CopyIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
-      <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" strokeWidth="2" />
-      <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" strokeWidth="2" />
-    </svg>
+    <img src="/Copy.png" alt="Copier le lien" aria-hidden="true" width="16" height="16" style={{ flexShrink: 0 }} />
   );
 }
 
@@ -68,11 +67,12 @@ export function Televersement() {
       <input
         ref={fileInputRef}
         type="file"
-        style={{ display: "none" }}
+        className="sr-only"
+        aria-label="Sélectionner un fichier à téléverser"
         onChange={handleFileChange}
       />
 
-      <div className={`televersement-bg${pageState !== "idle" ? " televersement-bg--has-card" : ""}`}>
+      <main id="main-content" className={`televersement-bg${pageState !== "idle" ? " televersement-bg--has-card" : ""}`}>
         {pageState === "idle" && (
           <div className="televersement-idle">
             <p className="title-text">Tu veux partager un fichier ?</p>
@@ -81,14 +81,14 @@ export function Televersement() {
               onClick={() => fileInputRef.current?.click()}
               aria-label="Ajouter un fichier"
             >
-              <UploadCloud style={{ fontSize: "36px", color: "white" }} />
+              <img src="/uploadIcon.png" alt="Ajouter un fichier" aria-hidden="true" width="36" height="36" />
             </button>
           </div>
         )}
 
         {pageState !== "idle" && (
           <div className="televersement-card">
-            <h2 className="televersement-card-title">Ajouter un fichier</h2>
+            <h1 className="televersement-card-title">Ajouter un fichier</h1>
 
             <div className="televersement-file-row">
               <FileDocIcon />
@@ -108,7 +108,7 @@ export function Televersement() {
             </div>
 
             {pageState === "form" && oversized && (
-              <p className="televersement-file-error">
+              <p className="televersement-file-error" role="alert" aria-live="assertive">
                 La taille des fichiers est limitée à 1 Go
               </p>
             )}
@@ -123,6 +123,7 @@ export function Televersement() {
                   href={link}
                   target="_blank"
                   rel="noreferrer"
+                  aria-label={`${link} – ouvre dans une nouvelle fenêtre`}
                 >
                   {link}
                 </a>
@@ -182,7 +183,7 @@ export function Televersement() {
             </div>
           </div>
         )}
-      </div>
+      </main>
 
       <Footer />
     </div>

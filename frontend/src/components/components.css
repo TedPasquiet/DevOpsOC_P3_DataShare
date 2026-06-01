@@ -31,6 +31,11 @@
   cursor: pointer;
 }
 
+.header-btn:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 2px;
+}
+
 @media (max-width: 1024px) {
   .header-btn {
     font-size: 14px;
@@ -62,6 +67,11 @@
 .btn--full {
   width: 100%;
   box-sizing: border-box;
+}
+
+.btn:focus-visible {
+  outline: 3px solid #d97706;
+  outline-offset: 2px;
 }
 
 @media (max-width: 1024px) {
@@ -155,18 +165,21 @@ label{
 }
 .input-field{
   background-color: #FFFFFF;
-  /* border-top: 1px solid var(--Border-Default-Default, #D9D9D9); */
   height: 40px;
   width: 100%;
   box-sizing: border-box;
   border-radius: 5px;
-  /* border-width: Stroke/Border; */
   opacity: 1;
   padding: 12px 16px;
-  /* angle: 0 deg; */
   border-color: #D9D9D9;
   border-width: 1px;
   color: #000000;
+}
+
+.input-field:focus-visible {
+  outline: 3px solid #d97706;
+  outline-offset: 0;
+  border-color: #d97706;
 }
 .input-container{
   height: 72px;
@@ -204,6 +217,12 @@ label{
   background-position: right 16px center;
   cursor: pointer;
 }
+
+.select-field:focus-visible {
+  outline: 3px solid #d97706;
+  outline-offset: 0;
+  border-color: #d97706;
+}
 .switch-container{
   display: flex;
   align-items: center;
@@ -227,6 +246,16 @@ label{
   cursor: pointer;
   transition: background-color 0.2s, color 0.2s;
   user-select: none;
+  border: none;
+  font-family: inherit;
+}
+
+.activated:focus-visible,
+.disactivated:focus-visible {
+  outline: 3px solid #d97706;
+  outline-offset: -2px;
+  z-index: 1;
+  position: relative;
 }
 
 .disactivated {
@@ -313,6 +342,11 @@ label{
 .modal-close:hover {
   background: #f3f4f6;
   color: #1e1e1e;
+}
+
+.modal-close:focus-visible {
+  outline: 3px solid #d97706;
+  outline-offset: 2px;
 }
 
 .modal-tabs {
@@ -475,6 +509,16 @@ label{
   text-decoration: underline;
 }
 
+.desktop-logout-btn:focus-visible,
+.hamburger-btn:focus-visible,
+.sidebar-close:focus-visible,
+.sidebar-nav-btn:focus-visible,
+.file-card-menu-btn:focus-visible,
+.televersement-upload-btn:focus-visible {
+  outline: 3px solid #d97706;
+  outline-offset: 2px;
+}
+
 .hamburger-btn {
   background: none;
   border: none;
@@ -597,6 +641,14 @@ label{
   cursor: pointer;
 }
 
+.sidebar-nav-btn {
+  background: none;
+  border: none;
+  font-family: inherit;
+  text-align: left;
+  width: 100%;
+}
+
 .sidebar-nav-item--active {
   background: rgba(255, 255, 255, 0.75);
 }
@@ -633,6 +685,7 @@ label{
   }
 }
 
+.mon-espace-content h1,
 .mon-espace-content h2 {
   font-size: 28px;
   font-weight: 700;

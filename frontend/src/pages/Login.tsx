@@ -10,8 +10,8 @@ export function Login() {
     <main className="login-page">
       <Header onAuthClick={() => setModalOpen(true)} />
       <div className="login-content">
-        <p className="title-text">Tu veux partager un fichier ?</p>
-        <img src="/Frame 3.png" alt="Upload Icon" className="supload-icon" />
+        <h2 className="title-text">Tu veux partager un fichier ?</h2>
+        <img src="/Frame 3.png" alt="Illustration de l'interface de partage de fichier" className="supload-icon" />
       </div>
       <Footer />
       <AuthModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />

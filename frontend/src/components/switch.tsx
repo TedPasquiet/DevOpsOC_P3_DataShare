@@ -21,7 +21,6 @@ interface SwitchProps {
   onChange?: (selected: string) => void;
 }
 
-// Allow more flexibility, with more than 3 options the style will be intact
 function getBorderRadius(index: number, total: number): string {
   if (total === 1) return "15px";
   if (index === 0)         return "15px 0 0 15px";
@@ -31,13 +30,19 @@ function getBorderRadius(index: number, total: number): string {
 
 export function Switch({ options, onChange }: SwitchProps) {
   const [activeIndex, setActiveIndex] = useState<number>(0);
+
+  function handleSelect(index: number, element: string) {
+    setActiveIndex(index);
+    onChange?.(element);
+  }
+
   return (
-    <div className="switch-container">
+    <div className="switch-container" role="group" aria-label="Filtrer les fichiers">
       {options?.map((element, index) => {
         const isActive = index === activeIndex;
         const v = variants[isActive ? "active" : "disabled"];
         return (
-          <span
+          <button
             key={element}
             className={isActive ? "activated" : "disactivated"}
             style={{
@@ -46,13 +51,23 @@ export function Switch({ options, onChange }: SwitchProps) {
               backgroundColor: v.bg,
               color: v.textColor,
             }}
-            onClick={() => {
-              setActiveIndex(index);
-              onChange?.(element);
+            aria-pressed={isActive}
+            tabIndex={isActive ? 0 : -1}
+            onClick={() => handleSelect(index, element)}
+            onKeyDown={(e) => {
+              if (e.key === "ArrowRight") {
+                e.preventDefault();
+                const next = (index + 1) % options.length;
+                handleSelect(next, options[next]);
+              } else if (e.key === "ArrowLeft") {
+                e.preventDefault();
+                const prev = (index - 1 + options.length) % options.length;
+                handleSelect(prev, options[prev]);
+              }
             }}
           >
             {element}
-          </span>
+          </button>
         );
       })}
     </div>

@@ -25,50 +25,26 @@ function getStatusLabel(daysLeft: number | null): string {
 
 function FileIcon() {
   return (
-    <svg
+    <img
+      src="/fileIcon.png"
+      alt="Fichier"
+      aria-hidden="true"
       className="file-card-icon"
       width="36"
       height="36"
-      viewBox="0 0 36 36"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect width="36" height="36" rx="6" fill="#F5F5F5" />
-      <path
-        d="M10 8h10l6 6v14a2 2 0 01-2 2H10a2 2 0 01-2-2V10a2 2 0 012-2z"
-        stroke="#6B6375"
-        strokeWidth="1.5"
-        fill="none"
-      />
-      <path d="M20 8v6h6" stroke="#6B6375" strokeWidth="1.5" fill="none" />
-      <path
-        d="M13 22l3-4 2.5 3 2-2.5 2.5 3.5H13z"
-        stroke="#6B6375"
-        strokeWidth="1"
-        fill="none"
-      />
-    </svg>
+    />
   );
 }
 
 function LockIcon() {
   return (
-    <svg
+    <img
+      src="/Lock.png"
+      alt="Fichier protégé par mot de passe"
       className="file-card-lock"
       width="18"
       height="18"
-      viewBox="0 0 18 18"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect x="3" y="8" width="12" height="8" rx="2" stroke="#1E1E1E" strokeWidth="1.5" />
-      <path
-        d="M6 8V6a3 3 0 016 0v2"
-        stroke="#1E1E1E"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-    </svg>
+    />
   );
 }
 
@@ -93,14 +69,14 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
           <button className="sidebar-close" onClick={onClose} aria-label="Fermer le menu">
             ✕
           </button>
-          <h1 className="sidebar-title">DataShare</h1>
+          <span className="sidebar-title" aria-hidden="true">DataShare</span>
         </div>
-        <nav className="sidebar-nav">
-          <span className="sidebar-nav-item sidebar-nav-item--active">Mes fichiers</span>
+        <nav className="sidebar-nav" aria-label="Menu principal">
+          <button className="sidebar-nav-item sidebar-nav-btn sidebar-nav-item--active" aria-current="page">Mes fichiers</button>
         </nav>
         <p className="sidebar-footer">Copyright DataShare® 2025</p>
       </aside>
-      {isOpen && <div className="sidebar-overlay" onClick={onClose} />}
+      {isOpen && <div className="sidebar-overlay" aria-hidden="true" onClick={onClose} />}
     </>
   );
 }
@@ -119,7 +95,7 @@ function FileCard({ file }: { file: FileItem }) {
       <div className="file-card-actions">
         {file.locked && <LockIcon />}
         {!expired && (
-          <button className="file-card-menu-btn" aria-label="Options du fichier">
+          <button className="file-card-menu-btn" aria-label={`Options pour ${file.name}`}>
             ⋮
           </button>
         )}
@@ -165,7 +141,7 @@ export function MonEspace({ userName = "Claire Marie", avatarSrc = MOCK_AVATAR }
             <span />
           </button>
           <div className="user-info">
-            <img className="avatar" src={avatarSrc} alt={userName} />
+            <img className="avatar" src={avatarSrc} alt={`Avatar de ${userName}`} />
             <span className="user-name">{userName}</span>
           </div>
         </header>
@@ -173,13 +149,13 @@ export function MonEspace({ userName = "Claire Marie", avatarSrc = MOCK_AVATAR }
         <header className="mon-espace-desktop-header">
           <Button variant="dark" label="Ajouter des fichiers" />
           <button className="desktop-logout-btn" aria-label="Déconnexion">
-            <img src="/RightArrow.png" alt="" width="16" height="16" />
+            <img src="/RightArrow.png" alt="Bouton de deconnexion" width="16" height="16" />
             Déconnexion
           </button>
         </header>
 
-        <main className="mon-espace-content">
-          <h2>Mes fichiers</h2>
+        <main id="main-content" className="mon-espace-content">
+          <h1>Mes fichiers</h1>
           <Switch
             options={["Tous", "Actifs", "Expiré"]}
             onChange={(val) => setFilter(val as FilterType)}

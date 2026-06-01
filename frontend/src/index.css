@@ -50,6 +50,51 @@
   }
 }
 
+/* ─── Lien d'évitement ───────────────────────────────── */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  background: #1c1917;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  z-index: 9999;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  width: auto;
+  height: auto;
+  overflow: visible;
+}
+
+/* ─── Utilitaire lecteur d'écran ─────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ─── Focus visible global ───────────────────────────── */
+:focus-visible {
+  outline: 3px solid #d97706;
+  outline-offset: 2px;
+}
+
 #root {
   width: 100%;
   min-height: 100svh;
