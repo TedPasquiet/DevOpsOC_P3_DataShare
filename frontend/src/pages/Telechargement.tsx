@@ -54,7 +54,7 @@ export function Telechargement() {
       <Header />
       <main id="main-content" className="telechargement-bg">
         <div className="telechargement-card">
-          <h1 className="telechargement-card-title">Télécharger un fichier</h1>
+          <h2 className="telechargement-card-title">Télécharger un fichier</h2>
 
           {!isExpired && (
             <div className="telechargement-file-row">

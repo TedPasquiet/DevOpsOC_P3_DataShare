@@ -85,7 +85,7 @@ export function Televersement() {
       <main id="main-content" className={`televersement-bg${pageState !== "idle" ? " televersement-bg--has-card" : ""}`}>
         {pageState === "idle" && (
           <div className="televersement-idle">
-            <h1 className="title-text">Tu veux partager un fichier ?</h1>
+            <p className="title-text">Tu veux partager un fichier ?</p>
             <button
               className="televersement-upload-btn"
               onClick={() => fileInputRef.current?.click()}
@@ -98,7 +98,7 @@ export function Televersement() {
 
         {pageState !== "idle" && (
           <div className="televersement-card">
-            <h1 className="televersement-card-title">Ajouter un fichier</h1>
+            <h2 className="televersement-card-title">Ajouter un fichier</h2>
 
             <div className="televersement-file-row">
               <FileDocIcon />
