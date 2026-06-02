@@ -14,7 +14,7 @@ auth:bearer {
   token: {{token}}
 }
 
-script:after-response {
+script:post-response {
   if (res.status === 204) {
     bru.setEnvVar("token", "");
     console.log("Account deleted — token cleared.");

@@ -21,7 +21,7 @@ body:json {
   }
 }
 
-script:after-response {
+script:post-response {
   if (res.status === 200 && res.body.token) {
     bru.setEnvVar("token", res.body.token);
     console.log("JWT token saved to env variable 'token'");

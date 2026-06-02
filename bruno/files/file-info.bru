@@ -1,0 +1,18 @@
+meta {
+  name: Get File Info
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/files/{{fileToken}}/info
+  body: none
+  auth: none
+}
+
+docs {
+  Returns metadata for a file by its unique token. No authentication required.
+  - `fileToken` is set automatically after Upload or List My Files.
+  - Returns file name, size, expiry, tags, and whether it is password-protected.
+  - Returns 404 if the token is invalid.
+}
