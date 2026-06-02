@@ -24,6 +24,12 @@ class AuthController extends AbstractController
         private readonly ValidatorInterface $validator,
     ) {}
 
+    #[Route('/auth/login', methods: ['POST'])]
+    public function login(): never
+    {
+        throw new \LogicException('This method is intercepted by the json_login firewall.');
+    }
+
     #[Route('/auth/register', methods: ['POST'])]
     public function register(Request $request, UserRepository $userRepository): JsonResponse
     {
