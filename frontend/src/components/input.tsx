@@ -7,9 +7,10 @@ interface InputProps {
   type?: "text" | "password" | "email";
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  autoComplete?: string;
 }
 
-export function Input({ id, label, placeHolder, type = "text", value, onChange }: InputProps) {
+export function Input({ id, label, placeHolder, type = "text", value, onChange, autoComplete }: InputProps) {
   return (
     <div className="input-container input-flex">
       <label className="input-label" htmlFor={id}>{label}</label>
@@ -20,6 +21,7 @@ export function Input({ id, label, placeHolder, type = "text", value, onChange }
         value={value}
         onChange={onChange}
         placeholder={placeHolder}
+        autoComplete={autoComplete}
       />
     </div>
   );

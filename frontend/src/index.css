@@ -15,6 +15,63 @@
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
+  /* ─── DataShare design tokens ─── */
+  --ds-orange:              #d97706;
+  --ds-orange-dark:         #b45309;
+  --ds-orange-ghost:        #e27f29;
+  --ds-grad-start:          #ffb88c;
+  --ds-grad-end:            #de6262;
+
+  --ds-text:                #1e1e1e;
+  --ds-text-strong:         #000000;
+  --ds-text-muted:          #6b6375;
+  --ds-text-subtle:         #6b7280;
+  --ds-text-on-dark:        #ffffff;
+
+  --ds-surface:             #ffffff;
+  --ds-surface-warm:        #fef4f0;
+  --ds-surface-warm-light:  #ffeee3;
+  --ds-surface-hover:       #f3f4f6;
+  --ds-surface-warm-hover:  #fff0ee;
+
+  --ds-dark:                #2c2c2c;
+  --ds-dark-deep:           #1c1917;
+  --ds-dark-deeper:         #1a1a1a;
+
+  --ds-border:              #d9d9d9;
+  --ds-border-subtle:       #e5e7eb;
+  --ds-border-warm:         rgba(216, 97, 28, 0.29);
+  --ds-border-card:         rgba(215, 99, 11, 0.20);
+
+  --ds-btn-filled-bg:       rgba(255, 129, 45, 0.13);
+  --ds-btn-filled-border:   rgba(205, 94, 20, 0.50);
+  --ds-btn-filled-text:     #ba681f;
+  --ds-btn-disabled-bg:     rgba(183, 167, 156, 0.20);
+  --ds-btn-disabled:        #aea49b;
+
+  --ds-switch-on:           #e77a6e;
+  --ds-switch-off-bg:       rgba(255, 193, 145, 0.16);
+  --ds-switch-off-border:   #f2d2b9;
+
+  --ds-sidebar-nav:         #803a00;
+  --ds-sidebar-nav-active:  rgba(255, 255, 255, 0.75);
+
+  --ds-neutral:             #d9d9d9;
+  --ds-expired-msg:         #888888;
+
+  --ds-error:               #b91c1c;
+  --ds-error-form:          #dc2626;
+
+  --ds-info-bg:             #e2ecff;
+  --ds-info-border:         #b1c9f5;
+  --ds-info-text:           #2a3f72;
+  --ds-warn-bg:             #fff5ed;
+  --ds-warn-border:         #e6cbb5;
+  --ds-warn-text:           #7c4a1e;
+  --ds-cerr-bg:             #ffe2e2;
+  --ds-cerr-border:         #e8a6a6;
+  --ds-cerr-text:           #9c3333;
+
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
   color-scheme: light dark;
@@ -48,6 +105,98 @@
   #social .button-icon {
     filter: invert(1) brightness(2);
   }
+}
+
+/* ─── High contrast overrides ──────────────────────────── */
+/* Seuls les tokens de texte, bordures et accents sont modifiés.
+   Aucun token de couleur de fond n'est touché : tous les backgrounds
+   restent à leur valeur d'origine. */
+[data-high-contrast] {
+  /* Accents orange → noir pur */
+  --ds-orange:              #000000;
+  --ds-orange-dark:         #000000;
+  --ds-orange-ghost:        #000000;
+
+  /* Textes → noir pur */
+  --ds-text:                #000000;
+  --ds-text-strong:         #000000;
+  --ds-text-muted:          #000000;
+  --ds-text-subtle:         #000000;
+
+  /* Bordures → noir pur */
+  --ds-border:              #000000;
+  --ds-border-subtle:       #000000;
+  --ds-border-warm:         #000000;
+  --ds-border-card:         #000000;
+
+  /* Boutons : bordure et texte uniquement */
+  --ds-btn-filled-border:   #000000;
+  --ds-btn-filled-text:     #000000;
+  --ds-btn-disabled:        #555555;
+
+  /* Switch : bordure inactive */
+  --ds-switch-off-border:   #000000;
+
+  /* Sidebar nav text */
+  --ds-sidebar-nav:         #000000;
+
+  /* Statuts */
+  --ds-expired-msg:         #000000;
+  --ds-error:               #6b0000;
+  --ds-error-form:          #6b0000;
+
+  /* Callouts : texte et bordures uniquement (fonds inchangés) */
+  --ds-info-border:         #003399;
+  --ds-info-text:           #001a66;
+  --ds-warn-border:         #7b3f00;
+  --ds-warn-text:           #5c2d00;
+  --ds-cerr-border:         #6b0000;
+  --ds-cerr-text:           #6b0000;
+}
+
+/* ─── Lien d'évitement ───────────────────────────────── */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  background: var(--ds-dark-deep);
+  color: var(--ds-text-on-dark);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  z-index: 9999;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  width: auto;
+  height: auto;
+  overflow: visible;
+}
+
+/* ─── Utilitaire lecteur d'écran ─────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ─── Focus visible global ───────────────────────────── */
+:focus-visible {
+  outline: 3px solid var(--ds-orange);
+  outline-offset: 2px;
 }
 
 #root {
@@ -104,4 +253,40 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+}
+
+/* ─── High contrast toggle button ──────────────────────── */
+.hc-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--ds-text);
+  background: var(--ds-surface);
+  color: var(--ds-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1;
+  z-index: 9000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.20);
+  opacity: 0.55;
+  transition: opacity 0.2s;
+  padding: 0;
+  font-family: inherit;
+}
+
+.hc-toggle:hover,
+.hc-toggle:focus-visible {
+  opacity: 1;
+}
+
+.hc-toggle--active {
+  background: var(--ds-text);
+  color: var(--ds-surface);
+  opacity: 1;
 }

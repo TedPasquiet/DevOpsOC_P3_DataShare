@@ -10,6 +10,8 @@ interface AuthModalProps {
   onClose: () => void;
 }
 
+const FOCUSABLE = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
 export function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const { login, register } = useAuth();
   const navigate = useNavigate();
@@ -25,11 +27,59 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerConfirm, setRegisterConfirm] = useState("");
 
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      previousFocusRef.current = document.activeElement as HTMLElement;
+    } else {
+      previousFocusRef.current?.focus();
+      previousFocusRef.current = null;
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const firstFocusable = dialogRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE)[0];
+    firstFocusable?.focus();
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab") return;
+
+      const focusable = Array.from(
+        dialogRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE) ?? []
+      );
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
-  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) onClose();
-  };
+  const titleId = "modal-title";
 
   async function handleLogin(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -84,6 +134,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               placeHolder="exemple@email.com"
               value={loginEmail}
               onChange={(e) => setLoginEmail(e.target.value)}
+              autoComplete="email"
             />
             <Input
               id="login-password"
@@ -92,6 +143,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               placeHolder="••••••••"
               value={loginPassword}
               onChange={(e) => setLoginPassword(e.target.value)}
+              autoComplete="current-password"
             />
             <div className="modal-btn-container">
               <Button variant="ghost" disabled={submitting} fullWidth={false} label="Créer un compte" type="button" onClick={() => switchTab("register")} />
@@ -111,6 +163,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               placeHolder="exemple@email.com"
               value={registerEmail}
               onChange={(e) => setRegisterEmail(e.target.value)}
+              autoComplete="email"
             />
             <Input
               id="register-password"
@@ -119,6 +172,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               placeHolder="••••••••"
               value={registerPassword}
               onChange={(e) => setRegisterPassword(e.target.value)}
+              autoComplete="new-password"
             />
             <Input
               id="register-confirm"
@@ -127,6 +181,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               placeHolder="••••••••"
               value={registerConfirm}
               onChange={(e) => setRegisterConfirm(e.target.value)}
+              autoComplete="new-password"
             />
             <div className="modal-btn-container">
               <Button variant="ghost" fullWidth={false} label="J'ai déjà un compte" type="button" onClick={() => switchTab("login")} />
