@@ -18,30 +18,23 @@ const variants: Record<ButtonVariant, {
   disabled: { bg: string; border: string; iconColor: string; textColor: string };
 }> = {
   filled: {
-    active:   { bg: "#FF812D21",    border: "#CD5E1480", iconColor: "#D97706", textColor: "#BA681F" },
-    disabled: { bg: "#B7A79C33", border: "#B7A79C33", iconColor: "#AEA49B", textColor: "#AEA49B" },
+    active:   { bg: "var(--ds-btn-filled-bg)",    border: "var(--ds-btn-filled-border)", iconColor: "var(--ds-orange)", textColor: "var(--ds-btn-filled-text)" },
+    disabled: { bg: "var(--ds-btn-disabled-bg)", border: "var(--ds-btn-disabled-bg)", iconColor: "var(--ds-btn-disabled)", textColor: "var(--ds-btn-disabled)" },
   },
   outlined: {
-    active:   { bg: "transparent", border: "#D97706", iconColor: "#D97706", textColor: "#D97706" },
-    disabled: { bg: "transparent", border: "#AEA49B", iconColor: "#AEA49B", textColor: "#AEA49B" },
+    active:   { bg: "transparent", border: "var(--ds-orange)", iconColor: "var(--ds-orange)", textColor: "var(--ds-orange)" },
+    disabled: { bg: "transparent", border: "var(--ds-btn-disabled)", iconColor: "var(--ds-btn-disabled)", textColor: "var(--ds-btn-disabled)" },
   },
   ghost: {
-    active:   { bg: "transparent", border: "transparent", iconColor: "#D97706", textColor: "#E27F29" },
-    disabled: { bg: "transparent", border: "transparent", iconColor: "#AEA49B", textColor: "#AEA49B" },
+    active:   { bg: "transparent", border: "transparent", iconColor: "var(--ds-orange)", textColor: "var(--ds-orange-ghost)" },
+    disabled: { bg: "transparent", border: "transparent", iconColor: "var(--ds-btn-disabled)", textColor: "var(--ds-btn-disabled)" },
   },
   dark: {
-    active:   { bg: "#1C1917", border: "transparent", iconColor: "#FFFFFF", textColor: "#FFFFFF" },
-    disabled: { bg: "#B7A79C33", border: "transparent", iconColor: "#AEA49B", textColor: "#AEA49B" },
+    active:   { bg: "var(--ds-dark-deep)", border: "transparent", iconColor: "var(--ds-text-on-dark)", textColor: "var(--ds-text-on-dark)" },
+    disabled: { bg: "var(--ds-btn-disabled-bg)", border: "transparent", iconColor: "var(--ds-btn-disabled)", textColor: "var(--ds-btn-disabled)" },
   },
 };
 
-export const UploadCloud = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <polyline points="16 16 12 12 8 16" />
-    <line x1="12" y1="12" x2="12" y2="21" />
-    <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3" />
-  </svg>
-);
 
 export function Button({ variant = "filled", disabled = false, fullWidth = false, label, onClick, type = "button", iconActivated = false, icon }: ButtonProps) {
   const v = variants[variant][disabled ? "disabled" : "active"];
@@ -59,7 +52,7 @@ export function Button({ variant = "filled", disabled = false, fullWidth = false
     >
       {icon && <span aria-hidden="true" style={{ color: v.iconColor, display: "flex", alignItems: "center", flexShrink: 0 }}>{icon}</span>}
       {!icon && iconActivated && (
-        <UploadCloud aria-hidden="true" style={{ color: v.iconColor, fontSize: "18px", flexShrink: 0 }} />
+        <img src="/uploadIcon.png" alt="Téléverser" aria-hidden="true" width="18" height="18" style={{ flexShrink: 0 }} />
       )}
       <span style={{ color: v.textColor }}>{label}</span>
     </button>

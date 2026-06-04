@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from "./context/AuthContext";
 import { Telechargement } from "./pages/Telechargement";
 import { Televersement } from "./pages/Televersement";
 import { MonEspace } from "./pages/MonEspace";
+import { HighContrastToggle } from "./components/HighContrastToggle";
 import "./App.css";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {

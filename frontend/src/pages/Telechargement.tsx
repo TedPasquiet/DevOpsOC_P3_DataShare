@@ -15,12 +15,14 @@ function formatSize(bytes: number): string {
 
 function FileDocIcon() {
   return (
-    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
-      <rect width="36" height="36" rx="6" fill="#F5F5F5" />
-      <path d="M10 8h10l6 6v14a2 2 0 01-2 2H10a2 2 0 01-2-2V10a2 2 0 012-2z" stroke="#6B6375" strokeWidth="1.5" fill="none" />
-      <path d="M20 8v6h6" stroke="#6B6375" strokeWidth="1.5" fill="none" />
-      <path d="M13 22l3-4 2.5 3 2-2.5 2.5 3.5H13z" stroke="#6B6375" strokeWidth="1" fill="none" />
-    </svg>
+    <img
+      src="/fileIcon.png"
+      alt="Fichier"
+      aria-hidden="true"
+      width="36"
+      height="36"
+      style={{ flexShrink: 0 }}
+    />
   );
 }
 
@@ -50,7 +52,7 @@ export function Telechargement() {
   return (
     <div className="telechargement">
       <Header />
-      <div className="telechargement-bg">
+      <main id="main-content" className="telechargement-bg">
         <div className="telechargement-card">
           <h2 className="telechargement-card-title">Télécharger un fichier</h2>
 
@@ -74,6 +76,7 @@ export function Telechargement() {
               placeHolder="Saisissez le mot de passe..."
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              autoComplete="current-password"
             />
           )}
 
@@ -87,7 +90,7 @@ export function Telechargement() {
             />
           )}
         </div>
-      </div>
+      </main>
       <Footer />
     </div>
   );
