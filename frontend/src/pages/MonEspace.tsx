@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Switch } from "../components/switch";
 import { Button } from "../components/button";
+import { useAuth } from "../context/AuthContext";
 
 type FilterType = "Tous" | "Actifs" | "Expiré";
 
@@ -76,7 +78,6 @@ const MOCK_AVATAR =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' fill='none'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23d9d9d9'/%3E%3Ccircle cx='20' cy='15' r='7' fill='%239ca3af'/%3E%3Cpath d='M6 36c0-7.732 6.268-14 14-14s14 6.268 14 14' fill='%239ca3af'/%3E%3C/svg%3E";
 
 interface MonEspaceProps {
-  userName?: string;
   avatarSrc?: string;
 }
 
@@ -139,9 +140,16 @@ function FileCard({ file }: { file: FileItem }) {
   );
 }
 
-export function MonEspace({ userName = "Claire Marie", avatarSrc = MOCK_AVATAR }: MonEspaceProps) {
+export function MonEspace({ avatarSrc = MOCK_AVATAR }: MonEspaceProps) {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [filter, setFilter] = useState<FilterType>("Tous");
+
+  function handleLogout() {
+    logout();
+    navigate("/login");
+  }
 
   const filtered = MOCK_FILES.filter((f) => {
     if (filter === "Actifs") return f.daysLeft !== null;
@@ -165,14 +173,14 @@ export function MonEspace({ userName = "Claire Marie", avatarSrc = MOCK_AVATAR }
             <span />
           </button>
           <div className="user-info">
-            <img className="avatar" src={avatarSrc} alt={userName} />
-            <span className="user-name">{userName}</span>
+            <img className="avatar" src={avatarSrc} alt={user?.email ?? ""} />
+            <span className="user-name">{user?.email ?? ""}</span>
           </div>
         </header>
 
         <header className="mon-espace-desktop-header">
           <Button variant="dark" label="Ajouter des fichiers" />
-          <button className="desktop-logout-btn" aria-label="Déconnexion">
+          <button className="desktop-logout-btn" aria-label="Déconnexion" onClick={handleLogout}>
             <img src="/RightArrow.png" alt="" width="16" height="16" />
             Déconnexion
           </button>

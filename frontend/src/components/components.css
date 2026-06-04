@@ -377,6 +377,15 @@ label{
   gap: 8px;
 }
 
+.modal-error {
+  color: #c0392b;
+  font-size: 14px;
+  margin: 0;
+  padding: 8px 12px;
+  background: #fdecea;
+  border-radius: 8px;
+}
+
 /* ─── Footer ─────────────────────────────────────────── */
 .footer {
   height: 24px;
