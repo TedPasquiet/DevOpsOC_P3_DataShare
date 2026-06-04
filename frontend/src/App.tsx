@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from "./context/AuthContext";
 import { Telechargement } from "./pages/Telechargement";
 import { Televersement } from "./pages/Televersement";
 import { MonEspace } from "./pages/MonEspace";
+import { Login } from "./pages/Login";
 import "./App.css";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -17,9 +18,9 @@ function AppRoutes() {
 
   return (
     <Routes>
-      <Route path="/" element={<Televersement />} />
-      <Route path="/login" element={<Navigate to="/" replace />} />
-      <Route path="/televersement" element={<Navigate to="/" replace />} />
+      <Route path="/" element={<Login />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/televersement" element={<Televersement />} />
       <Route path="/telechargement" element={<Telechargement />} />
       <Route path="/mon-espace" element={<ProtectedRoute><MonEspace /></ProtectedRoute>} />
       <Route path="*" element={<Navigate to="/" replace />} />

@@ -1,23 +1,48 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Switch } from "../components/switch";
 import { Button } from "../components/button";
 import { useAuth } from "../context/AuthContext";
+import { apiFetch } from "../lib/api";
 
 type FilterType = "Tous" | "Actifs" | "Expiré";
 
+interface ApiFile {
+  id: number;
+  token: string;
+  originalName: string;
+  size: number;
+  mimeType: string;
+  expiresAt: string;
+  expired: boolean;
+  passwordProtected: boolean;
+  tags: { id: number; label: string }[];
+  createdAt: string;
+}
+
 interface FileItem {
   id: string;
+  token: string;
   name: string;
   daysLeft: number | null;
   locked?: boolean;
 }
 
-const MOCK_FILES: FileItem[] = [
-  { id: "1", name: "IMG_9210_12312313131313213231.jpg", daysLeft: 2, locked: true },
-  { id: "2", name: "compo2.mp3", daysLeft: 1 },
-  { id: "3", name: "vacances_ardeche.mp4", daysLeft: null },
-];
+function daysUntil(isoDate: string): number | null {
+  const diff = new Date(isoDate).getTime() - Date.now();
+  if (diff <= 0) return null;
+  return Math.ceil(diff / (1000 * 60 * 60 * 24));
+}
+
+function mapApiFile(f: ApiFile): FileItem {
+  return {
+    id: String(f.id),
+    token: f.token,
+    name: f.originalName,
+    daysLeft: f.expired ? null : daysUntil(f.expiresAt),
+    locked: f.passwordProtected,
+  };
+}
 
 function getStatusLabel(daysLeft: number | null): string {
   if (daysLeft === null) return "Expiré";
@@ -106,7 +131,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
   );
 }
 
-function FileCard({ file }: { file: FileItem }) {
+function FileCard({ file, onDelete, onAccess }: { file: FileItem; onDelete: (id: string) => void; onAccess: (token: string) => void }) {
   const expired = file.daysLeft === null;
   return (
     <li className="file-card">
@@ -126,8 +151,8 @@ function FileCard({ file }: { file: FileItem }) {
         )}
         {!expired && (
           <div className="file-card-desktop-actions">
-            <Button variant="ghost" label="Supprimer" />
-            <Button variant="outlined" label="Accéder →" />
+            <Button variant="ghost" label="Supprimer" onClick={() => onDelete(file.id)} />
+            <Button variant="outlined" label="Accéder →" onClick={() => onAccess(file.token)} />
           </div>
         )}
         {expired && (
@@ -145,13 +170,39 @@ export function MonEspace({ avatarSrc = MOCK_AVATAR }: MonEspaceProps) {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [filter, setFilter] = useState<FilterType>("Tous");
+  const [files, setFiles] = useState<FileItem[]>([]);
+  const [loadingFiles, setLoadingFiles] = useState(true);
+  const [fetchError, setFetchError] = useState<string | null>(null);
+  const [deleteMessage, setDeleteMessage] = useState(false);
+
+  useEffect(() => {
+    apiFetch('/files')
+      .then(res => {
+        if (!res.ok) throw new Error();
+        return res.json() as Promise<ApiFile[]>;
+      })
+      .then(data => setFiles(data.map(mapApiFile)))
+      .catch(() => setFetchError('Impossible de charger les fichiers.'))
+      .finally(() => setLoadingFiles(false));
+  }, []);
+
+  async function handleDelete(id: string) {
+    await apiFetch(`/files/${id}`, { method: 'DELETE' });
+    setFiles(prev => prev.filter(f => f.id !== id));
+    setDeleteMessage(true);
+    setTimeout(() => setDeleteMessage(false), 2000);
+  }
+
+  function handleAccess(token: string) {
+    navigate(`/telechargement?token=${token}`);
+  }
 
   function handleLogout() {
     logout();
     navigate("/login");
   }
 
-  const filtered = MOCK_FILES.filter((f) => {
+  const filtered = files.filter((f) => {
     if (filter === "Actifs") return f.daysLeft !== null;
     if (filter === "Expiré") return f.daysLeft === null;
     return true;
@@ -188,15 +239,20 @@ export function MonEspace({ avatarSrc = MOCK_AVATAR }: MonEspaceProps) {
 
         <main className="mon-espace-content">
           <h2>Mes fichiers</h2>
+          {deleteMessage && <p className="file-deleted-msg">Fichier supprimé</p>}
           <Switch
             options={["Tous", "Actifs", "Expiré"]}
             onChange={(val) => setFilter(val as FilterType)}
           />
-          <ul className="file-list">
-            {filtered.map((file) => (
-              <FileCard key={file.id} file={file} />
-            ))}
-          </ul>
+          {loadingFiles && <p>Chargement…</p>}
+          {fetchError && <p className="error-msg">{fetchError}</p>}
+          {!loadingFiles && !fetchError && (
+            <ul className="file-list">
+              {filtered.map((file) => (
+                <FileCard key={file.id} file={file} onDelete={handleDelete} onAccess={handleAccess} />
+              ))}
+            </ul>
+          )}
         </main>
       </div>
     </div>

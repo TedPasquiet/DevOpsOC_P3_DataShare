@@ -14,7 +14,7 @@ export function Header({ loggedIn = false, onAuthClick }: HeaderProps) {
       className="header"
       style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}
     >
-      <button className="header-title-btn" onClick={() => navigate("/")} aria-label="Retour à l'accueil">
+      <button className="header-title-btn" onClick={() => navigate("/login")} aria-label="Retour à l'accueil">
         DataShare
       </button>
       <button className="header-btn" type="button" onClick={onAuthClick}>

@@ -683,6 +683,13 @@ label{
   margin: 0;
 }
 
+.file-deleted-msg {
+  font-size: 13px;
+  color: #2e7d32;
+  font-weight: 500;
+  margin: 0;
+}
+
 .mon-espace-content .switch-container {
   width: 100%;
 }

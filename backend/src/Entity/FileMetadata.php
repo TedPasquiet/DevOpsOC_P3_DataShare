@@ -68,6 +68,12 @@ class FileMetadata
         return $this->expiresAt !== null && $this->expiresAt < new \DateTimeImmutable();
     }
 
+    #[Groups(['file:read'])]
+    public function isPasswordProtected(): bool
+    {
+        return $this->passwordHash !== null;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
