@@ -1,9 +1,12 @@
 import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { Header } from "../components/header";
+import { AuthModal } from "../components/authModal";
 import { Input } from "../components/input";
 import { Select } from "../components/select";
-import { Button, UploadCloud } from "../components/button";
+import { Button } from "../components/button";
 import { Footer } from "../components/footer";
+import { useAuth } from "../context/AuthContext";
 import "../components/components.css";
 
 type PageState = "idle" | "form" | "success";
@@ -37,10 +40,15 @@ function CopyIcon() {
 }
 
 export function Televersement() {
+  const { token } = useAuth();
+  const navigate = useNavigate();
+  const isAuthenticated = !!token;
+
   const [pageState, setPageState] = useState<PageState>("idle");
   const [file, setFile] = useState<File | null>(null);
   const [password, setPassword] = useState("");
   const [link, setLink] = useState("");
+  const [authModalOpen, setAuthModalOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const oversized = file !== null && file.size > MAX_SIZE;
@@ -64,7 +72,11 @@ export function Televersement() {
 
   return (
     <div className="televersement">
-      <Header />
+      <Header
+        loggedIn={isAuthenticated}
+        onAuthClick={isAuthenticated ? () => navigate("/mon-espace") : () => setAuthModalOpen(true)}
+      />
+      <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
       <input
         ref={fileInputRef}
         type="file"
@@ -76,12 +88,8 @@ export function Televersement() {
         {pageState === "idle" && (
           <div className="televersement-idle">
             <p className="title-text">Tu veux partager un fichier ?</p>
-            <button
-              className="televersement-upload-btn"
-              onClick={() => fileInputRef.current?.click()}
-              aria-label="Ajouter un fichier"
-            >
-              <UploadCloud style={{ fontSize: "36px", color: "white" }} />
+            <button className="supload-btn" onClick={() => fileInputRef.current?.click()} aria-label="Téléverser un fichier">
+              <img src="/Frame 3.png" alt="" className="supload-icon" />
             </button>
           </div>
         )}

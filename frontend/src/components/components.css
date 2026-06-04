@@ -17,6 +17,16 @@
   margin: 0;
 }
 
+.header-title-btn {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000000;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
 .header-btn {
   font-size: 16px;
   font-weight: 400;
@@ -259,6 +269,30 @@ label{
   margin: 0;
   max-width: 280px;
 }
+
+@keyframes bubble-pulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.09); }
+  100% { transform: scale(1); }
+}
+
+.supload-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.supload-icon {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  animation: bubble-pulse 2.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
 
 .upload-icon {
   width: 120px;
