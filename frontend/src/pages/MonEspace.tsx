@@ -179,7 +179,7 @@ export function MonEspace({ avatarSrc = MOCK_AVATAR }: MonEspaceProps) {
         </header>
 
         <header className="mon-espace-desktop-header">
-          <Button variant="dark" label="Ajouter des fichiers" />
+          <Button variant="dark" label="Ajouter des fichiers" onClick={() => navigate("/televersement")} />
           <button className="desktop-logout-btn" aria-label="Déconnexion" onClick={handleLogout}>
             <img src="/RightArrow.png" alt="" width="16" height="16" />
             Déconnexion
