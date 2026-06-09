@@ -128,8 +128,23 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
   );
 }
 
-function FileCard({ file }: { file: FileItem }) {
+function FileCard({ file, onDelete, onAccess }: { file: FileItem; onDelete: (id: string) => void; onAccess: (id: string) => void }) {
+  const [confirming, setConfirming] = useState(false);
   const expired = file.daysLeft === null;
+
+  function handleDeleteClick() {
+    setConfirming(true);
+  }
+
+  function handleConfirm() {
+    setConfirming(false);
+    onDelete(file.id);
+  }
+
+  function handleCancel() {
+    setConfirming(false);
+  }
+
   return (
     <li className="file-card">
       <FileIcon />
@@ -141,15 +156,22 @@ function FileCard({ file }: { file: FileItem }) {
       </div>
       <div className="file-card-actions">
         {file.locked && <LockIcon />}
-        {!expired && (
+        {!expired && !confirming && (
           <button className="file-card-menu-btn" aria-label={`Options pour ${file.name}`}>
             ⋮
           </button>
         )}
-        {!expired && (
+        {!expired && !confirming && (
           <div className="file-card-desktop-actions">
-            <Button variant="ghost" label="Supprimer" />
-            <Button variant="outlined" label="Accéder →" />
+            <Button variant="ghost" label="Supprimer" onClick={handleDeleteClick} />
+            <Button variant="outlined" label="Accéder →" onClick={() => onAccess(file.id)} />
+          </div>
+        )}
+        {!expired && confirming && (
+          <div className="file-card-confirm" role="group" aria-label="Confirmer la suppression">
+            <span className="file-card-confirm-label">Supprimer ce fichier ?</span>
+            <Button variant="ghost" label="Annuler" onClick={handleCancel} />
+            <Button variant="filled" label="Confirmer" onClick={handleConfirm} />
           </div>
         )}
         {expired && (
@@ -167,13 +189,23 @@ export function MonEspace({ avatarSrc = MOCK_AVATAR }: MonEspaceProps) {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [filter, setFilter] = useState<FilterType>("Tous");
+  const [files, setFiles] = useState<FileItem[]>(MOCK_FILES);
+
+  function handleDelete(id: string) {
+    setFiles(prev => prev.filter(f => f.id !== id));
+  }
+
+  function handleAccess(id: string) {
+    const file = files.find(f => f.id === id);
+    if (file) navigate(`/telechargement?token=${id}`);
+  }
 
   function handleLogout() {
     logout();
     navigate("/login");
   }
 
-  const filtered = MOCK_FILES.filter((f) => {
+  const filtered = files.filter((f) => {
     if (filter === "Actifs") return f.daysLeft !== null;
     if (filter === "Expiré") return f.daysLeft === null;
     return true;
@@ -216,7 +248,7 @@ export function MonEspace({ avatarSrc = MOCK_AVATAR }: MonEspaceProps) {
           />
           <ul className="file-list">
             {filtered.map((file) => (
-              <FileCard key={file.id} file={file} />
+              <FileCard key={file.id} file={file} onDelete={handleDelete} onAccess={handleAccess} />
             ))}
           </ul>
         </main>

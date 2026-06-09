@@ -49,6 +49,31 @@ describe('MonEspace', () => {
     });
   });
 
+  describe('delete confirmation', () => {
+    it('shows confirmation dialog when Supprimer is clicked', () => {
+      renderPage();
+      fireEvent.click(screen.getAllByRole('button', { name: /Supprimer/i })[0]);
+      expect(screen.getByText('Supprimer ce fichier ?')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /Confirmer/i })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /Annuler/i })).toBeInTheDocument();
+    });
+
+    it('removes the file after confirming deletion', () => {
+      renderPage();
+      fireEvent.click(screen.getAllByRole('button', { name: /Supprimer/i })[0]);
+      fireEvent.click(screen.getByRole('button', { name: /Confirmer/i }));
+      expect(screen.queryByText('IMG_9210_12312313131313213231.jpg')).not.toBeInTheDocument();
+    });
+
+    it('cancels deletion and restores buttons', () => {
+      renderPage();
+      fireEvent.click(screen.getAllByRole('button', { name: /Supprimer/i })[0]);
+      fireEvent.click(screen.getByRole('button', { name: /Annuler/i }));
+      expect(screen.queryByText('Supprimer ce fichier ?')).not.toBeInTheDocument();
+      expect(screen.getAllByRole('button', { name: /Supprimer/i }).length).toBeGreaterThan(0);
+    });
+  });
+
   describe('filter', () => {
     it('shows only active files when Actifs filter is selected', () => {
       renderPage();
