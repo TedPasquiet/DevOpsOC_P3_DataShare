@@ -12,9 +12,11 @@ interface ApiFile {
   token: string;
   originalName: string;
   size: number;
+  mimeType: string;
   expiresAt: string;
   expired: boolean;
   passwordProtected: boolean;
+  tags: { id: number; label: string }[];
   createdAt: string;
 }
 
@@ -294,8 +296,8 @@ export function MonEspace({ avatarSrc = MOCK_AVATAR }: MonEspaceProps) {
           </button>
         </header>
 
-        <main id="main-content" className="mon-espace-content">
-          <h1>Mes fichiers</h1>
+        <main className="mon-espace-content">
+          <h2>Mes fichiers</h2>
           <Switch
             options={["Tous", "Actifs", "Expiré"]}
             onChange={(val) => setFilter(val as FilterType)}
