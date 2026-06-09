@@ -3,21 +3,46 @@ import { useNavigate } from "react-router-dom";
 import { Switch } from "../components/switch";
 import { Button } from "../components/button";
 import { useAuth } from "../context/AuthContext";
+import { apiFetch } from "../lib/api";
 
 type FilterType = "Tous" | "Actifs" | "Expiré";
 
+interface ApiFile {
+  id: number;
+  token: string;
+  originalName: string;
+  size: number;
+  mimeType: string;
+  expiresAt: string;
+  expired: boolean;
+  passwordProtected: boolean;
+  tags: { id: number; label: string }[];
+  createdAt: string;
+}
+
 interface FileItem {
   id: string;
+  token: string;
   name: string;
   daysLeft: number | null;
   locked?: boolean;
 }
 
-const MOCK_FILES: FileItem[] = [
-  { id: "1", name: "IMG_9210_12312313131313213231.jpg", daysLeft: 2, locked: true },
-  { id: "2", name: "compo2.mp3", daysLeft: 1 },
-  { id: "3", name: "vacances_ardeche.mp4", daysLeft: null },
-];
+function daysUntil(isoDate: string): number | null {
+  const diff = new Date(isoDate).getTime() - Date.now();
+  if (diff <= 0) return null;
+  return Math.ceil(diff / (1000 * 60 * 60 * 24));
+}
+
+function mapApiFile(f: ApiFile): FileItem {
+  return {
+    id: String(f.id),
+    token: f.token,
+    name: f.originalName,
+    daysLeft: f.expired ? null : daysUntil(f.expiresAt),
+    locked: f.passwordProtected,
+  };
+}
 
 function getStatusLabel(daysLeft: number | null): string {
   if (daysLeft === null) return "Expiré";
@@ -240,8 +265,9 @@ export function MonEspace({ avatarSrc = MOCK_AVATAR }: MonEspaceProps) {
           </button>
         </header>
 
-        <main id="main-content" className="mon-espace-content">
-          <h1>Mes fichiers</h1>
+        <main className="mon-espace-content">
+          <h2>Mes fichiers</h2>
+          {deleteMessage && <p className="file-deleted-msg">Fichier supprimé</p>}
           <Switch
             options={["Tous", "Actifs", "Expiré"]}
             onChange={(val) => setFilter(val as FilterType)}
