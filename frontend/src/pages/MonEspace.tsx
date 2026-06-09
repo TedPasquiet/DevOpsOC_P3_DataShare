@@ -24,6 +24,8 @@ interface FileItem {
   id: string;
   token: string;
   name: string;
+  size: number;
+  createdAt: string;
   daysLeft: number | null;
   locked?: boolean;
 }
@@ -34,11 +36,23 @@ function daysUntil(isoDate: string): number | null {
   return Math.ceil(diff / (1000 * 60 * 60 * 24));
 }
 
+function formatSize(bytes: number): string {
+  if (bytes >= 1_000_000_000) return `${(bytes / 1_000_000_000).toFixed(1).replace(".", ",")} Go`;
+  if (bytes >= 1_000_000) return `${(bytes / 1_000_000).toFixed(1).replace(".", ",")} Mo`;
+  return `${Math.round(bytes / 1_000)} Ko`;
+}
+
+function formatDate(isoDate: string): string {
+  return new Date(isoDate).toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" });
+}
+
 function mapApiFile(f: ApiFile): FileItem {
   return {
     id: String(f.id),
     token: f.token,
     name: f.originalName,
+    size: f.size,
+    createdAt: f.createdAt,
     daysLeft: f.expired ? null : daysUntil(f.expiresAt),
     locked: f.passwordProtected,
   };
@@ -175,6 +189,9 @@ function FileCard({ file, onDelete, onAccess }: { file: FileItem; onDelete: (id:
       <FileIcon />
       <div className="file-card-info">
         <span className="file-card-name">{file.name}</span>
+        <span className="file-card-meta">
+          {formatSize(file.size)} · Envoyé le {formatDate(file.createdAt)}
+        </span>
         <span className={`file-card-status${expired ? " file-card-status--expired" : ""}`}>
           {getStatusLabel(file.daysLeft)}
         </span>
