@@ -38,12 +38,12 @@ describe('Button', () => {
 
   it('renders the icon when iconActivated is true', () => {
     render(<Button label="Upload" iconActivated />);
-    expect(screen.getByRole('button').querySelector('svg')).toBeInTheDocument();
+    expect(screen.getByRole('button').querySelector('img[alt="Téléverser"]')).toBeInTheDocument();
   });
 
   it('does not render the icon by default', () => {
     render(<Button label="Upload" />);
-    expect(screen.getByRole('button').querySelector('svg')).toBeNull();
+    expect(screen.getByRole('button').querySelector('img[alt="Téléverser"]')).toBeNull();
   });
 
   it('renders with type="submit" when type prop is submit', () => {

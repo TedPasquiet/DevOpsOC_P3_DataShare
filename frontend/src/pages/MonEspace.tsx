@@ -153,8 +153,23 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
   );
 }
 
-function FileCard({ file, onDelete, onAccess }: { file: FileItem; onDelete: (id: string) => void; onAccess: (token: string) => void }) {
+function FileCard({ file, onDelete, onAccess }: { file: FileItem; onDelete: (id: string) => void; onAccess: (id: string) => void }) {
+  const [confirming, setConfirming] = useState(false);
   const expired = file.daysLeft === null;
+
+  function handleDeleteClick() {
+    setConfirming(true);
+  }
+
+  function handleConfirm() {
+    setConfirming(false);
+    onDelete(file.id);
+  }
+
+  function handleCancel() {
+    setConfirming(false);
+  }
+
   return (
     <li className="file-card">
       <FileIcon />
@@ -166,15 +181,22 @@ function FileCard({ file, onDelete, onAccess }: { file: FileItem; onDelete: (id:
       </div>
       <div className="file-card-actions">
         {file.locked && <LockIcon />}
-        {!expired && (
+        {!expired && !confirming && (
           <button className="file-card-menu-btn" aria-label={`Options pour ${file.name}`}>
             ⋮
           </button>
         )}
-        {!expired && (
+        {!expired && !confirming && (
           <div className="file-card-desktop-actions">
-            <Button variant="ghost" label="Supprimer" onClick={() => onDelete(file.id)} />
-            <Button variant="outlined" label="Accéder →" onClick={() => onAccess(file.token)} />
+            <Button variant="ghost" label="Supprimer" onClick={handleDeleteClick} />
+            <Button variant="outlined" label="Accéder →" onClick={() => onAccess(file.id)} />
+          </div>
+        )}
+        {!expired && confirming && (
+          <div className="file-card-confirm" role="group" aria-label="Confirmer la suppression">
+            <span className="file-card-confirm-label">Supprimer ce fichier ?</span>
+            <Button variant="ghost" label="Annuler" onClick={handleCancel} />
+            <Button variant="filled" label="Confirmer" onClick={handleConfirm} />
           </div>
         )}
         {expired && (
@@ -192,31 +214,15 @@ export function MonEspace({ avatarSrc = MOCK_AVATAR }: MonEspaceProps) {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [filter, setFilter] = useState<FilterType>("Tous");
-  const [files, setFiles] = useState<FileItem[]>([]);
-  const [loadingFiles, setLoadingFiles] = useState(true);
-  const [fetchError, setFetchError] = useState<string | null>(null);
-  const [deleteMessage, setDeleteMessage] = useState(false);
+  const [files, setFiles] = useState<FileItem[]>(MOCK_FILES);
 
-  useEffect(() => {
-    apiFetch('/files')
-      .then(res => {
-        if (!res.ok) throw new Error();
-        return res.json() as Promise<ApiFile[]>;
-      })
-      .then(data => setFiles(data.map(mapApiFile)))
-      .catch(() => setFetchError('Impossible de charger les fichiers.'))
-      .finally(() => setLoadingFiles(false));
-  }, []);
-
-  async function handleDelete(id: string) {
-    await apiFetch(`/files/${id}`, { method: 'DELETE' });
+  function handleDelete(id: string) {
     setFiles(prev => prev.filter(f => f.id !== id));
-    setDeleteMessage(true);
-    setTimeout(() => setDeleteMessage(false), 2000);
   }
 
-  function handleAccess(token: string) {
-    navigate(`/telechargement?token=${token}`);
+  function handleAccess(id: string) {
+    const file = files.find(f => f.id === id);
+    if (file) navigate(`/telechargement?token=${id}`);
   }
 
   function handleLogout() {
@@ -266,15 +272,11 @@ export function MonEspace({ avatarSrc = MOCK_AVATAR }: MonEspaceProps) {
             options={["Tous", "Actifs", "Expiré"]}
             onChange={(val) => setFilter(val as FilterType)}
           />
-          {loadingFiles && <p>Chargement…</p>}
-          {fetchError && <p className="error-msg">{fetchError}</p>}
-          {!loadingFiles && !fetchError && (
-            <ul className="file-list">
-              {filtered.map((file) => (
-                <FileCard key={file.id} file={file} onDelete={handleDelete} onAccess={handleAccess} />
-              ))}
-            </ul>
-          )}
+          <ul className="file-list">
+            {filtered.map((file) => (
+              <FileCard key={file.id} file={file} onDelete={handleDelete} onAccess={handleAccess} />
+            ))}
+          </ul>
         </main>
       </div>
     </div>

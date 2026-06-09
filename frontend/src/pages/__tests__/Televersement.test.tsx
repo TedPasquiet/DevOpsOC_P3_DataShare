@@ -1,5 +1,18 @@
 import { render, screen, fireEvent } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { Televersement } from '../Televersement';
+
+jest.mock('../../context/AuthContext', () => ({
+  useAuth: () => ({
+    token: null,
+    user: null,
+    loading: false,
+  }),
+}));
+
+function renderPage() {
+  return render(<MemoryRouter><Televersement /></MemoryRouter>);
+}
 
 function selectFile(size: number) {
   const file = new File(['content'], 'test.jpg', { type: 'image/jpeg' });
@@ -11,15 +24,15 @@ function selectFile(size: number) {
 describe('Televersement', () => {
   describe('idle state', () => {
     it('renders the prompt text and the upload button', () => {
-      render(<Televersement />);
+      renderPage();
       expect(screen.getByText('Tu veux partager un fichier ?')).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: 'Ajouter un fichier' })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Téléverser un fichier' })).toBeInTheDocument();
     });
   });
 
   describe('form state', () => {
     it('shows the file name, an enabled "Téléverser" button and a "Changer" button after selecting a valid file', () => {
-      render(<Televersement />);
+      renderPage();
       selectFile(500_000_000);
 
       expect(screen.getByText('test.jpg')).toBeInTheDocument();
@@ -30,7 +43,7 @@ describe('Televersement', () => {
 
   describe('form state with oversized file', () => {
     it('shows the error message and disables the "Téléverser" button', () => {
-      render(<Televersement />);
+      renderPage();
       selectFile(2_000_000_000);
 
       expect(screen.getByText('La taille des fichiers est limitée à 1 Go')).toBeInTheDocument();
@@ -40,7 +53,7 @@ describe('Televersement', () => {
 
   describe('success state', () => {
     it('shows the success message and a datashare link after clicking "Téléverser"', () => {
-      render(<Televersement />);
+      renderPage();
       selectFile(500_000_000);
       fireEvent.click(screen.getByRole('button', { name: /Téléverser/i }));
 

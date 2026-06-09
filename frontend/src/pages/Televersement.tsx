@@ -55,9 +55,10 @@ export function Televersement() {
   const [password, setPassword] = useState("");
   const [expiresLabel, setExpiresLabel] = useState("");
   const [link, setLink] = useState("");
+  const [copied, setCopied] = useState(false);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
-  const [copied, setCopied] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
