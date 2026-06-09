@@ -29,6 +29,7 @@ const MOCK_API_FILES = [
     expired: false,
     passwordProtected: true,
     createdAt: '2025-06-01T10:00:00Z',
+    tags: [{ id: 1, label: 'photo' }],
   },
   {
     id: 2,
@@ -40,6 +41,7 @@ const MOCK_API_FILES = [
     expired: false,
     passwordProtected: false,
     createdAt: '2025-06-02T10:00:00Z',
+    tags: [],
   },
   {
     id: 3,
@@ -51,6 +53,7 @@ const MOCK_API_FILES = [
     expired: true,
     passwordProtected: false,
     createdAt: '2025-05-25T10:00:00Z',
+    tags: [],
   },
 ];
 
@@ -220,6 +223,69 @@ describe('MonEspace', () => {
       renderPage();
       await screen.findByText('IMG_9210_12312313131313213231.jpg');
       expect(screen.getByText('test@datashare.fr')).toBeInTheDocument();
+    });
+  });
+
+  describe('tags', () => {
+    it('displays existing tags on file cards', async () => {
+      renderPage();
+      await screen.findByText('IMG_9210_12312313131313213231.jpg');
+      expect(screen.getByText('photo')).toBeInTheDocument();
+    });
+
+    it('shows the tag edit button on active files', async () => {
+      renderPage();
+      await screen.findByText('IMG_9210_12312313131313213231.jpg');
+      expect(screen.getAllByRole('button', { name: /Modifier les tags/i }).length).toBeGreaterThan(0);
+    });
+
+    it('opens the tag editor when edit button is clicked', async () => {
+      renderPage();
+      await screen.findByText('IMG_9210_12312313131313213231.jpg');
+      fireEvent.click(screen.getAllByRole('button', { name: /Modifier les tags/i })[0]);
+      expect(screen.getByRole('group', { name: /Éditeur de tags/i })).toBeInTheDocument();
+      expect(screen.getByRole('textbox', { name: /Nouveau tag/i })).toBeInTheDocument();
+    });
+
+    it('adds a tag on Enter key', async () => {
+      renderPage();
+      await screen.findByText('IMG_9210_12312313131313213231.jpg');
+      fireEvent.click(screen.getAllByRole('button', { name: /Modifier les tags/i })[1]);
+      const input = screen.getByRole('textbox', { name: /Nouveau tag/i });
+      fireEvent.change(input, { target: { value: 'musique' } });
+      fireEvent.keyDown(input, { key: 'Enter' });
+      expect(screen.getByText('musique')).toBeInTheDocument();
+    });
+
+    it('removes a tag when × is clicked', async () => {
+      renderPage();
+      await screen.findByText('IMG_9210_12312313131313213231.jpg');
+      fireEvent.click(screen.getAllByRole('button', { name: /Modifier les tags/i })[0]);
+      fireEvent.click(screen.getByRole('button', { name: /Retirer le tag photo/i }));
+      expect(screen.queryByText('photo')).not.toBeInTheDocument();
+    });
+
+    it('saves tags and closes editor on Enregistrer click', async () => {
+      mockApiFetch.mockResolvedValueOnce({ ok: true, json: async () => ({}) });
+      renderPage();
+      await screen.findByText('IMG_9210_12312313131313213231.jpg');
+      fireEvent.click(screen.getAllByRole('button', { name: /Modifier les tags/i })[0]);
+      fireEvent.click(screen.getByRole('button', { name: /Enregistrer/i }));
+      await waitFor(() =>
+        expect(screen.queryByRole('group', { name: /Éditeur de tags/i })).not.toBeInTheDocument()
+      );
+    });
+
+    it('cancels editing and restores original tags on Annuler click', async () => {
+      renderPage();
+      await screen.findByText('IMG_9210_12312313131313213231.jpg');
+      fireEvent.click(screen.getAllByRole('button', { name: /Modifier les tags/i })[0]);
+      const input = screen.getByRole('textbox', { name: /Nouveau tag/i });
+      fireEvent.change(input, { target: { value: 'temporaire' } });
+      fireEvent.keyDown(input, { key: 'Enter' });
+      fireEvent.click(screen.getByRole('button', { name: 'Annuler' }));
+      expect(screen.queryByText('temporaire')).not.toBeInTheDocument();
+      expect(screen.queryByRole('group', { name: /Éditeur de tags/i })).not.toBeInTheDocument();
     });
   });
 });

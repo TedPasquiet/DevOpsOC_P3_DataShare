@@ -16,6 +16,7 @@ interface ApiFile {
   expired: boolean;
   passwordProtected: boolean;
   createdAt: string;
+  tags: { id: number; label: string }[];
 }
 
 interface FileItem {
@@ -26,6 +27,7 @@ interface FileItem {
   createdAt: string;
   daysLeft: number | null;
   locked?: boolean;
+  tags: string[];
 }
 
 function daysUntil(isoDate: string): number | null {
@@ -53,6 +55,7 @@ function mapApiFile(f: ApiFile): FileItem {
     createdAt: f.createdAt,
     daysLeft: f.expired ? null : daysUntil(f.expiresAt),
     locked: f.passwordProtected,
+    tags: f.tags.map(t => t.label),
   };
 }
 
@@ -165,8 +168,17 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
   );
 }
 
-function FileCard({ file, onDelete, onAccess }: { file: FileItem; onDelete: (id: string) => void; onAccess: (id: string) => void }) {
+function FileCard({ file, onDelete, onAccess, onTagsUpdate }: {
+  file: FileItem;
+  onDelete: (id: string) => void;
+  onAccess: (id: string) => void;
+  onTagsUpdate: (id: string, tags: string[]) => Promise<void>;
+}) {
   const [confirming, setConfirming] = useState(false);
+  const [editingTags, setEditingTags] = useState(false);
+  const [tagInput, setTagInput] = useState("");
+  const [tags, setTags] = useState<string[]>(file.tags);
+  const [savingTags, setSavingTags] = useState(false);
   const expired = file.daysLeft === null;
 
   function handleDeleteClick() {
@@ -182,6 +194,27 @@ function FileCard({ file, onDelete, onAccess }: { file: FileItem; onDelete: (id:
     setConfirming(false);
   }
 
+  function handleAddTag(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key !== "Enter") return;
+    e.preventDefault();
+    const label = tagInput.trim().slice(0, 30);
+    if (label && !tags.includes(label)) {
+      setTags(prev => [...prev, label]);
+    }
+    setTagInput("");
+  }
+
+  function handleRemoveTag(label: string) {
+    setTags(prev => prev.filter(t => t !== label));
+  }
+
+  async function handleSaveTags() {
+    setSavingTags(true);
+    await onTagsUpdate(file.id, tags);
+    setSavingTags(false);
+    setEditingTags(false);
+  }
+
   return (
     <li className="file-card">
       <FileIcon />
@@ -193,6 +226,41 @@ function FileCard({ file, onDelete, onAccess }: { file: FileItem; onDelete: (id:
         <span className={`file-card-status${expired ? " file-card-status--expired" : ""}`}>
           {getStatusLabel(file.daysLeft)}
         </span>
+        {!editingTags && (
+          <div className="file-card-tags">
+            {tags.map(t => <span key={t} className="file-card-tag">{t}</span>)}
+            {!expired && (
+              <button className="file-card-tag-edit" onClick={() => setEditingTags(true)} aria-label="Modifier les tags">
+                +
+              </button>
+            )}
+          </div>
+        )}
+        {editingTags && (
+          <div className="file-card-tags-editor" role="group" aria-label="Éditeur de tags">
+            <div className="file-card-tags">
+              {tags.map(t => (
+                <span key={t} className="file-card-tag">
+                  {t}
+                  <button className="file-card-tag-remove" onClick={() => handleRemoveTag(t)} aria-label={`Retirer le tag ${t}`}>×</button>
+                </span>
+              ))}
+            </div>
+            <input
+              className="file-card-tag-input"
+              placeholder="Ajouter un tag (Entrée)"
+              value={tagInput}
+              onChange={e => setTagInput(e.target.value)}
+              onKeyDown={handleAddTag}
+              aria-label="Nouveau tag"
+              maxLength={30}
+            />
+            <div className="file-card-tags-actions">
+              <Button variant="ghost" label="Annuler" onClick={() => { setEditingTags(false); setTags(file.tags); }} />
+              <Button variant="outlined" label={savingTags ? "Enregistrement…" : "Enregistrer"} disabled={savingTags} onClick={handleSaveTags} />
+            </div>
+          </div>
+        )}
       </div>
       <div className="file-card-actions">
         {file.locked && <LockIcon />}
@@ -254,6 +322,16 @@ export function MonEspace({ avatarSrc = MOCK_AVATAR }: MonEspaceProps) {
     if (file) navigate(`/telechargement?token=${file.token}`);
   }
 
+  async function handleTagsUpdate(id: string, tags: string[]) {
+    const res = await apiFetch(`/files/${id}/tags`, {
+      method: 'PATCH',
+      body: JSON.stringify({ tags }),
+    });
+    if (res.ok) {
+      setFiles(prev => prev.map(f => f.id === id ? { ...f, tags } : f));
+    }
+  }
+
   function handleLogout() {
     logout();
     navigate("/login");
@@ -305,7 +383,7 @@ export function MonEspace({ avatarSrc = MOCK_AVATAR }: MonEspaceProps) {
           {!loadingFiles && !fetchError && (
             <ul className="file-list">
               {filtered.map((file) => (
-                <FileCard key={file.id} file={file} onDelete={handleDelete} onAccess={handleAccess} />
+                <FileCard key={file.id} file={file} onDelete={handleDelete} onAccess={handleAccess} onTagsUpdate={handleTagsUpdate} />
               ))}
             </ul>
           )}
