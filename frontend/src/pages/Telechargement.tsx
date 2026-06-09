@@ -167,7 +167,7 @@ export function Telechargement() {
             </>
           )}
         </div>
-      </main>
+      </div>
       <Footer />
     </div>
   );

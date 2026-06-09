@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../components/header";
 import { Input } from "../components/input";
@@ -106,13 +106,6 @@ export function Televersement() {
     }
   }
 
-  function handleCopy() {
-    navigator.clipboard.writeText(link).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
-  }
-
   return (
     <div className="televersement">
       <Header
@@ -195,7 +188,6 @@ export function Televersement() {
                   label="Mot de passe"
                   type="password"
                   placeHolder="Optionnel"
-                  type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   autoComplete="off"
