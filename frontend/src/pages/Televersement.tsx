@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../components/header";
 import { AuthModal } from "../components/authModal";
@@ -47,6 +47,7 @@ export function Televersement() {
   const [file, setFile] = useState<File | null>(null);
   const [password, setPassword] = useState("");
   const [link, setLink] = useState("");
+  const [copied, setCopied] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);

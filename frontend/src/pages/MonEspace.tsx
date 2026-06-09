@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Switch } from "../components/switch";
 import { Button } from "../components/button";
@@ -206,7 +206,7 @@ export function MonEspace({ avatarSrc = MOCK_AVATAR }: MonEspaceProps) {
             <img src="/RightArrow.png" alt="" width="16" height="16" />
             Déconnexion
           </button>
-        </div>
+        </header>
 
         <main id="main-content" className="mon-espace-content">
           <h1>Mes fichiers</h1>

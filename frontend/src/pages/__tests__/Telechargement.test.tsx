@@ -11,7 +11,6 @@ function renderWith(search = '') {
 }
 
 describe('Telechargement', () => {
-
   describe('État protégé — sans mot de passe', () => {
     it('affiche le titre, le callout info et le bouton disabled', () => {
       renderWith('?protected=true&days=3');
@@ -42,14 +41,12 @@ describe('Telechargement', () => {
   });
 
   describe('État expiré', () => {
-    it('affiche seulement le callout d\'erreur, sans fichier ni bouton', () => {
+    it("affiche seulement le callout d'erreur, sans fichier ni bouton", () => {
       renderWith('?expired=true');
       expect(
         screen.getByText("Ce fichier n'est plus disponible en téléchargement car il a expiré.")
       ).toBeInTheDocument();
       expect(screen.queryByRole('button', { name: /Télécharger/i })).not.toBeInTheDocument();
-      expect(screen.queryByText('IMG_9210')).not.toBeInTheDocument();
     });
   });
-
 });

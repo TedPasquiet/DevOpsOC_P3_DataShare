@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Input } from "./input";
 import { Button } from "./button";
@@ -81,6 +81,10 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
   const titleId = "modal-title";
 
+  function handleBackdropClick(e: React.MouseEvent<HTMLDivElement>) {
+    if (e.target === e.currentTarget) onClose();
+  }
+
   async function handleLogin(e: React.SyntheticEvent) {
     e.preventDefault();
     setError(null);
@@ -122,10 +126,10 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
   return (
     <div className="modal-backdrop" onClick={handleBackdropClick}>
-      <div className="modal-card">
+      <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby={titleId} className="modal-card">
         {activeTab === "login" && (
           <form className="modal-form" onSubmit={handleLogin}>
-            <h2>Connexion</h2>
+            <h2 id={titleId}>Connexion</h2>
             {error && <p className="modal-error">{error}</p>}
             <Input
               id="login-email"
@@ -154,7 +158,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
         {activeTab === "register" && (
           <form className="modal-form" onSubmit={handleRegister}>
-            <h2>Créer un compte</h2>
+            <h2 id={titleId}>Créer un compte</h2>
             {error && <p className="modal-error">{error}</p>}
             <Input
               id="register-email"
