@@ -214,15 +214,29 @@ export function MonEspace({ avatarSrc = MOCK_AVATAR }: MonEspaceProps) {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [filter, setFilter] = useState<FilterType>("Tous");
-  const [files, setFiles] = useState<FileItem[]>(MOCK_FILES);
+  const [files, setFiles] = useState<FileItem[]>([]);
+  const [loadingFiles, setLoadingFiles] = useState(true);
+  const [fetchError, setFetchError] = useState<string | null>(null);
 
-  function handleDelete(id: string) {
+  useEffect(() => {
+    apiFetch('/files')
+      .then(res => {
+        if (!res.ok) throw new Error();
+        return res.json() as Promise<ApiFile[]>;
+      })
+      .then(data => setFiles(data.map(mapApiFile)))
+      .catch(() => setFetchError('Impossible de charger les fichiers.'))
+      .finally(() => setLoadingFiles(false));
+  }, []);
+
+  async function handleDelete(id: string) {
+    await apiFetch(`/files/${id}`, { method: 'DELETE' });
     setFiles(prev => prev.filter(f => f.id !== id));
   }
 
   function handleAccess(id: string) {
     const file = files.find(f => f.id === id);
-    if (file) navigate(`/telechargement?token=${id}`);
+    if (file) navigate(`/telechargement?token=${file.token}`);
   }
 
   function handleLogout() {
@@ -267,16 +281,19 @@ export function MonEspace({ avatarSrc = MOCK_AVATAR }: MonEspaceProps) {
 
         <main className="mon-espace-content">
           <h2>Mes fichiers</h2>
-          {deleteMessage && <p className="file-deleted-msg">Fichier supprimé</p>}
           <Switch
             options={["Tous", "Actifs", "Expiré"]}
             onChange={(val) => setFilter(val as FilterType)}
           />
-          <ul className="file-list">
-            {filtered.map((file) => (
-              <FileCard key={file.id} file={file} onDelete={handleDelete} onAccess={handleAccess} />
-            ))}
-          </ul>
+          {loadingFiles && <p aria-live="polite">Chargement…</p>}
+          {fetchError && <p className="error-msg" role="alert">{fetchError}</p>}
+          {!loadingFiles && !fetchError && (
+            <ul className="file-list">
+              {filtered.map((file) => (
+                <FileCard key={file.id} file={file} onDelete={handleDelete} onAccess={handleAccess} />
+              ))}
+            </ul>
+          )}
         </main>
       </div>
     </div>
