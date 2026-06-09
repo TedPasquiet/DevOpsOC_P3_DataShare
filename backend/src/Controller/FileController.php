@@ -101,6 +101,18 @@ class FileController extends AbstractController
         return $this->json($files, Response::HTTP_OK, [], ['groups' => ['file:read']]);
     }
 
+    #[Route('/files/{token}/info', methods: ['GET'])]
+    public function info(string $token, FileMetadataRepository $repository): JsonResponse
+    {
+        $file = $repository->findOneBy(['token' => $token]);
+
+        if (!$file) {
+            return $this->json(['message' => 'Token invalide.'], Response::HTTP_NOT_FOUND);
+        }
+
+        return $this->json($file, Response::HTTP_OK, [], ['groups' => ['file:read']]);
+    }
+
     #[Route('/files/{token}', methods: ['GET'])]
     public function download(string $token, Request $request, FileMetadataRepository $repository): Response
     {

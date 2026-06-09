@@ -1,17 +1,24 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../components/header";
-import { AuthModal } from "../components/authModal";
 import { Input } from "../components/input";
 import { Select } from "../components/select";
 import { Button } from "../components/button";
 import { Footer } from "../components/footer";
 import { useAuth } from "../context/AuthContext";
+import { apiFetch } from "../lib/api";
 import "../components/components.css";
 
 type PageState = "idle" | "form" | "success";
 
 const MAX_SIZE = 1_000_000_000;
+
+const EXPIRY_MAP: Record<string, number> = {
+  "": 1,
+  "Une journée": 1,
+  "Trois jours": 3,
+  "Une semaine": 7,
+};
 
 function formatSize(bytes: number): string {
   if (bytes >= 1_000_000_000) return `${(bytes / 1_000_000_000).toFixed(1).replace(".", ",")} Go`;
@@ -46,8 +53,11 @@ export function Televersement() {
   const [pageState, setPageState] = useState<PageState>("idle");
   const [file, setFile] = useState<File | null>(null);
   const [password, setPassword] = useState("");
+  const [expiresLabel, setExpiresLabel] = useState("");
   const [link, setLink] = useState("");
-  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -69,22 +79,46 @@ export function Televersement() {
     e.target.value = "";
   }
 
-  function handleUpload() {
-    const chars = "ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789";
-    const code = Array.from({ length: 5 }, () =>
-      chars[Math.floor(Math.random() * chars.length)]
-    ).join("");
-    setLink(`https://datashare.fr/${code}`);
-    setPageState("success");
+  async function handleUpload() {
+    if (!file) return;
+    setUploading(true);
+    setUploadError(null);
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('expires_in', String(EXPIRY_MAP[expiresLabel] ?? 1));
+    if (password) formData.append('password', password);
+
+    try {
+      const res = await apiFetch('/files', { method: 'POST', body: formData });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({})) as { message?: string };
+        setUploadError(body.message ?? 'Une erreur est survenue.');
+        return;
+      }
+      const data = await res.json() as { token: string; download_url: string };
+      setLink(`${window.location.origin}/telechargement?token=${data.token}`);
+      setPageState("success");
+    } catch {
+      setUploadError('Impossible de joindre le serveur.');
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  function handleCopy() {
+    navigator.clipboard.writeText(link).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
   }
 
   return (
     <div className="televersement">
       <Header
         loggedIn={isAuthenticated}
-        onAuthClick={isAuthenticated ? () => navigate("/mon-espace") : () => setAuthModalOpen(true)}
+        onAuthClick={isAuthenticated ? () => navigate("/mon-espace") : () => navigate("/login")}
       />
-      <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
       <input
         ref={fileInputRef}
         type="file"
@@ -161,6 +195,7 @@ export function Televersement() {
                   label="Mot de passe"
                   type="password"
                   placeHolder="Optionnel"
+                  type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   autoComplete="off"
@@ -169,7 +204,12 @@ export function Televersement() {
                   text="Expiration"
                   option={["Une journée", "Trois jours", "Une semaine"]}
                   placeholder="Une journée"
+                  value={expiresLabel}
+                  onChange={(e) => setExpiresLabel(e.target.value)}
                 />
+                {uploadError && (
+                  <p className="televersement-file-error">{uploadError}</p>
+                )}
               </>
             )}
 
@@ -177,9 +217,9 @@ export function Televersement() {
               {pageState === "form" && (
                 <Button
                   variant="outlined"
-                  label="Téléverser"
+                  label={uploading ? "Envoi…" : "Téléverser"}
                   iconActivated
-                  disabled={oversized}
+                  disabled={oversized || uploading}
                   onClick={handleUpload}
                   fullWidth
                 />
