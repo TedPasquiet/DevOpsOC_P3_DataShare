@@ -3,21 +3,58 @@ import { useNavigate } from "react-router-dom";
 import { Switch } from "../components/switch";
 import { Button } from "../components/button";
 import { useAuth } from "../context/AuthContext";
+import { apiFetch } from "../lib/api";
 
 type FilterType = "Tous" | "Actifs" | "Expiré";
 
+interface ApiFile {
+  id: number;
+  token: string;
+  originalName: string;
+  size: number;
+  expiresAt: string;
+  expired: boolean;
+  passwordProtected: boolean;
+  createdAt: string;
+}
+
 interface FileItem {
   id: string;
+  token: string;
   name: string;
+  size: number;
+  createdAt: string;
   daysLeft: number | null;
   locked?: boolean;
 }
 
-const MOCK_FILES: FileItem[] = [
-  { id: "1", name: "IMG_9210_12312313131313213231.jpg", daysLeft: 2, locked: true },
-  { id: "2", name: "compo2.mp3", daysLeft: 1 },
-  { id: "3", name: "vacances_ardeche.mp4", daysLeft: null },
-];
+function daysUntil(isoDate: string): number | null {
+  const diff = new Date(isoDate).getTime() - Date.now();
+  if (diff <= 0) return null;
+  return Math.ceil(diff / (1000 * 60 * 60 * 24));
+}
+
+function formatSize(bytes: number): string {
+  if (bytes >= 1_000_000_000) return `${(bytes / 1_000_000_000).toFixed(1).replace(".", ",")} Go`;
+  if (bytes >= 1_000_000) return `${(bytes / 1_000_000).toFixed(1).replace(".", ",")} Mo`;
+  return `${Math.round(bytes / 1_000)} Ko`;
+}
+
+function formatDate(isoDate: string): string {
+  return new Date(isoDate).toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" });
+}
+
+function mapApiFile(f: ApiFile): FileItem {
+  return {
+    id: String(f.id),
+    token: f.token,
+    name: f.originalName,
+    size: f.size,
+    createdAt: f.createdAt,
+    daysLeft: f.expired ? null : daysUntil(f.expiresAt),
+    locked: f.passwordProtected,
+  };
+}
 
 function getStatusLabel(daysLeft: number | null): string {
   if (daysLeft === null) return "Expiré";
@@ -150,6 +187,9 @@ function FileCard({ file, onDelete, onAccess }: { file: FileItem; onDelete: (id:
       <FileIcon />
       <div className="file-card-info">
         <span className="file-card-name">{file.name}</span>
+        <span className="file-card-meta">
+          {formatSize(file.size)} · Envoyé le {formatDate(file.createdAt)}
+        </span>
         <span className={`file-card-status${expired ? " file-card-status--expired" : ""}`}>
           {getStatusLabel(file.daysLeft)}
         </span>
@@ -189,15 +229,29 @@ export function MonEspace({ avatarSrc = MOCK_AVATAR }: MonEspaceProps) {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [filter, setFilter] = useState<FilterType>("Tous");
-  const [files, setFiles] = useState<FileItem[]>(MOCK_FILES);
+  const [files, setFiles] = useState<FileItem[]>([]);
+  const [loadingFiles, setLoadingFiles] = useState(true);
+  const [fetchError, setFetchError] = useState<string | null>(null);
 
-  function handleDelete(id: string) {
+  useEffect(() => {
+    apiFetch('/files')
+      .then(res => {
+        if (!res.ok) throw new Error();
+        return res.json() as Promise<ApiFile[]>;
+      })
+      .then(data => setFiles(data.map(mapApiFile)))
+      .catch(() => setFetchError('Impossible de charger les fichiers.'))
+      .finally(() => setLoadingFiles(false));
+  }, []);
+
+  async function handleDelete(id: string) {
+    await apiFetch(`/files/${id}`, { method: 'DELETE' });
     setFiles(prev => prev.filter(f => f.id !== id));
   }
 
   function handleAccess(id: string) {
     const file = files.find(f => f.id === id);
-    if (file) navigate(`/telechargement?token=${id}`);
+    if (file) navigate(`/telechargement?token=${file.token}`);
   }
 
   function handleLogout() {
@@ -246,11 +300,15 @@ export function MonEspace({ avatarSrc = MOCK_AVATAR }: MonEspaceProps) {
             options={["Tous", "Actifs", "Expiré"]}
             onChange={(val) => setFilter(val as FilterType)}
           />
-          <ul className="file-list">
-            {filtered.map((file) => (
-              <FileCard key={file.id} file={file} onDelete={handleDelete} onAccess={handleAccess} />
-            ))}
-          </ul>
+          {loadingFiles && <p aria-live="polite">Chargement…</p>}
+          {fetchError && <p className="error-msg" role="alert">{fetchError}</p>}
+          {!loadingFiles && !fetchError && (
+            <ul className="file-list">
+              {filtered.map((file) => (
+                <FileCard key={file.id} file={file} onDelete={handleDelete} onAccess={handleAccess} />
+              ))}
+            </ul>
+          )}
         </main>
       </div>
     </div>
