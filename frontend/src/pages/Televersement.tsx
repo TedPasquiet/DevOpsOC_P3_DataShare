@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../components/header";
+import { AuthModal } from "../components/authModal";
 import { Input } from "../components/input";
 import { Select } from "../components/select";
 import { Button } from "../components/button";
@@ -111,7 +112,7 @@ export function Televersement() {
     <div className="televersement">
       <Header
         loggedIn={isAuthenticated}
-        onAuthClick={isAuthenticated ? () => navigate("/mon-espace") : () => navigate("/login")}
+        onAuthClick={isAuthenticated ? () => navigate("/mon-espace") : () => setAuthModalOpen(true)}
       />
       <input
         ref={fileInputRef}
@@ -245,6 +246,7 @@ export function Televersement() {
       </main>
 
       <Footer />
+      <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
     </div>
   );
 }
