@@ -18,7 +18,6 @@ interface ApiFile {
   passwordProtected: boolean;
   tags: { id: number; label: string }[];
   createdAt: string;
-  tags: { id: number; label: string }[];
 }
 
 interface FileItem {
