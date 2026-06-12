@@ -1,6 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Input } from "./input";
 import { Button } from "./button";
+import { useAuth } from "../context/AuthContext";
 import "./components.css";
 
 interface AuthModalProps {
@@ -11,7 +13,12 @@ interface AuthModalProps {
 const FOCUSABLE = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
 export function AuthModal({ isOpen, onClose }: AuthModalProps) {
+  const { login, register } = useAuth();
+  const navigate = useNavigate();
+
   const [activeTab, setActiveTab] = useState<"login" | "register">("login");
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -74,30 +81,56 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
   const titleId = "modal-title";
 
-  return (
-    <div
-      className="modal-backdrop"
-      role="presentation"
-      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
-    >
-      <div
-        ref={dialogRef}
-        className="modal-card"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={titleId}
-      >
-        <button
-          className="modal-close"
-          onClick={onClose}
-          aria-label="Fermer la fenêtre"
-        >
-          ✕
-        </button>
+  function handleBackdropClick(e: React.MouseEvent<HTMLDivElement>) {
+    if (e.target === e.currentTarget) onClose();
+  }
 
+  async function handleLogin(e: React.SyntheticEvent) {
+    e.preventDefault();
+    setError(null);
+    setSubmitting(true);
+    try {
+      await login(loginEmail, loginPassword);
+      onClose();
+      navigate("/mon-espace");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Erreur de connexion.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  async function handleRegister(e: React.SyntheticEvent) {
+    e.preventDefault();
+    setError(null);
+    if (registerPassword !== registerConfirm) {
+      setError("Les mots de passe ne correspondent pas.");
+      return;
+    }
+    setSubmitting(true);
+    try {
+      await register(registerEmail, registerPassword);
+      onClose();
+      navigate("/mon-espace");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Erreur lors de l'inscription.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  function switchTab(tab: "login" | "register") {
+    setActiveTab(tab);
+    setError(null);
+  }
+
+  return (
+    <div className="modal-backdrop" onClick={handleBackdropClick}>
+      <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby={titleId} className="modal-card">
         {activeTab === "login" && (
-          <form className="modal-form" onSubmit={(e) => e.preventDefault()}>
+          <form className="modal-form" onSubmit={handleLogin}>
             <h2 id={titleId}>Connexion</h2>
+            {error && <p className="modal-error">{error}</p>}
             <Input
               id="login-email"
               label="Email"
@@ -117,15 +150,16 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               autoComplete="current-password"
             />
             <div className="modal-btn-container">
-              <Button variant="ghost" disabled={false} fullWidth={false} label="Créer un compte" type="button" onClick={() => setActiveTab("register")} />
-              <Button variant="filled" disabled={false} fullWidth={false} label="Connexion" type="submit" />
+              <Button variant="ghost" disabled={submitting} fullWidth={false} label="Créer un compte" type="button" onClick={() => switchTab("register")} />
+              <Button variant="filled" disabled={submitting} fullWidth={false} label={submitting ? "Connexion…" : "Connexion"} type="submit" />
             </div>
           </form>
         )}
 
         {activeTab === "register" && (
-          <form className="modal-form" onSubmit={(e) => e.preventDefault()}>
+          <form className="modal-form" onSubmit={handleRegister}>
             <h2 id={titleId}>Créer un compte</h2>
+            {error && <p className="modal-error">{error}</p>}
             <Input
               id="register-email"
               label="Email"
@@ -154,8 +188,8 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               autoComplete="new-password"
             />
             <div className="modal-btn-container">
-              <Button variant="ghost" fullWidth label="J'ai déjà un compte" type="button" onClick={() => setActiveTab("login")} />
-              <Button variant="filled" fullWidth label="Créer un compte" type="submit" />
+              <Button variant="ghost" fullWidth={false} label="J'ai déjà un compte" type="button" onClick={() => switchTab("login")} />
+              <Button variant="filled" fullWidth={false} disabled={submitting} label={submitting ? "Inscription…" : "S'inscrire"} type="submit" />
             </div>
           </form>
         )}

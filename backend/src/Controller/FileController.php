@@ -23,6 +23,12 @@ class FileController extends AbstractController
 {
     private const MAX_FILE_SIZE = 1_073_741_824; // 1 GB
     private const UPLOADS_DIR = '/var/uploads';
+    private const FORBIDDEN_EXTENSIONS = [
+        'exe', 'bat', 'cmd', 'com', 'msi', 'dll', 'scr', 'pif',
+        'sh', 'bash', 'zsh', 'ps1', 'psm1', 'psd1',
+        'vbs', 'vbe', 'js', 'jse', 'wsf', 'wsh',
+        'jar', 'class',
+    ];
 
     public function __construct(
         private readonly EntityManagerInterface $em,
@@ -39,6 +45,11 @@ class FileController extends AbstractController
 
         if ($uploadedFile->getSize() > self::MAX_FILE_SIZE) {
             return $this->json(['message' => 'Fichier trop volumineux (max 1 Go).'], Response::HTTP_REQUEST_ENTITY_TOO_LARGE);
+        }
+
+        $ext = strtolower(pathinfo($uploadedFile->getClientOriginalName() ?: '', PATHINFO_EXTENSION));
+        if (in_array($ext, self::FORBIDDEN_EXTENSIONS, true)) {
+            return $this->json(['message' => 'Type de fichier non autorisé.'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         $expiresIn = (int) $request->request->get('expires_in', 0);
@@ -66,6 +77,9 @@ class FileController extends AbstractController
         $passwordRaw = $request->request->get('password');
         $passwordHash = null;
         if ($passwordRaw !== null && $passwordRaw !== '') {
+            if (strlen($passwordRaw) < 6) {
+                return $this->json(['message' => 'Le mot de passe doit contenir au moins 6 caractères.'], Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
             $passwordHash = (new NativePasswordHasher())->hash($passwordRaw);
         }
 
@@ -99,6 +113,18 @@ class FileController extends AbstractController
     {
         $files = $user->getFiles()->toArray();
         return $this->json($files, Response::HTTP_OK, [], ['groups' => ['file:read']]);
+    }
+
+    #[Route('/files/{token}/info', methods: ['GET'])]
+    public function info(string $token, FileMetadataRepository $repository): JsonResponse
+    {
+        $file = $repository->findOneBy(['token' => $token]);
+
+        if (!$file) {
+            return $this->json(['message' => 'Token invalide.'], Response::HTTP_NOT_FOUND);
+        }
+
+        return $this->json($file, Response::HTTP_OK, [], ['groups' => ['file:read']]);
     }
 
     #[Route('/files/{token}', methods: ['GET'])]
