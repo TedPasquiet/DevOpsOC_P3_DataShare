@@ -1,7 +1,39 @@
+const API_BASE = 'http://localhost:8000';
+
+function inDays(days: number): string {
+  return new Date(Date.now() + days * 24 * 60 * 60 * 1000).toISOString();
+}
+
+interface FileInfoOverrides {
+  originalName?: string;
+  size?: number;
+  expiresAt?: string;
+  expired?: boolean;
+  passwordProtected?: boolean;
+}
+
+function mockFileInfo(token: string, overrides: FileInfoOverrides = {}) {
+  cy.intercept('GET', `${API_BASE}/files/${token}/info`, {
+    statusCode: 200,
+    body: {
+      token,
+      originalName: 'document.pdf',
+      size: 2_500_000,
+      mimeType: 'application/pdf',
+      expiresAt: inDays(3),
+      expired: false,
+      passwordProtected: false,
+      ...overrides,
+    },
+  }).as('getInfo');
+}
+
 describe('Telechargement', () => {
   context('Fichier protégé — sans mot de passe', () => {
     beforeEach(() => {
-      cy.visit('/telechargement?protected=true&days=3');
+      mockFileInfo('tok-protected', { expiresAt: inDays(3), passwordProtected: true });
+      cy.visit('/telechargement?token=tok-protected');
+      cy.wait('@getInfo');
     });
 
     it('affiche le titre "Télécharger un fichier"', () => {
@@ -29,7 +61,9 @@ describe('Telechargement', () => {
 
   context('Fichier protégé — avec mot de passe saisi', () => {
     beforeEach(() => {
-      cy.visit('/telechargement?protected=true&days=3');
+      mockFileInfo('tok-protected', { expiresAt: inDays(3), passwordProtected: true });
+      cy.visit('/telechargement?token=tok-protected');
+      cy.wait('@getInfo');
     });
 
     it('active le bouton "Télécharger" après saisie du mot de passe', () => {
@@ -47,7 +81,9 @@ describe('Telechargement', () => {
 
   context('Fichier non protégé — expire demain', () => {
     beforeEach(() => {
-      cy.visit('/telechargement?protected=false&days=1');
+      mockFileInfo('tok-tomorrow', { expiresAt: inDays(1), passwordProtected: false });
+      cy.visit('/telechargement?token=tok-tomorrow');
+      cy.wait('@getInfo');
     });
 
     it('affiche le callout warning orange "Ce fichier expirera demain."', () => {
@@ -65,7 +101,9 @@ describe('Telechargement', () => {
 
   context('Fichier expiré', () => {
     beforeEach(() => {
-      cy.visit('/telechargement?expired=true');
+      mockFileInfo('tok-expired', { expired: true });
+      cy.visit('/telechargement?token=tok-expired');
+      cy.wait('@getInfo');
     });
 
     it('affiche le callout erreur rouge', () => {
@@ -87,13 +125,17 @@ describe('Telechargement', () => {
     });
 
     it('affiche la carte avec le titre en large sur mobile (protégé)', () => {
-      cy.visit('/telechargement?protected=true&days=3');
+      mockFileInfo('tok-protected', { expiresAt: inDays(3), passwordProtected: true });
+      cy.visit('/telechargement?token=tok-protected');
+      cy.wait('@getInfo');
       cy.get('.telechargement-card-title').should('be.visible');
       cy.get('.telechargement-card').should('be.visible');
     });
 
     it('affiche le callout warning en pleine largeur sur mobile', () => {
-      cy.visit('/telechargement?protected=false&days=1');
+      mockFileInfo('tok-tomorrow', { expiresAt: inDays(1), passwordProtected: false });
+      cy.visit('/telechargement?token=tok-tomorrow');
+      cy.wait('@getInfo');
       cy.contains('Ce fichier expirera demain.').should('be.visible');
       cy.contains('button', 'Télécharger').should('not.be.disabled');
     });

@@ -31,12 +31,16 @@ Soit **11 fichiers de tests unitaires** exécutés en environnement `jsdom` (con
 | Spec | Scénarios | Parcours couvert |
 |---|---|---|
 | `auth-modal.cy.ts` | 7 | Ouverture/fermeture de la modale, saisie login, bascule login ↔ inscription |
-| `navigation.cy.ts` | 4 | Redirections (`/` et routes inconnues → `/login`), rendu des pages |
-| `header.cy.ts` | 3 | Titre de l'application, bouton « Se connecter », ouverture de la modale |
-| `mon-espace.cy.ts` | 3 | Rendu de l'espace personnel, responsive mobile/desktop |
-| `telechargement.cy.ts` | 15 | Fichier protégé par mot de passe (activation du bouton), fichier non protégé, fichier expiré (callouts info/warning/erreur), responsive mobile |
+| `header.cy.ts` | 5 | Titre de l'application, bouton « Se connecter » / « Mon espace » selon l'état de connexion, ouverture de la modale, navigation vers `/mon-espace` |
+| `mon-espace.cy.ts` | 3 | Rendu de l'espace personnel (session et liste de fichiers simulées via `cy.intercept`), responsive mobile/desktop |
+| `navigation.cy.ts` | 5 | Rendu de la page d'accueil sur `/` et `/login`, redirection des routes inconnues vers `/`, protection de `/mon-espace` (redirection si déconnecté, rendu si connecté) |
+| `telechargement.cy.ts` | 15 | Fichier protégé par mot de passe (activation du bouton), fichier non protégé, fichier expiré (callouts info/warning/erreur), responsive mobile — données de fichier simulées via `cy.intercept` sur `GET /files/:token/info` |
+
+Soit **35 scénarios Cypress**, tous passants (`npm run cy:run` — 35/35).
 
 Les scénarios critiques au sens du MVP sont : le parcours d'authentification, le téléchargement protégé par mot de passe, la gestion de l'expiration et la navigation/redirection.
+
+> **Note** : les specs `header`, `mon-espace`, `navigation` et `telechargement` ont été réécrites pour suivre le routing actuel (`/` et `/login` affichent la page d'accueil, `/mon-espace` est une route protégée, `/telechargement` charge les infos du fichier via `GET /files/:token/info`). La commande personnalisée `cy.loginAs(path)` (`cypress/support/commands.ts`) simule une session authentifiée en seedant `localStorage.jwt` et en stubant `GET /users/me`.
 
 ## 4. Critères d'acceptation
 
