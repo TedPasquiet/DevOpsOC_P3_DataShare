@@ -38,13 +38,21 @@ Projet réalisé dans le cadre du parcours **Expert DevOps OpenClassrooms — Pr
 
 ## Installation rapide
 
-Un script automatise l'installation complète (base de données, dépendances backend/frontend, clés JWT, migrations, données de démo) :
+Un script automatise l'installation complète de l'environnement de développement local :
 
 ```bash
-./scripts/setup.sh
+./setup.sh
 ```
 
-Voir [scripts/README.md](scripts/README.md) pour le détail des étapes exécutées.
+Ce script :
+
+1. Démarre le conteneur PostgreSQL (`backend/compose.yaml`).
+2. Installe les dépendances backend (`composer install`).
+3. Génère la paire de clés JWT si elle n'existe pas encore (`backend/config/jwt/`).
+4. Exécute les migrations Doctrine puis charge les fixtures de démonstration.
+5. Installe les dépendances frontend (`npm install`).
+
+Il ne démarre pas les serveurs d'application (Symfony / Vite) : voir [Lancer l'application](#lancer-lapplication) ci-dessous.
 
 ## Installation manuelle
 
