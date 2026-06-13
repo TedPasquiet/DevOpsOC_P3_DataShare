@@ -17,14 +17,17 @@ function AppRoutes() {
   if (loading) return null;
 
   return (
-    <Routes>
-      <Route path="/" element={<Televersement />} />
-      <Route path="/login" element={<Televersement />} />
-      <Route path="/televersement" element={<Televersement />} />
-      <Route path="/telechargement" element={<Telechargement />} />
-      <Route path="/mon-espace" element={<ProtectedRoute><MonEspace /></ProtectedRoute>} />
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Televersement />} />
+        <Route path="/login" element={<Televersement />} />
+        <Route path="/televersement" element={<Televersement />} />
+        <Route path="/telechargement" element={<Telechargement />} />
+        <Route path="/mon-espace" element={<ProtectedRoute><MonEspace /></ProtectedRoute>} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+      <HighContrastToggle />
+    </>
   );
 }
 

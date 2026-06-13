@@ -23,8 +23,9 @@ Les tests unitaires couvrent les fonctionnalités obligatoires du MVP, page par 
 | Téléchargement d'un fichier (lien public, mot de passe, expiration) | `src/pages/__tests__/Telechargement.test.tsx` |
 | Espace personnel (liste des fichiers, taille, date, tags) | `src/pages/__tests__/MonEspace.test.tsx` |
 | Composants UI partagés (header, footer, boutons, champs, callouts, select, switch) | `src/components/__tests__/*.test.tsx` |
+| Accessibilité (bouton de contraste élevé, préférence mémorisée) | `src/components/__tests__/HighContrastToggle.test.tsx` |
 
-Soit **11 fichiers de tests unitaires** exécutés en environnement `jsdom` (configuration : `frontend/jest.config.cjs`).
+Soit **12 fichiers de tests unitaires** (94 tests) exécutés en environnement `jsdom` (configuration : `frontend/jest.config.cjs`).
 
 ## 3. Tests end-to-end (Cypress)
 
@@ -32,11 +33,12 @@ Soit **11 fichiers de tests unitaires** exécutés en environnement `jsdom` (con
 |---|---|---|
 | `auth-modal.cy.ts` | 7 | Ouverture/fermeture de la modale, saisie login, bascule login ↔ inscription |
 | `header.cy.ts` | 5 | Titre de l'application, bouton « Se connecter » / « Mon espace » selon l'état de connexion, ouverture de la modale, navigation vers `/mon-espace` |
+| `high-contrast.cy.ts` | 4 | Bouton de contraste élevé : désactivé par défaut, bascule au clic, persistance après rechargement et lors de la navigation entre pages |
 | `mon-espace.cy.ts` | 3 | Rendu de l'espace personnel (session et liste de fichiers simulées via `cy.intercept`), responsive mobile/desktop |
 | `navigation.cy.ts` | 5 | Rendu de la page d'accueil sur `/` et `/login`, redirection des routes inconnues vers `/`, protection de `/mon-espace` (redirection si déconnecté, rendu si connecté) |
 | `telechargement.cy.ts` | 15 | Fichier protégé par mot de passe (activation du bouton), fichier non protégé, fichier expiré (callouts info/warning/erreur), responsive mobile — données de fichier simulées via `cy.intercept` sur `GET /files/:token/info` |
 
-Soit **35 scénarios Cypress**, tous passants (`npm run cy:run` — 35/35).
+Soit **39 scénarios Cypress**, tous passants (`npm run cy:run` — 39/39).
 
 Les scénarios critiques au sens du MVP sont : le parcours d'authentification, le téléchargement protégé par mot de passe, la gestion de l'expiration et la navigation/redirection.
 
@@ -96,12 +98,12 @@ Puis ouvrir la collection `bruno/` avec [Bruno](https://www.usebruno.com/) et ex
 - **Objectif minimal : 70 %** des statements.
 - **Couverture actuelle (rapport Jest, `frontend/coverage/`)** :
 
-| Métrique | Couverture | Détail |
-|---|---|---|
-| Statements | **97,67 %** | 126/129 |
-| Branches | **96,90 %** | 94/97 |
-| Functions | **100 %** | 38/38 |
-| Lines | **99,14 %** | 116/117 |
+| Métrique | Couverture |
+|---|---|
+| Statements | **75,11 %** |
+| Branches | **71,14 %** |
+| Functions | **81,03 %** |
+| Lines | **79,34 %** |
 
 Pour régénérer le rapport et l'ouvrir dans le navigateur :
 
