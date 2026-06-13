@@ -93,7 +93,7 @@ Projet 3 — Expert DevOps OpenClassrooms
 
 # 3. Architecture générale
 
-📸 **[Capture d'écran : schéma d'architecture général — `DataShare_Architecture.drawio`]**
+![w:600](images/drawio.png)
 
 - Front React ↔ API Symfony (HTTP/JSON) ↔ PostgreSQL
 - Fichiers stockés à part, sur le disque du serveur
@@ -180,7 +180,7 @@ Un fichier peut être déposé **sans compte** (`owner_id` peut être vide).
 
 # 4. Démonstration — Mon espace
 
-![w:550](images/connected.png)
+![w:420](images/connected.png)
 
 - Liste des fichiers déposés par l'utilisateur connecté
 - Gestion des tags
@@ -201,7 +201,7 @@ Un fichier peut être déposé **sans compte** (`owner_id` peut être vide).
 
 ## README
 
-![w:600](images/readme.png)
+![w:480](images/readme.png)
 
 - Présentation du projet, stack technique
 - Installation rapide (`./setup.sh`) et installation manuelle
@@ -213,7 +213,7 @@ Un fichier peut être déposé **sans compte** (`owner_id` peut être vide).
 
 ## Documentation d'API (OpenAPI)
 
-📸 **[Capture d'écran : documentation OpenAPI / Swagger]**
+![w:600](images/swagger.png)
 
 - Toutes les routes de l'API décrites (entrées, sorties, codes d'erreur)
 - Collection Bruno pour tester chaque route manuellement
