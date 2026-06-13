@@ -17,6 +17,7 @@ Projet réalisé dans le cadre du parcours **Expert DevOps OpenClassrooms — Pr
   - [3. Frontend (React)](#3-frontend-react)
 - [Variables d'environnement](#variables-denvironnement)
 - [Lancer l'application](#lancer-lapplication)
+- [Documentation API (Swagger)](#documentation-api-swagger)
 - [Tests](#tests)
 - [Documentation complémentaire](#documentation-complémentaire)
 
@@ -25,7 +26,7 @@ Projet réalisé dans le cadre du parcours **Expert DevOps OpenClassrooms — Pr
 | Couche | Technologies |
 |---|---|
 | Frontend | React 19, TypeScript, Vite, React Router 7, Jest, Cypress |
-| Backend | Symfony 8, PHP ≥ 8.4, Doctrine ORM 3, LexikJWTAuthenticationBundle |
+| Backend | Symfony 8, PHP ≥ 8.4, Doctrine ORM 3, LexikJWTAuthenticationBundle, NelmioApiDocBundle (Swagger/OpenAPI) |
 | Base de données | PostgreSQL 16 |
 | Infra locale | Docker / Docker Compose (base de données) |
 
@@ -130,6 +131,15 @@ Une fois la base de données, le backend et le frontend démarrés :
 2. Frontend : `http://localhost:5173`
 3. Créer un compte via `/auth/register`, se connecter via `/auth/login`, puis uploader/partager un fichier depuis l'interface.
 
+## Documentation API (Swagger)
+
+La documentation interactive de l'API (générée via [NelmioApiDocBundle](https://github.com/nelmio/NelmioApiDocBundle), au format OpenAPI 3) est disponible une fois le backend démarré :
+
+- Interface Swagger : `http://localhost:8000/api/doc`
+- Spécification OpenAPI (JSON) : `http://localhost:8000/api/doc.json`
+
+Ces routes sont accessibles sans authentification. Pour tester les endpoints protégés (préfixés JWT), récupérer un token via `/auth/login` puis l'ajouter via le bouton « Authorize » (schéma `bearerAuth`, en-tête `Authorization: Bearer <token>`).
+
 ## Tests
 
 | Périmètre | Commande |
@@ -149,3 +159,4 @@ Détails des scénarios de test dans [`TESTING.md`](TESTING.md).
 - [`PERF.md`](PERF.md) — tests de performance (k6) et budgets front
 - [`MAINTENANCE.md`](MAINTENANCE.md) — procédures de mise à jour des dépendances
 - [`bruno/`](bruno) — collection de requêtes API (Bruno) pour tester l'API manuellement
+- `http://localhost:8000/api/doc` — documentation interactive Swagger/OpenAPI de l'API (voir [Documentation API (Swagger)](#documentation-api-swagger))

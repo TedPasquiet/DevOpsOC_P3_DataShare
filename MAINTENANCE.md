@@ -7,7 +7,7 @@ Ce document décrit les procédures de mise à jour des dépendances, leur fréq
 | Écosystème | Gestionnaire | Fichiers de verrouillage |
 |---|---|---|---|
 | Frontend | npm | `frontend/package-lock.json` | React 19, React Router 7, Vite 8, TypeScript 6, Jest 30, Cypress 15 |
-| Backend | Composer | `backend/composer.lock` | PHP ≥ 8.4, Symfony 8.0.*, Doctrine ORM 3, LexikJWT 3 |
+| Backend | Composer | `backend/composer.lock` | PHP ≥ 8.4, Symfony 8.0.*, Doctrine ORM 3, LexikJWT 3, NelmioApiDocBundle 5 |
 | Infrastructure | Docker Compose | `backend/compose.yaml` | PostgreSQL 16 (alpine) |
 
 ## 2. Procédures de mise à jour

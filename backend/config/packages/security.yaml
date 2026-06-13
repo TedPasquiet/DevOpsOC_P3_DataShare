@@ -32,6 +32,7 @@ security:
       jwt: ~
 
   access_control:
+    - { path: ^/api/doc, roles: PUBLIC_ACCESS }
     - { path: ^/auth/register$, roles: PUBLIC_ACCESS }
     - { path: ^/auth/login$,    roles: PUBLIC_ACCESS }
     # Public file info endpoint (metadata without streaming, no password check)
